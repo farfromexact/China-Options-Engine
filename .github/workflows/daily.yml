@@ -6,12 +6,13 @@ on:
     branches: [main]
     paths:
       - "engine.py"
+      - "eod_enrich.py"
       - "requirements.txt"
       - ".github/workflows/daily.yml"
   schedule:
     # 15:45 Asia/Shanghai = 07:45 UTC, Monday-Friday.
-    # The engine itself validates whether the returned option dayline is fresh,
-    # so China public holidays are marked stale instead of creating fake snapshots.
+    # The CFFEX EOD enrichment validates whether an official daily CSV exists;
+    # on China holidays/non-trading days it preserves the latest verified snapshot.
     - cron: "45 7 * * 1-5"
 
 permissions:
@@ -34,12 +35,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run engine
+      - name: Collect option chains and calculate IV/Greeks
         env:
           RISK_FREE_RATE: "0.015"
           MAX_VOLUME_CONTRACTS_PER_PRODUCT: "140"
           VOLUME_WORKERS: "12"
         run: python engine.py
+
+      - name: Enrich with CFFEX official EOD volume/OI
+        run: python eod_enrich.py
 
       - name: Commit data snapshot
         run: |
