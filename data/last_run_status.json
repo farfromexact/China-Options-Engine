@@ -1,0 +1,11 @@
+{
+  "run_date": "2026-08-07",
+  "generated_at": "2026-08-07T22:50:47.380104+08:00",
+  "data_fresh": false,
+  "cffex_eod": {
+    "status": "missing",
+    "trade_date": "20260807",
+    "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+  },
+  "restored_latest_date": "2026-08-07"
+}
