@@ -9,7 +9,9 @@ on:
       - "requirements.txt"
       - ".github/workflows/daily.yml"
   schedule:
-    # 15:45 Asia/Shanghai = 07:45 UTC, Monday-Friday
+    # 15:45 Asia/Shanghai = 07:45 UTC, Monday-Friday.
+    # The engine itself validates whether the returned option dayline is fresh,
+    # so China public holidays are marked stale instead of creating fake snapshots.
     - cron: "45 7 * * 1-5"
 
 permissions:
@@ -35,7 +37,8 @@ jobs:
       - name: Run engine
         env:
           RISK_FREE_RATE: "0.015"
-          MAX_VOLUME_CONTRACTS: "320"
+          MAX_VOLUME_CONTRACTS_PER_PRODUCT: "140"
+          VOLUME_WORKERS: "12"
         run: python engine.py
 
       - name: Commit data snapshot
