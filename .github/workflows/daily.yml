@@ -1,0 +1,45 @@
+name: China Options Engine
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 15:45 Asia/Shanghai = 07:45 UTC, Monday-Friday
+    - cron: "45 7 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  run-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run engine
+        env:
+          RISK_FREE_RATE: "0.015"
+          MAX_VOLUME_CONTRACTS: "320"
+        run: python engine.py
+
+      - name: Commit data snapshot
+        run: |
+          git config user.name "china-options-engine[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes"
+          else
+            git commit -m "data: update China options snapshot"
+            git push
+          fi
