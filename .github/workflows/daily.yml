@@ -11,8 +11,8 @@ on:
       - ".github/workflows/daily.yml"
   schedule:
     # 15:45 Asia/Shanghai = 07:45 UTC, Monday-Friday.
-    # The CFFEX EOD enrichment validates whether an official daily CSV exists;
-    # on China holidays/non-trading days it preserves the latest verified snapshot.
+    # CFFEX official EOD validates the trading day. On China holidays/non-trading
+    # days the enrichment step preserves the latest verified snapshot.
     - cron: "45 7 * * 1-5"
 
 permissions:
@@ -38,8 +38,9 @@ jobs:
       - name: Collect option chains and calculate IV/Greeks
         env:
           RISK_FREE_RATE: "0.015"
-          MAX_VOLUME_CONTRACTS_PER_PRODUCT: "140"
-          VOLUME_WORKERS: "12"
+          # Volume/OI now come from CFFEX official EOD in one request; disable
+          # the older per-contract Sina dayline crawl to reduce runtime/failures.
+          MAX_VOLUME_CONTRACTS_PER_PRODUCT: "0"
         run: python engine.py
 
       - name: Enrich with CFFEX official EOD volume/OI
