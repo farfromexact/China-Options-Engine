@@ -7,6 +7,7 @@ on:
     paths:
       - "engine.py"
       - "eod_enrich.py"
+      - "futures_link.py"
       - "requirements.txt"
       - ".github/workflows/daily.yml"
   schedule:
@@ -43,8 +44,11 @@ jobs:
           MAX_VOLUME_CONTRACTS_PER_PRODUCT: "0"
         run: python engine.py
 
-      - name: Enrich with CFFEX official EOD volume/OI
+      - name: Enrich with CFFEX official EOD option volume/OI
         run: python eod_enrich.py
+
+      - name: Link IH IF IC IM futures with HO IO MO option metrics
+        run: python futures_link.py
 
       - name: Commit data snapshot
         run: |
