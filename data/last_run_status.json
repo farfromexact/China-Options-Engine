@@ -1,11 +1,42 @@
 {
   "run_date": "2026-08-07",
-  "generated_at": "2026-08-07T22:50:47.380104+08:00",
-  "data_fresh": false,
+  "generated_at": "2026-08-07T22:57:23.936352+08:00",
+  "data_fresh": true,
   "cffex_eod": {
-    "status": "missing",
+    "status": "ok",
     "trade_date": "20260807",
-    "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202608/07/20260807_1.csv",
+    "records": 726,
+    "header": [
+      "合约代码",
+      "今开盘",
+      "最高价",
+      "最低价",
+      "成交量",
+      "成交金额",
+      "持仓量",
+      "持仓变化",
+      "今收盘",
+      "今结算",
+      "前结算",
+      "涨跌1",
+      "涨跌2",
+      "Delta"
+    ],
+    "sample_symbols": [
+      "HO2608-C-2500",
+      "HO2608-C-2550",
+      "HO2608-C-2600",
+      "HO2608-C-2650",
+      "HO2608-C-2700",
+      "HO2608-C-2750",
+      "HO2608-C-2800",
+      "HO2608-C-2850",
+      "HO2608-C-2900",
+      "HO2608-C-2950"
+    ]
   },
-  "restored_latest_date": "2026-08-07"
+  "official_quote_matches": 726,
+  "total_chain_quotes": 726,
+  "official_quote_match_coverage": 1.0
 }
