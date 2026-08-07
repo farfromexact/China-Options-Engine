@@ -4,17 +4,28 @@ import csv
 import json
 import math
 import re
+import time
 import zipfile
 from datetime import date, datetime, timedelta, timezone
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 import requests
 
 TZ_CN = timezone(timedelta(hours=8))
-REQ_TIMEOUT = 30
-HEADERS = {"User-Agent": "Mozilla/5.0 China-Options-Engine/2.0"}
+REQ_TIMEOUT = 25
+REFERER = "http://www.cffex.com.cn/rtj/"
+BROWSER_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,application/json,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Connection": "keep-alive",
+}
 
 DATA_DIR = Path("data")
 SNAPSHOT_DIR = DATA_DIR / "snapshots"
@@ -22,116 +33,192 @@ LATEST_PATH = DATA_DIR / "latest.json"
 RADAR_LATEST_PATH = DATA_DIR / "radar_latest.json"
 STATUS_PATH = DATA_DIR / "last_run_status.json"
 
-CFFEX_MONTHLY_ZIP = "https://www.cffex.com.cn/sj/historysj/{yyyymm}/zip/{yyyymm}.zip"
+OPTION_PREFIXES = {"HO", "IO", "MO"}
 
 
 def parse_num(value: Any) -> float | None:
     try:
-        if value in (None, "", "--"):
+        if value in (None, "", "-", "--"):
             return None
         if isinstance(value, str):
-            value = value.replace(",", "").strip()
+            value = value.replace(",", "").replace("％", "%").strip()
+            if value.endswith("%"):
+                value = value[:-1]
         parsed = float(value)
         return parsed if math.isfinite(parsed) else None
     except Exception:
         return None
 
 
+def clean_text(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text if text and text.lower() not in {"nan", "none", "null"} else None
+
+
 def normalize_symbol(symbol: str) -> str:
     return re.sub(r"[^A-Za-z0-9]", "", str(symbol)).upper()
 
 
-def fetch_cffex_eod(trade_date: date) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+def norm_key(key: Any) -> str:
+    return re.sub(r"\s+", "", str(key)).lower()
+
+
+def pick(row: Mapping[str, Any], *keys: str) -> Any:
+    for key in keys:
+        if key in row and row[key] not in (None, ""):
+            return row[key]
+    normalized = {norm_key(k): v for k, v in row.items()}
+    for key in keys:
+        value = normalized.get(norm_key(key))
+        if value not in (None, ""):
+            return value
+    return None
+
+
+def decode_bytes(content: bytes) -> str:
+    for encoding in ("utf-8-sig", "utf-8", "gb18030", "gbk", "gb2312"):
+        try:
+            return content.decode(encoding)
+        except UnicodeDecodeError:
+            continue
+    return content.decode("gb18030", errors="ignore")
+
+
+def create_session() -> requests.Session:
+    session = requests.Session()
+    session.headers.update(BROWSER_HEADERS)
+    return session
+
+
+def fetch_first_available(
+    session: requests.Session,
+    urls: list[str],
+    *,
+    min_size: int = 50,
+    attempts: int = 3,
+) -> tuple[str, bytes]:
+    last_error: str | None = None
+    for url in urls:
+        for attempt in range(1, attempts + 1):
+            try:
+                response = session.get(
+                    url,
+                    headers={**BROWSER_HEADERS, "Referer": REFERER},
+                    timeout=REQ_TIMEOUT,
+                )
+                response.raise_for_status()
+                content = response.content or b""
+                if len(content) >= min_size:
+                    return url, content
+                last_error = f"{url}: response too small ({len(content)} bytes)"
+            except Exception as exc:
+                last_error = f"{url}: {type(exc).__name__}: {exc}"
+            if attempt < attempts:
+                time.sleep(0.5 * attempt)
+        time.sleep(0.3)
+    raise RuntimeError(last_error or "all CFFEX endpoints failed")
+
+
+def download_daily_csv(trade_date: date) -> tuple[str, bytes]:
     ds = trade_date.strftime("%Y%m%d")
     yyyymm = ds[:6]
-    urls = [
-        CFFEX_MONTHLY_ZIP.format(yyyymm=yyyymm),
-        CFFEX_MONTHLY_ZIP.format(yyyymm=yyyymm).replace("https://", "http://"),
+    dd = ds[6:]
+    single = [
+        f"http://www.cffex.com.cn/sj/hqsj/rtj/{yyyymm}/{dd}/{ds}_1.csv",
+        f"http://www.cffex.com.cn/fzjy/mrhq/{yyyymm}/{dd}/{ds}_1.csv",
+        f"https://www.cffex.com.cn/sj/hqsj/rtj/{yyyymm}/{dd}/{ds}_1.csv",
+        f"https://www.cffex.com.cn/fzjy/mrhq/{yyyymm}/{dd}/{ds}_1.csv",
     ]
-    last_error: str | None = None
+    session = create_session()
 
-    for url in urls:
+    try:
+        return fetch_first_available(session, single, min_size=100)
+    except Exception as single_error:
+        monthly_urls = [
+            f"http://www.cffex.com.cn/sj/historysj/{yyyymm}/zip/{yyyymm}.zip",
+            f"https://www.cffex.com.cn/sj/historysj/{yyyymm}/zip/{yyyymm}.zip",
+        ]
         try:
-            response = requests.get(url, headers=HEADERS, timeout=REQ_TIMEOUT)
-            response.raise_for_status()
-            with zipfile.ZipFile(BytesIO(response.content)) as archive:
-                target = next(
+            source, content = fetch_first_available(session, monthly_urls, min_size=100)
+            target = f"{ds}_1.csv"
+            with zipfile.ZipFile(BytesIO(content)) as archive:
+                match = next(
                     (
                         name
                         for name in archive.namelist()
-                        if name.replace("\\", "/").endswith(f"/{ds}_1.csv")
-                        or name == f"{ds}_1.csv"
+                        if name == target
+                        or name.replace("\\", "/").endswith(f"/{target}")
                     ),
                     None,
                 )
-                if target is None:
-                    raise FileNotFoundError(f"{ds}_1.csv not found in {yyyymm}.zip")
-                raw = archive.read(target)
+                if match is None:
+                    raise FileNotFoundError(f"{target} not found in monthly ZIP")
+                return f"{source}#{match}", archive.read(match)
+        except Exception as zip_error:
+            raise RuntimeError(
+                f"single CSV failed: {single_error}; monthly ZIP failed: {zip_error}"
+            ) from zip_error
 
-            text = None
-            used_encoding = None
-            for encoding in ("gb2312", "gbk", "utf-8-sig"):
-                try:
-                    text = raw.decode(encoding)
-                    used_encoding = encoding
-                    break
-                except UnicodeDecodeError:
-                    continue
-            if text is None:
-                raise RuntimeError("unable to decode CFFEX CSV")
 
-            reader = csv.reader(StringIO(text))
-            header = next(reader, None)
-            if not header:
-                raise RuntimeError("empty CFFEX CSV")
+def fetch_cffex_eod(trade_date: date) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    ds = trade_date.strftime("%Y%m%d")
+    try:
+        source, content = download_daily_csv(trade_date)
+        text = decode_bytes(content)
+        reader = csv.DictReader(StringIO(text))
+        if not reader.fieldnames:
+            raise RuntimeError("CFFEX daily CSV has no header")
 
-            records: dict[str, dict[str, Any]] = {}
-            samples: list[str] = []
-            for row in reader:
-                if len(row) < 11:
-                    continue
-                raw_symbol = row[0].strip()
-                if not raw_symbol or raw_symbol in {"小计", "合计"}:
-                    continue
-                normalized = normalize_symbol(raw_symbol)
-                if not normalized.startswith(("HO", "IO", "MO")):
-                    continue
-                if len(samples) < 10:
-                    samples.append(raw_symbol)
-                if not re.match(r"^(HO|IO|MO)\d{4}[CP]\d+", normalized):
-                    continue
-                records[normalized] = {
-                    "raw_symbol": raw_symbol,
-                    "volume": parse_num(row[4]),
-                    "open_interest": parse_num(row[6]),
-                    "oi_change": parse_num(row[7]) if len(row) > 7 else None,
-                    "close": parse_num(row[8]) if len(row) > 8 else None,
-                    "settle": parse_num(row[9]) if len(row) > 9 else None,
-                    "pre_settle": parse_num(row[10]) if len(row) > 10 else None,
-                }
+        records: dict[str, dict[str, Any]] = {}
+        samples: list[str] = []
 
-            if not records:
-                raise RuntimeError(
-                    f"CFFEX CSV contained no normalized option rows; samples={samples}"
-                )
+        for row in reader:
+            raw_symbol = clean_text(pick(row, "合约代码", "合约", "instrumentId"))
+            if not raw_symbol or any(word in raw_symbol for word in ("小计", "合计", "总计")):
+                continue
 
-            return records, {
-                "status": "ok",
-                "url": url,
-                "trade_date": ds,
-                "records": len(records),
-                "encoding": used_encoding,
-                "header": header,
-                "sample_symbols": samples,
+            normalized = normalize_symbol(raw_symbol)
+            variety_match = re.match(r"^([A-Z]+)", normalized)
+            variety = variety_match.group(1) if variety_match else None
+            if variety not in OPTION_PREFIXES:
+                continue
+
+            if len(samples) < 10:
+                samples.append(raw_symbol)
+
+            records[normalized] = {
+                "raw_symbol": raw_symbol,
+                "volume": parse_num(pick(row, "成交量", "成交量(手)", "成交量（手）")),
+                "open_interest": parse_num(pick(row, "持仓量", "空盘量")),
+                "oi_change": parse_num(pick(row, "持仓变化", "持仓量变化", "增减量")),
+                "close": parse_num(pick(row, "今收盘", "收盘价", "收盘")),
+                "settle": parse_num(pick(row, "今结算", "结算价", "结算")),
+                "pre_settle": parse_num(pick(row, "前结算", "前结算价", "昨结算")),
+                "delta_official": parse_num(pick(row, "Delta", "DELTA", "delta")),
+                "iv_official": parse_num(pick(row, "隐含波动率", "IV", "impliedVolatility")),
             }
-        except Exception as exc:
-            last_error = f"{type(exc).__name__}: {exc}"
 
-    return {}, {
-        "status": "missing",
-        "trade_date": ds,
-        "error": last_error or "unknown CFFEX EOD error",
-    }
+        if not records:
+            raise RuntimeError(
+                f"CFFEX daily CSV parsed but no HO/IO/MO rows found; samples={samples}"
+            )
+
+        return records, {
+            "status": "ok",
+            "trade_date": ds,
+            "source": source,
+            "records": len(records),
+            "header": reader.fieldnames,
+            "sample_symbols": samples,
+        }
+    except Exception as exc:
+        return {}, {
+            "status": "missing",
+            "trade_date": ds,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
 
 
 def enrich_quote(quote: dict[str, Any], official: dict[str, Any], forward: float | None) -> None:
@@ -142,6 +229,9 @@ def enrich_quote(quote: dict[str, Any], official: dict[str, Any], forward: float
     quote["close_eod"] = official.get("close")
     quote["settle_eod"] = official.get("settle")
     quote["pre_settle_eod"] = official.get("pre_settle")
+    quote["delta_official"] = official.get("delta_official")
+    quote["iv_official"] = official.get("iv_official")
+
     if official_oi is not None:
         quote["oi"] = official_oi
 
@@ -197,7 +287,7 @@ def recompute_metrics(expiry: dict[str, Any]) -> None:
             "call_volume_partial": call_volume,
             "put_volume_partial": put_volume,
             "pcr_volume_partial": put_volume / call_volume if call_volume > 0 else None,
-            "volume_scope": "CFFEX official EOD, full listed option chain for this expiry",
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
         }
     )
 
@@ -219,15 +309,18 @@ def add_changes(current: dict[str, Any], previous: dict[str, Any] | None) -> Non
 
     current["previous_date"] = previous.get("date")
     old_products = previous.get("products", {})
+
     for product, pdata in current.get("products", {}).items():
         old_expiries = {
             item.get("symbol"): item
             for item in old_products.get(product, {}).get("expiries", [])
         }
+
         for expiry in pdata.get("expiries", []):
             old = old_expiries.get(expiry.get("symbol"))
             if not old:
                 continue
+
             metrics = expiry.get("metrics", {})
             old_metrics = old.get("metrics", {})
 
@@ -240,8 +333,6 @@ def add_changes(current: dict[str, Any], previous: dict[str, Any] | None) -> Non
                 "pcr_volume",
                 "call_volume",
                 "put_volume",
-                "call_oi_change",
-                "put_oi_change",
             ):
                 old_value = old_metrics.get(key)
                 if old_value is None and key == "pcr_volume":
@@ -256,32 +347,14 @@ def add_changes(current: dict[str, Any], previous: dict[str, Any] | None) -> Non
 
 
 def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
-    keys = [
-        "atm_iv",
-        "call25_iv",
-        "put25_iv",
-        "call10_iv",
-        "put10_iv",
-        "rr25",
-        "bf25",
-        "call_oi",
-        "put_oi",
-        "pcr_oi",
-        "call_volume",
-        "put_volume",
-        "pcr_volume",
-        "call_oi_change",
-        "put_oi_change",
-        "volume_oi_coverage",
-        "gamma_peaks",
-        "atm_iv_change_1d",
-        "rr25_change_1d",
-        "pcr_oi_change_1d",
-        "call_oi_change_1d",
-        "put_oi_change_1d",
-        "pcr_volume_change_1d",
-        "call_volume_change_1d",
-        "put_volume_change_1d",
+    metric_keys = [
+        "atm_iv", "call25_iv", "put25_iv", "call10_iv", "put10_iv",
+        "rr25", "bf25", "call_oi", "put_oi", "pcr_oi",
+        "call_volume", "put_volume", "pcr_volume",
+        "call_oi_change", "put_oi_change", "volume_oi_coverage", "gamma_peaks",
+        "atm_iv_change_1d", "rr25_change_1d", "pcr_oi_change_1d",
+        "call_oi_change_1d", "put_oi_change_1d",
+        "pcr_volume_change_1d", "call_volume_change_1d", "put_volume_change_1d",
         "gamma_peak_change_1d",
     ]
 
@@ -298,7 +371,7 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
     for product, pdata in result.get("products", {}).items():
         ordered = sorted(
             pdata.get("expiries", []),
-            key=lambda x: x.get("expiry") or "9999-12-31",
+            key=lambda item: item.get("expiry") or "9999-12-31",
         )
         compact["products"][product] = {
             "expiries": [
@@ -308,13 +381,14 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
                     "forward": expiry.get("forward"),
                     "metrics": {
                         key: expiry.get("metrics", {}).get(key)
-                        for key in keys
+                        for key in metric_keys
                         if key in expiry.get("metrics", {})
                     },
                 }
                 for expiry in ordered[:4]
             ]
         }
+
     return compact
 
 
@@ -379,8 +453,9 @@ def main() -> None:
 
     matched = 0
     total_quotes = 0
+
     for pdata in result.get("products", {}).values():
-        pdata["expiries"].sort(key=lambda x: x.get("expiry") or "9999-12-31")
+        pdata["expiries"].sort(key=lambda item: item.get("expiry") or "9999-12-31")
         for expiry in pdata.get("expiries", []):
             forward = expiry.get("forward")
             for row in expiry.get("rows", []):
@@ -395,9 +470,10 @@ def main() -> None:
             recompute_metrics(expiry)
 
     coverage = matched / total_quotes if total_quotes else 0.0
+
     result["date"] = run_date.isoformat()
     result["data_fresh"] = True
-    result["official_eod_source"] = "CFFEX monthly historical ZIP"
+    result["official_eod_source"] = status.get("source")
     result["source_status"] = {
         "option_chain": "ok",
         "volume": "ok" if matched > 0 else "missing",
@@ -423,7 +499,6 @@ def main() -> None:
         json.dumps(build_radar_summary(result), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-
     STATUS_PATH.write_text(
         json.dumps(
             {
@@ -449,6 +524,7 @@ def main() -> None:
                 "official_quote_matches": matched,
                 "total_chain_quotes": total_quotes,
                 "official_quote_match_coverage": coverage,
+                "source": status.get("source"),
             },
             ensure_ascii=False,
             indent=2,
