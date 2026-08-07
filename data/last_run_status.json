@@ -1,6 +1,6 @@
 {
   "run_date": "2026-08-07",
-  "generated_at": "2026-08-07T22:58:39.586330+08:00",
+  "generated_at": "2026-08-07T23:05:36.197010+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
@@ -38,5 +38,22 @@
   },
   "official_quote_matches": 726,
   "total_chain_quotes": 726,
-  "official_quote_match_coverage": 1.0
+  "official_quote_match_coverage": 1.0,
+  "futures_linkage": {
+    "status": "ok",
+    "trade_date": "2026-08-07",
+    "records": 16,
+    "products": [
+      "IH",
+      "IF",
+      "IC",
+      "IM"
+    ],
+    "direct_pairs": {
+      "IH": "HO",
+      "IF": "IO",
+      "IM": "MO"
+    },
+    "IC_note": "no direct CFFEX CSI 500 index option; proxy only"
+  }
 }
