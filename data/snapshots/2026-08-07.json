@@ -19540,7 +19540,7 @@
       ]
     }
   },
-  "previous_date": null,
+  "previous_date": "2026-08-06",
   "official_eod_source": "http://www.cffex.com.cn/sj/hqsj/rtj/202608/07/20260807_1.csv",
   "futures": {
     "trade_date": "2026-08-07",
@@ -20478,6 +20478,1154 @@
           {
             "strike": 7200.0,
             "abs_gamma_1pct": 172338792.81449482
+          }
+        ]
+      }
+    }
+  },
+  "history_products": {
+    "HO": {
+      "expiries": [
+        {
+          "symbol": "HO2608",
+          "expiry": "2026-08-21",
+          "forward": 2947.7699584820357,
+          "metrics": {
+            "atm_iv": 0.15195264550302956,
+            "call25_iv": 0.15523447386414527,
+            "put25_iv": 0.15640965796581527,
+            "call10_iv": 0.176799980808679,
+            "put10_iv": 0.17928138058205834,
+            "rr25": -0.0011751841016700015,
+            "bf25": 0.003869420411950708,
+            "call_oi": 23728.0,
+            "put_oi": 17354.0,
+            "pcr_oi": 0.731372218476062,
+            "gamma_peaks": [
+              {
+                "strike": 2950.0,
+                "abs_gamma_1pct": 184630358.92408252
+              },
+              {
+                "strike": 3000.0,
+                "abs_gamma_1pct": 172898092.8665449
+              },
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 166741683.23893392
+              },
+              {
+                "strike": 2850.0,
+                "abs_gamma_1pct": 84457695.30791667
+              },
+              {
+                "strike": 3050.0,
+                "abs_gamma_1pct": 60299953.51990285
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 17218.0,
+            "put_volume": 9775.0,
+            "pcr_volume": 0.5677198280868858,
+            "call_oi_change": -2921.0,
+            "put_oi_change": 65.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 17218.0,
+            "put_volume_partial": 9775.0,
+            "pcr_volume_partial": 0.5677198280868858,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "HO2609",
+          "expiry": "2026-09-18",
+          "forward": 2930.307358477914,
+          "metrics": {
+            "atm_iv": 0.1581541958711901,
+            "call25_iv": 0.16162236829677118,
+            "put25_iv": 0.16352708783495726,
+            "call10_iv": 0.1913494004778909,
+            "put10_iv": 0.181581348991491,
+            "rr25": -0.0019047195381860782,
+            "bf25": 0.004420532194674115,
+            "call_oi": 15823.0,
+            "put_oi": 11052.0,
+            "pcr_oi": 0.6984769007141503,
+            "gamma_peaks": [
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 67706679.9568021
+              },
+              {
+                "strike": 3000.0,
+                "abs_gamma_1pct": 55044015.29022384
+              },
+              {
+                "strike": 2800.0,
+                "abs_gamma_1pct": 47469971.17175569
+              },
+              {
+                "strike": 3100.0,
+                "abs_gamma_1pct": 23620257.7985285
+              },
+              {
+                "strike": 2950.0,
+                "abs_gamma_1pct": 22250141.689058576
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 4254.0,
+            "put_volume": 2819.0,
+            "pcr_volume": 0.6626704278326281,
+            "call_oi_change": -258.0,
+            "put_oi_change": -326.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 4254.0,
+            "put_volume_partial": 2819.0,
+            "pcr_volume_partial": 0.6626704278326281,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "HO2610",
+          "expiry": "2026-10-16",
+          "forward": 2916.303203304383,
+          "metrics": {
+            "atm_iv": 0.15682673829523447,
+            "call25_iv": 0.16488683682033212,
+            "put25_iv": 0.159222735864705,
+            "call10_iv": 0.18748142430327883,
+            "put10_iv": 0.17430893842936793,
+            "rr25": 0.0056641009556271105,
+            "bf25": 0.005228048047284106,
+            "call_oi": 903.0,
+            "put_oi": 667.0,
+            "pcr_oi": 0.7386489479512736,
+            "gamma_peaks": [
+              {
+                "strike": 3100.0,
+                "abs_gamma_1pct": 2890651.3791770074
+              },
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 2805263.0586287393
+              },
+              {
+                "strike": 2950.0,
+                "abs_gamma_1pct": 1628814.049157394
+              },
+              {
+                "strike": 3000.0,
+                "abs_gamma_1pct": 1457286.5129157607
+              },
+              {
+                "strike": 3050.0,
+                "abs_gamma_1pct": 1181977.776924338
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 225.0,
+            "put_volume": 167.0,
+            "pcr_volume": 0.7422222222222222,
+            "call_oi_change": 26.0,
+            "put_oi_change": 39.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 225.0,
+            "put_volume_partial": 167.0,
+            "pcr_volume_partial": 0.7422222222222222,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "HO2612",
+          "expiry": "2026-12-18",
+          "forward": 2888.557290232644,
+          "metrics": {
+            "atm_iv": 0.1659828707586039,
+            "call25_iv": 0.1786386249994088,
+            "put25_iv": 0.16761307257976268,
+            "call10_iv": 0.2337618036979899,
+            "put10_iv": 0.1800065082084782,
+            "rr25": 0.011025552419646117,
+            "bf25": 0.00714297803098185,
+            "call_oi": 9541.0,
+            "put_oi": 7387.0,
+            "pcr_oi": 0.7742375013101352,
+            "gamma_peaks": [
+              {
+                "strike": 3000.0,
+                "abs_gamma_1pct": 25542661.30037713
+              },
+              {
+                "strike": 2800.0,
+                "abs_gamma_1pct": 20219262.593997948
+              },
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 17730209.239842407
+              },
+              {
+                "strike": 2700.0,
+                "abs_gamma_1pct": 10686005.779411662
+              },
+              {
+                "strike": 3100.0,
+                "abs_gamma_1pct": 10653107.326215416
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 963.0,
+            "put_volume": 644.0,
+            "pcr_volume": 0.6687435098650052,
+            "call_oi_change": 349.0,
+            "put_oi_change": -51.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 963.0,
+            "put_volume_partial": 644.0,
+            "pcr_volume_partial": 0.6687435098650052,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "HO2703",
+          "expiry": "2027-03-19",
+          "forward": 2861.9678259837365,
+          "metrics": {
+            "atm_iv": 0.17226481965534732,
+            "call25_iv": 0.18851905916961736,
+            "put25_iv": 0.16663330786673583,
+            "call10_iv": 0.1973241009159145,
+            "put10_iv": 0.16894686879199478,
+            "rr25": 0.021885751302881534,
+            "bf25": 0.005311363862829294,
+            "call_oi": 4841.0,
+            "put_oi": 3800.0,
+            "pcr_oi": 0.7849617847552158,
+            "gamma_peaks": [
+              {
+                "strike": 3000.0,
+                "abs_gamma_1pct": 12166028.007224746
+              },
+              {
+                "strike": 2500.0,
+                "abs_gamma_1pct": 9629913.609216738
+              },
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 9394649.134036034
+              },
+              {
+                "strike": 3100.0,
+                "abs_gamma_1pct": 8617551.386701224
+              },
+              {
+                "strike": 2800.0,
+                "abs_gamma_1pct": 5814032.55578803
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 80.0,
+            "put_volume": 55.0,
+            "pcr_volume": 0.6875,
+            "call_oi_change": -22.0,
+            "put_oi_change": -1.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 80.0,
+            "put_volume_partial": 55.0,
+            "pcr_volume_partial": 0.6875,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "HO2706",
+          "expiry": "2027-06-18",
+          "forward": 2854.9061911700537,
+          "metrics": {
+            "atm_iv": 0.1699511010413611,
+            "call25_iv": 0.17736976726804612,
+            "put25_iv": 0.1699630393366592,
+            "call10_iv": 0.18654059740625725,
+            "put10_iv": 0.1716067882061468,
+            "rr25": 0.007406727931386914,
+            "bf25": 0.0037153022609915654,
+            "call_oi": 1154.0,
+            "put_oi": 1116.0,
+            "pcr_oi": 0.9670710571923743,
+            "gamma_peaks": [
+              {
+                "strike": 2900.0,
+                "abs_gamma_1pct": 2891637.9702561693
+              },
+              {
+                "strike": 2700.0,
+                "abs_gamma_1pct": 1963546.6148520052
+              },
+              {
+                "strike": 3400.0,
+                "abs_gamma_1pct": 1904781.5838568062
+              },
+              {
+                "strike": 2600.0,
+                "abs_gamma_1pct": 1550813.9841100108
+              },
+              {
+                "strike": 2500.0,
+                "abs_gamma_1pct": 1140811.046309644
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 66.0,
+            "put_volume": 95.0,
+            "pcr_volume": 1.4393939393939394,
+            "call_oi_change": 16.0,
+            "put_oi_change": -28.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 66.0,
+            "put_volume_partial": 95.0,
+            "pcr_volume_partial": 1.4393939393939394,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        }
+      ]
+    },
+    "IO": {
+      "expiries": [
+        {
+          "symbol": "IO2608",
+          "expiry": "2026-08-21",
+          "forward": 4674.700483698018,
+          "metrics": {
+            "atm_iv": 0.17294426478053707,
+            "call25_iv": 0.17320172878973897,
+            "put25_iv": 0.1884842172070257,
+            "call10_iv": 0.18181807487856133,
+            "put10_iv": 0.20433656459921617,
+            "rr25": -0.015282488417286744,
+            "bf25": 0.007898708217845274,
+            "call_oi": 58194.0,
+            "put_oi": 39625.0,
+            "pcr_oi": 0.6809121215245558,
+            "gamma_peaks": [
+              {
+                "strike": 4700.0,
+                "abs_gamma_1pct": 518979765.3958398
+              },
+              {
+                "strike": 4600.0,
+                "abs_gamma_1pct": 461567223.75111973
+              },
+              {
+                "strike": 4800.0,
+                "abs_gamma_1pct": 406171153.6394995
+              },
+              {
+                "strike": 4650.0,
+                "abs_gamma_1pct": 330052407.6798196
+              },
+              {
+                "strike": 4750.0,
+                "abs_gamma_1pct": 309244398.86721134
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 53269.0,
+            "put_volume": 32294.0,
+            "pcr_volume": 0.6062437815615086,
+            "call_oi_change": -3404.0,
+            "put_oi_change": 217.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 53269.0,
+            "put_volume_partial": 32294.0,
+            "pcr_volume_partial": 0.6062437815615086,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "IO2609",
+          "expiry": "2026-09-18",
+          "forward": 4647.8513868999,
+          "metrics": {
+            "atm_iv": 0.18552165222077122,
+            "call25_iv": 0.18291050591518493,
+            "put25_iv": 0.19245075935477565,
+            "call10_iv": 0.19379334326483202,
+            "put10_iv": 0.21082006312695864,
+            "rr25": -0.009540253439590723,
+            "bf25": 0.0021589804142090885,
+            "call_oi": 37177.0,
+            "put_oi": 25298.0,
+            "pcr_oi": 0.6804744869139522,
+            "gamma_peaks": [
+              {
+                "strike": 4700.0,
+                "abs_gamma_1pct": 173336317.28976968
+              },
+              {
+                "strike": 4600.0,
+                "abs_gamma_1pct": 165271125.89246207
+              },
+              {
+                "strike": 4800.0,
+                "abs_gamma_1pct": 126950243.51517954
+              },
+              {
+                "strike": 4500.0,
+                "abs_gamma_1pct": 109269718.57250108
+              },
+              {
+                "strike": 5000.0,
+                "abs_gamma_1pct": 88751958.13019274
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 11877.0,
+            "put_volume": 6503.0,
+            "pcr_volume": 0.5475288372484635,
+            "call_oi_change": -522.0,
+            "put_oi_change": 215.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 11877.0,
+            "put_volume_partial": 6503.0,
+            "pcr_volume_partial": 0.5475288372484635,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "IO2610",
+          "expiry": "2026-10-16",
+          "forward": 4626.846231124351,
+          "metrics": {
+            "atm_iv": 0.17875756643599025,
+            "call25_iv": 0.18345792595660282,
+            "put25_iv": 0.1907852888301026,
+            "call10_iv": 0.228300486346354,
+            "put10_iv": 0.24256049536477062,
+            "rr25": -0.0073273628734997764,
+            "bf25": 0.008364040957362456,
+            "call_oi": 1856.0,
+            "put_oi": 4383.0,
+            "pcr_oi": 2.361530172413793,
+            "gamma_peaks": [
+              {
+                "strike": 4200.0,
+                "abs_gamma_1pct": 9218988.81679533
+              },
+              {
+                "strike": 4700.0,
+                "abs_gamma_1pct": 6728770.862435017
+              },
+              {
+                "strike": 4050.0,
+                "abs_gamma_1pct": 6530483.780210637
+              },
+              {
+                "strike": 4600.0,
+                "abs_gamma_1pct": 6446088.464375343
+              },
+              {
+                "strike": 4500.0,
+                "abs_gamma_1pct": 6358089.910380218
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 637.0,
+            "put_volume": 1225.0,
+            "pcr_volume": 1.9230769230769231,
+            "call_oi_change": 193.0,
+            "put_oi_change": 511.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 637.0,
+            "put_volume_partial": 1225.0,
+            "pcr_volume_partial": 1.9230769230769231,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "IO2612",
+          "expiry": "2026-12-18",
+          "forward": 4575.466270483081,
+          "metrics": {
+            "atm_iv": 0.18025212873515348,
+            "call25_iv": 0.1981315417044008,
+            "put25_iv": 0.18684259821056354,
+            "call10_iv": 0.24513056338527028,
+            "put10_iv": 0.2214709190316034,
+            "rr25": 0.011288943493837272,
+            "bf25": 0.012234941222328682,
+            "call_oi": 18100.0,
+            "put_oi": 10994.0,
+            "pcr_oi": 0.6074033149171271,
+            "gamma_peaks": [
+              {
+                "strike": 4500.0,
+                "abs_gamma_1pct": 44073185.35428588
+              },
+              {
+                "strike": 4600.0,
+                "abs_gamma_1pct": 37222493.1629483
+              },
+              {
+                "strike": 4700.0,
+                "abs_gamma_1pct": 34651878.980891556
+              },
+              {
+                "strike": 5000.0,
+                "abs_gamma_1pct": 30017845.769007362
+              },
+              {
+                "strike": 4800.0,
+                "abs_gamma_1pct": 27174465.132412735
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 1355.0,
+            "put_volume": 483.0,
+            "pcr_volume": 0.35645756457564576,
+            "call_oi_change": -7.0,
+            "put_oi_change": 12.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 1355.0,
+            "put_volume_partial": 483.0,
+            "pcr_volume_partial": 0.35645756457564576,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "IO2703",
+          "expiry": "2027-03-19",
+          "forward": 4511.303577378141,
+          "metrics": {
+            "atm_iv": 0.17869094274453134,
+            "call25_iv": 0.19133671440826724,
+            "put25_iv": 0.18864164659046548,
+            "call10_iv": 0.2212433477142647,
+            "put10_iv": 0.1985260487951382,
+            "rr25": 0.002695067817801766,
+            "bf25": 0.011298237754835017,
+            "call_oi": 5743.0,
+            "put_oi": 8461.0,
+            "pcr_oi": 1.473271809158976,
+            "gamma_peaks": [
+              {
+                "strike": 4100.0,
+                "abs_gamma_1pct": 22396381.724461965
+              },
+              {
+                "strike": 4500.0,
+                "abs_gamma_1pct": 15973857.009627782
+              },
+              {
+                "strike": 4400.0,
+                "abs_gamma_1pct": 13874990.077280996
+              },
+              {
+                "strike": 4200.0,
+                "abs_gamma_1pct": 11538484.50602095
+              },
+              {
+                "strike": 3900.0,
+                "abs_gamma_1pct": 10624433.010295786
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 651.0,
+            "put_volume": 249.0,
+            "pcr_volume": 0.3824884792626728,
+            "call_oi_change": -26.0,
+            "put_oi_change": 22.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 651.0,
+            "put_volume_partial": 249.0,
+            "pcr_volume_partial": 0.3824884792626728,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "IO2706",
+          "expiry": "2027-06-18",
+          "forward": 4479.854718214606,
+          "metrics": {
+            "atm_iv": 0.18197812037856154,
+            "call25_iv": 0.19944524541765388,
+            "put25_iv": 0.1833236211500082,
+            "call10_iv": 0.21698176259597976,
+            "put10_iv": 0.1860790172720521,
+            "rr25": 0.016121624267645684,
+            "bf25": 0.009406312905269498,
+            "call_oi": 2898.0,
+            "put_oi": 3053.0,
+            "pcr_oi": 1.0534851621808143,
+            "gamma_peaks": [
+              {
+                "strike": 4500.0,
+                "abs_gamma_1pct": 8946130.496210763
+              },
+              {
+                "strike": 4300.0,
+                "abs_gamma_1pct": 7681498.262380111
+              },
+              {
+                "strike": 4400.0,
+                "abs_gamma_1pct": 6137102.828254702
+              },
+              {
+                "strike": 4600.0,
+                "abs_gamma_1pct": 5863937.589284509
+              },
+              {
+                "strike": 4700.0,
+                "abs_gamma_1pct": 3562809.7257130877
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 399.0,
+            "put_volume": 345.0,
+            "pcr_volume": 0.8646616541353384,
+            "call_oi_change": 6.0,
+            "put_oi_change": 18.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 399.0,
+            "put_volume_partial": 345.0,
+            "pcr_volume_partial": 0.8646616541353384,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        }
+      ]
+    },
+    "MO": {
+      "expiries": [
+        {
+          "symbol": "MO2608",
+          "expiry": "2026-08-21",
+          "forward": 7648.485405388235,
+          "metrics": {
+            "atm_iv": 0.2686837125028586,
+            "call25_iv": 0.27129027177232395,
+            "put25_iv": 0.279439856748421,
+            "call10_iv": 0.2775816671388578,
+            "put10_iv": 0.2963211331556778,
+            "rr25": -0.008149584976097024,
+            "bf25": 0.0066813517575138315,
+            "call_oi": 135712.0,
+            "put_oi": 97335.0,
+            "pcr_oi": 0.7172173426078755,
+            "gamma_peaks": [
+              {
+                "strike": 7500.0,
+                "abs_gamma_1pct": 866830775.7999928
+              },
+              {
+                "strike": 8000.0,
+                "abs_gamma_1pct": 645804041.880116
+              },
+              {
+                "strike": 7600.0,
+                "abs_gamma_1pct": 590196857.6109995
+              },
+              {
+                "strike": 7800.0,
+                "abs_gamma_1pct": 583700360.6425207
+              },
+              {
+                "strike": 7700.0,
+                "abs_gamma_1pct": 541405245.077803
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 181135.0,
+            "put_volume": 149509.0,
+            "pcr_volume": 0.8254009440472576,
+            "call_oi_change": -10616.0,
+            "put_oi_change": 3797.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 181135.0,
+            "put_volume_partial": 149509.0,
+            "pcr_volume_partial": 0.8254009440472576,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "MO2609",
+          "expiry": "2026-09-18",
+          "forward": 7589.063778462482,
+          "metrics": {
+            "atm_iv": 0.27424242459068365,
+            "call25_iv": 0.27291193902324806,
+            "put25_iv": 0.29383884224411033,
+            "call10_iv": 0.29478761152638316,
+            "put10_iv": 0.3309536745032567,
+            "rr25": -0.02092690322086227,
+            "bf25": 0.009132966042995572,
+            "call_oi": 76684.0,
+            "put_oi": 54001.0,
+            "pcr_oi": 0.7042016587554119,
+            "gamma_peaks": [
+              {
+                "strike": 8000.0,
+                "abs_gamma_1pct": 425800487.501275
+              },
+              {
+                "strike": 7600.0,
+                "abs_gamma_1pct": 216565753.59811252
+              },
+              {
+                "strike": 7800.0,
+                "abs_gamma_1pct": 185652437.13208088
+              },
+              {
+                "strike": 7400.0,
+                "abs_gamma_1pct": 177868520.16827673
+              },
+              {
+                "strike": 7200.0,
+                "abs_gamma_1pct": 171915991.26994073
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 32878.0,
+            "put_volume": 20710.0,
+            "pcr_volume": 0.6299044954072632,
+            "call_oi_change": -1179.0,
+            "put_oi_change": 2041.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 32878.0,
+            "put_volume_partial": 20710.0,
+            "pcr_volume_partial": 0.6299044954072632,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "MO2610",
+          "expiry": "2026-10-16",
+          "forward": 7548.488317925,
+          "metrics": {
+            "atm_iv": 0.256357208890428,
+            "call25_iv": 0.2649644536969323,
+            "put25_iv": 0.27704119129048327,
+            "call10_iv": 0.26704378104290066,
+            "put10_iv": 0.31543891055268986,
+            "rr25": -0.01207673759355099,
+            "bf25": 0.014645613603279761,
+            "call_oi": 4146.0,
+            "put_oi": 7088.0,
+            "pcr_oi": 1.7095996140858658,
+            "gamma_peaks": [
+              {
+                "strike": 7400.0,
+                "abs_gamma_1pct": 22983394.729137197
+              },
+              {
+                "strike": 8000.0,
+                "abs_gamma_1pct": 20863507.2511836
+              },
+              {
+                "strike": 6200.0,
+                "abs_gamma_1pct": 15152050.625917487
+              },
+              {
+                "strike": 7000.0,
+                "abs_gamma_1pct": 14235116.21043359
+              },
+              {
+                "strike": 7200.0,
+                "abs_gamma_1pct": 13688387.985049086
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 1754.0,
+            "put_volume": 2582.0,
+            "pcr_volume": 1.4720638540478905,
+            "call_oi_change": 200.0,
+            "put_oi_change": 717.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 1754.0,
+            "put_volume_partial": 2582.0,
+            "pcr_volume_partial": 1.4720638540478905,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "MO2612",
+          "expiry": "2026-12-18",
+          "forward": 7411.935564917921,
+          "metrics": {
+            "atm_iv": 0.2610062386374483,
+            "call25_iv": 0.2727376003200058,
+            "put25_iv": 0.2713417904157463,
+            "call10_iv": 0.3127434433470265,
+            "put10_iv": 0.2967564071176463,
+            "rr25": 0.0013958099042595262,
+            "bf25": 0.01103345673042777,
+            "call_oi": 33828.0,
+            "put_oi": 22252.0,
+            "pcr_oi": 0.6577982736194868,
+            "gamma_peaks": [
+              {
+                "strike": 8000.0,
+                "abs_gamma_1pct": 81433432.3551274
+              },
+              {
+                "strike": 7600.0,
+                "abs_gamma_1pct": 73214156.46684894
+              },
+              {
+                "strike": 7800.0,
+                "abs_gamma_1pct": 61583738.11623056
+              },
+              {
+                "strike": 8600.0,
+                "abs_gamma_1pct": 59113064.35291417
+              },
+              {
+                "strike": 7400.0,
+                "abs_gamma_1pct": 56998840.45341978
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 6843.0,
+            "put_volume": 3016.0,
+            "pcr_volume": 0.4407423644600322,
+            "call_oi_change": 8.0,
+            "put_oi_change": -238.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 6843.0,
+            "put_volume_partial": 3016.0,
+            "pcr_volume_partial": 0.4407423644600322,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "MO2703",
+          "expiry": "2027-03-19",
+          "forward": 7249.383100128871,
+          "metrics": {
+            "atm_iv": 0.25224964160795627,
+            "call25_iv": 0.2686436481794396,
+            "put25_iv": 0.27242365441498123,
+            "call10_iv": 0.3026267815963904,
+            "put10_iv": 0.2769976668525301,
+            "rr25": -0.003780006235541644,
+            "bf25": 0.018284009689254144,
+            "call_oi": 14983.0,
+            "put_oi": 11944.0,
+            "pcr_oi": 0.797170126142962,
+            "gamma_peaks": [
+              {
+                "strike": 6600.0,
+                "abs_gamma_1pct": 46044620.270591356
+              },
+              {
+                "strike": 7400.0,
+                "abs_gamma_1pct": 29468496.158696525
+              },
+              {
+                "strike": 7600.0,
+                "abs_gamma_1pct": 26522300.287544202
+              },
+              {
+                "strike": 7200.0,
+                "abs_gamma_1pct": 25719584.573408976
+              },
+              {
+                "strike": 8800.0,
+                "abs_gamma_1pct": 22271918.418569762
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 1495.0,
+            "put_volume": 1251.0,
+            "pcr_volume": 0.8367892976588629,
+            "call_oi_change": 216.0,
+            "put_oi_change": 26.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 1495.0,
+            "put_volume_partial": 1251.0,
+            "pcr_volume_partial": 0.8367892976588629,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        },
+        {
+          "symbol": "MO2706",
+          "expiry": "2027-06-18",
+          "forward": 7120.8091091057795,
+          "metrics": {
+            "atm_iv": 0.25575719874563285,
+            "call25_iv": 0.2635480850736928,
+            "put25_iv": 0.26868321535482026,
+            "call10_iv": 0.2822347372040596,
+            "put10_iv": 0.26868321535482026,
+            "rr25": -0.005135130281127442,
+            "bf25": 0.010358451468623686,
+            "call_oi": 6592.0,
+            "put_oi": 5755.0,
+            "pcr_oi": 0.8730279126213593,
+            "gamma_peaks": [
+              {
+                "strike": 7600.0,
+                "abs_gamma_1pct": 12376994.150598276
+              },
+              {
+                "strike": 7200.0,
+                "abs_gamma_1pct": 12083088.9750783
+              },
+              {
+                "strike": 7400.0,
+                "abs_gamma_1pct": 11221459.19591929
+              },
+              {
+                "strike": 7000.0,
+                "abs_gamma_1pct": 9895422.16379657
+              },
+              {
+                "strike": 7800.0,
+                "abs_gamma_1pct": 9848006.271719351
+              }
+            ],
+            "pricing_basis": "cffex_official_settlement_fallback_close",
+            "call_volume": 1459.0,
+            "put_volume": 782.0,
+            "pcr_volume": 0.5359835503769705,
+            "call_oi_change": 251.0,
+            "put_oi_change": 36.0,
+            "volume_oi_coverage": 1.0,
+            "call_volume_partial": 1459.0,
+            "put_volume_partial": 782.0,
+            "pcr_volume_partial": 0.5359835503769705,
+            "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry"
+          }
+        }
+      ]
+    }
+  },
+  "history_record_origin": "scheduled_eod",
+  "history_option_price_basis": "cffex_official_settlement_fallback_close",
+  "history_futures_option_linkage": {
+    "IH": {
+      "future_product": "IH",
+      "main_future": {
+        "symbol": "IH2609",
+        "contract_month": "2609",
+        "expiry_inferred": "2026-09-18",
+        "dte_calendar": 42,
+        "open": 2892.2,
+        "high": 2930.6,
+        "low": 2884.0,
+        "close": 2930.0,
+        "settle": 2924.6,
+        "pre_settle": 2890.8,
+        "change_points": 39.19999999999982,
+        "change_pct": 0.013560260135602537,
+        "volume": 29990.0,
+        "open_interest": 70624.0,
+        "oi_change": 3455.0,
+        "oi_change_pct": 0.051437419047477256
+      },
+      "direct_option_product": "HO",
+      "direct_option_available": true,
+      "matched_option_symbol": "HO2609",
+      "matched_option_expiry": "2026-09-18",
+      "option_forward": 2930.307358477914,
+      "future_minus_option_forward_points": -0.30735847791402193,
+      "future_minus_option_forward_pct": -0.00010488950144590729,
+      "option_metrics": {
+        "atm_iv": 0.1581541958711901,
+        "call25_iv": 0.16162236829677118,
+        "put25_iv": 0.16352708783495726,
+        "call10_iv": 0.1913494004778909,
+        "put10_iv": 0.181581348991491,
+        "rr25": -0.0019047195381860782,
+        "bf25": 0.004420532194674115,
+        "pcr_oi": 0.6984769007141503,
+        "pcr_volume": 0.6626704278326281,
+        "call_oi": 15823.0,
+        "put_oi": 11052.0,
+        "call_oi_change": -258.0,
+        "put_oi_change": -326.0,
+        "call_volume": 4254.0,
+        "put_volume": 2819.0,
+        "gamma_peaks": [
+          {
+            "strike": 2900.0,
+            "abs_gamma_1pct": 67706679.9568021
+          },
+          {
+            "strike": 3000.0,
+            "abs_gamma_1pct": 55044015.29022384
+          },
+          {
+            "strike": 2800.0,
+            "abs_gamma_1pct": 47469971.17175569
+          },
+          {
+            "strike": 3100.0,
+            "abs_gamma_1pct": 23620257.7985285
+          },
+          {
+            "strike": 2950.0,
+            "abs_gamma_1pct": 22250141.689058576
+          }
+        ]
+      }
+    },
+    "IF": {
+      "future_product": "IF",
+      "main_future": {
+        "symbol": "IF2609",
+        "contract_month": "2609",
+        "expiry_inferred": "2026-09-18",
+        "dte_calendar": 42,
+        "open": 4620.0,
+        "high": 4656.2,
+        "low": 4604.6,
+        "close": 4645.6,
+        "settle": 4636.0,
+        "pre_settle": 4602.0,
+        "change_points": 43.600000000000364,
+        "change_pct": 0.009474141677531587,
+        "volume": 65609.0,
+        "open_interest": 151018.0,
+        "oi_change": 4447.0,
+        "oi_change_pct": 0.030340244659584775
+      },
+      "direct_option_product": "IO",
+      "direct_option_available": true,
+      "matched_option_symbol": "IO2609",
+      "matched_option_expiry": "2026-09-18",
+      "option_forward": 4647.8513868999,
+      "future_minus_option_forward_points": -2.251386899899444,
+      "future_minus_option_forward_pct": -0.0004843930479888065,
+      "option_metrics": {
+        "atm_iv": 0.18552165222077122,
+        "call25_iv": 0.18291050591518493,
+        "put25_iv": 0.19245075935477565,
+        "call10_iv": 0.19379334326483202,
+        "put10_iv": 0.21082006312695864,
+        "rr25": -0.009540253439590723,
+        "bf25": 0.0021589804142090885,
+        "pcr_oi": 0.6804744869139522,
+        "pcr_volume": 0.5475288372484635,
+        "call_oi": 37177.0,
+        "put_oi": 25298.0,
+        "call_oi_change": -522.0,
+        "put_oi_change": 215.0,
+        "call_volume": 11877.0,
+        "put_volume": 6503.0,
+        "gamma_peaks": [
+          {
+            "strike": 4700.0,
+            "abs_gamma_1pct": 173336317.28976968
+          },
+          {
+            "strike": 4600.0,
+            "abs_gamma_1pct": 165271125.89246207
+          },
+          {
+            "strike": 4800.0,
+            "abs_gamma_1pct": 126950243.51517954
+          },
+          {
+            "strike": 4500.0,
+            "abs_gamma_1pct": 109269718.57250108
+          },
+          {
+            "strike": 5000.0,
+            "abs_gamma_1pct": 88751958.13019274
+          }
+        ]
+      }
+    },
+    "IC": {
+      "future_product": "IC",
+      "main_future": {
+        "symbol": "IC2609",
+        "contract_month": "2609",
+        "expiry_inferred": "2026-09-18",
+        "dte_calendar": 42,
+        "open": 7725.0,
+        "high": 7882.6,
+        "low": 7667.4,
+        "close": 7877.8,
+        "settle": 7855.2,
+        "pre_settle": 7713.4,
+        "change_points": 164.40000000000055,
+        "change_pct": 0.021313558223351643,
+        "volume": 116150.0,
+        "open_interest": 168332.0,
+        "oi_change": -2089.0,
+        "oi_change_pct": -0.012257879017257263
+      },
+      "direct_option_product": null,
+      "direct_option_available": false,
+      "linkage_status": "no direct CFFEX CSI 500 index option",
+      "proxy_option_products": [
+        "MO",
+        "IO"
+      ],
+      "proxy_warning": "MO/IO and any CSI 500 ETF options are cross-sectional volatility proxies, not one-to-one IC hedges"
+    },
+    "IM": {
+      "future_product": "IM",
+      "main_future": {
+        "symbol": "IM2609",
+        "contract_month": "2609",
+        "expiry_inferred": "2026-09-18",
+        "dte_calendar": 42,
+        "open": 7450.0,
+        "high": 7594.2,
+        "low": 7369.0,
+        "close": 7590.6,
+        "settle": 7564.6,
+        "pre_settle": 7432.6,
+        "change_points": 158.0,
+        "change_pct": 0.021257702553615154,
+        "volume": 177728.0,
+        "open_interest": 241397.0,
+        "oi_change": -4787.0,
+        "oi_change_pct": -0.019444805511324863
+      },
+      "direct_option_product": "MO",
+      "direct_option_available": true,
+      "matched_option_symbol": "MO2609",
+      "matched_option_expiry": "2026-09-18",
+      "option_forward": 7589.063778462482,
+      "future_minus_option_forward_points": 1.5362215375180313,
+      "future_minus_option_forward_pct": 0.00020242569865834814,
+      "option_metrics": {
+        "atm_iv": 0.27424242459068365,
+        "call25_iv": 0.27291193902324806,
+        "put25_iv": 0.29383884224411033,
+        "call10_iv": 0.29478761152638316,
+        "put10_iv": 0.3309536745032567,
+        "rr25": -0.02092690322086227,
+        "bf25": 0.009132966042995572,
+        "pcr_oi": 0.7042016587554119,
+        "pcr_volume": 0.6299044954072632,
+        "call_oi": 76684.0,
+        "put_oi": 54001.0,
+        "call_oi_change": -1179.0,
+        "put_oi_change": 2041.0,
+        "call_volume": 32878.0,
+        "put_volume": 20710.0,
+        "gamma_peaks": [
+          {
+            "strike": 8000.0,
+            "abs_gamma_1pct": 425800487.501275
+          },
+          {
+            "strike": 7600.0,
+            "abs_gamma_1pct": 216565753.59811252
+          },
+          {
+            "strike": 7800.0,
+            "abs_gamma_1pct": 185652437.13208088
+          },
+          {
+            "strike": 7400.0,
+            "abs_gamma_1pct": 177868520.16827673
+          },
+          {
+            "strike": 7200.0,
+            "abs_gamma_1pct": 171915991.26994073
           }
         ]
       }

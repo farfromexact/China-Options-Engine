@@ -47,8 +47,9 @@ def parse_future_symbol(raw_symbol: Any) -> tuple[str, str, date] | None:
     return product, symbol, expiry
 
 
-def parse_future_rows(trade_date: date) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
-    source, content = download_daily_csv(trade_date)
+def parse_future_rows_content(
+    trade_date: date, source: str, content: bytes
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
     text = decode_bytes(content)
     reader = csv.DictReader(StringIO(text))
     if not reader.fieldnames:
@@ -108,6 +109,11 @@ def parse_future_rows(trade_date: date) -> tuple[dict[str, list[dict[str, Any]]]
         "records": records,
         "header": reader.fieldnames,
     }
+
+
+def parse_future_rows(trade_date: date) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
+    source, content = download_daily_csv(trade_date)
+    return parse_future_rows_content(trade_date, source, content)
 
 
 def summarize_product(product: str, contracts: list[dict[str, Any]]) -> dict[str, Any]:
@@ -334,6 +340,13 @@ def main() -> None:
             for product in FUTURE_PRODUCTS
         }
         linkage = build_linkage(futures_summary, radar)
+        history_linkage = None
+        history_products = latest.get("history_products")
+        if isinstance(history_products, dict) and history_products:
+            history_source = {**latest, "products": history_products}
+            history_linkage = build_linkage(
+                futures_summary, build_radar_summary(history_source)
+            )
 
         futures_block = {
             "trade_date": run_date.isoformat(),
@@ -372,6 +385,8 @@ def main() -> None:
 
         latest["futures"] = futures_block
         latest["futures_option_linkage"] = linkage
+        if history_linkage is not None:
+            latest["history_futures_option_linkage"] = history_linkage
         radar["futures"] = futures_block
         radar["futures_option_linkage"] = linkage
         latest.setdefault("source_status", {})["futures"] = source_status

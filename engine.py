@@ -114,11 +114,21 @@ def mid(q: dict[str, Any]) -> float | None:
     return m
 
 
-def infer_forward(rows: list[dict[str, Any]], t: float, r: float) -> float | None:
+def analytics_price(quote: dict[str, Any], price_field: str | None = None) -> float | None:
+    if price_field is None:
+        return mid(quote)
+    value = parse_num(quote.get(price_field))
+    return value if value is not None and value > 0 else None
+
+
+def infer_forward(
+    rows: list[dict[str, Any]], t: float, r: float, price_field: str | None = None
+) -> float | None:
     candidates = []
     er = math.exp(r * t)
     for row in rows:
-        c, p = mid(row["call"]), mid(row["put"])
+        c = analytics_price(row["call"], price_field)
+        p = analytics_price(row["put"], price_field)
         if c is None or p is None:
             continue
         f = row["strike"] + er * (c - p)
@@ -161,17 +171,26 @@ def greeks(cp: str, f: float, k: float, t: float, r: float, vol: float) -> tuple
     return float(delta), float(gamma)
 
 
-def add_analytics(rows: list[dict[str, Any]], expiry: date, now: datetime) -> dict[str, Any]:
+def add_analytics(
+    rows: list[dict[str, Any]],
+    expiry: date,
+    now: datetime,
+    *,
+    price_field: str | None = None,
+) -> dict[str, Any]:
     t = year_fraction(expiry, now)
-    f = infer_forward(rows, t, RISK_FREE_RATE)
+    f = infer_forward(rows, t, RISK_FREE_RATE, price_field)
     if f is None:
         return {"expiry": expiry.isoformat(), "t_years": t, "forward": None, "rows": rows, "metrics": {}}
 
     for row in rows:
         for cp, key in (("C", "call"), ("P", "put")):
             q = row[key]
-            px = mid(q)
-            q.update({"mid": px, "iv": None, "delta": None, "gamma": None, "gamma_oi": None, "gamma_1pct": None})
+            px = analytics_price(q, price_field)
+            q.update({"mid": px if price_field is None else None, "iv": None, "delta": None, "gamma": None, "gamma_oi": None, "gamma_1pct": None})
+            if price_field is not None:
+                q["analytics_price"] = px
+                q["analytics_price_field"] = price_field
             if px is None:
                 continue
             iv = implied_vol(cp, px, f, row["strike"], t, RISK_FREE_RATE)
