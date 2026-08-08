@@ -9,6 +9,7 @@ on:
       - "eod_enrich.py"
       - "futures_link.py"
       - "radar_history.py"
+      - "backfill_cffex.py"
       - "tests/**"
       - "README.md"
       - "requirements.txt"

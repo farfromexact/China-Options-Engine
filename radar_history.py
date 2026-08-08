@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 
 
-SCHEMA_VERSION = "1.0"
+SCHEMA_VERSION = "1.1"
 DEFAULT_RETENTION_SESSIONS = int(os.getenv("RADAR_HISTORY_RETENTION", "60"))
 DATA_DIR = Path("data")
 RADAR_HISTORY_PATH = DATA_DIR / "radar_history.json"
@@ -82,6 +82,8 @@ LINKAGE_KEYS = (
 )
 
 QUALITY_KEYS = (
+    "record_origin",
+    "option_price_basis",
     "option_chain",
     "volume",
     "official_eod_status",
@@ -147,6 +149,17 @@ def _validate_verified_sources(source: Mapping[str, Any], market_date: str) -> N
         raise UnverifiedSnapshotError(
             f"verified history snapshot has non-fresh source status: {freshness}"
         )
+    if source_status.get("option_chain") != "ok" or source_status.get("volume") != "ok":
+        raise UnverifiedSnapshotError(
+            "verified history snapshot is missing complete option-chain EOD data"
+        )
+    coverage = source_status.get("official_quote_match_coverage")
+    if not isinstance(coverage, (int, float)) or not math.isclose(
+        float(coverage), 1.0, rel_tol=0.0, abs_tol=1e-12
+    ):
+        raise UnverifiedSnapshotError(
+            f"verified history snapshot has incomplete official option coverage: {coverage}"
+        )
 
     raw_official = source_status.get("official_eod")
     if not isinstance(raw_official, Mapping):
@@ -165,6 +178,26 @@ def _validate_verified_sources(source: Mapping[str, Any], market_date: str) -> N
     if not futures_status.get("trade_date"):
         raise UnverifiedSnapshotError("verified history snapshot is missing futures trade date")
     _validate_trade_date(futures_status.get("trade_date"), market_date, "futures")
+
+    option_products = source.get("history_products") or source.get("products")
+    if not isinstance(option_products, Mapping):
+        raise UnverifiedSnapshotError("verified history snapshot has no option products")
+    for product in OPTION_PRODUCTS:
+        payload = option_products.get(product)
+        expiries = _mapping(payload).get("expiries")
+        if not isinstance(expiries, list) or not expiries:
+            raise UnverifiedSnapshotError(
+                f"verified history snapshot has no active {product} expiries"
+            )
+
+    futures_products = _mapping(_mapping(source.get("futures")).get("products"))
+    for product in FUTURE_PRODUCTS:
+        summary = _mapping(futures_products.get(product))
+        main_contract = _mapping(summary.get("main_contract"))
+        if summary.get("status") != "ok" or not main_contract.get("symbol"):
+            raise UnverifiedSnapshotError(
+                f"verified history snapshot has incomplete {product} futures data"
+            )
 
 
 def _compact_gamma_peaks(metrics: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -194,7 +227,12 @@ def _calendar_dte(market_date: str, expiry: Any) -> int | None:
 
 def _compact_options(source: Mapping[str, Any], market_date: str) -> dict[str, Any]:
     products: dict[str, Any] = {}
-    source_products = _mapping(source.get("products"))
+    history_products = source.get("history_products")
+    source_products = (
+        history_products
+        if isinstance(history_products, Mapping) and history_products
+        else _mapping(source.get("products"))
+    )
     for product in OPTION_PRODUCTS:
         raw_product = source_products.get(product)
         expiries: list[dict[str, Any]] = []
@@ -239,7 +277,16 @@ def _compact_futures(source: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _compact_linkage(source: Mapping[str, Any]) -> dict[str, Any]:
-    linkages = _mapping(source.get("futures_option_linkage"))
+    history_products = source.get("history_products")
+    if isinstance(history_products, Mapping) and history_products:
+        raw_history_linkage = source.get("history_futures_option_linkage")
+        if not isinstance(raw_history_linkage, Mapping):
+            raise ValueError(
+                "settlement-based history products require settlement-based futures linkage"
+            )
+        linkages = raw_history_linkage
+    else:
+        linkages = _mapping(source.get("futures_option_linkage"))
     return {product: _copy_fields(linkages.get(product), LINKAGE_KEYS) for product in FUTURE_PRODUCTS}
 
 
@@ -247,8 +294,20 @@ def _compact_quality(source: Mapping[str, Any]) -> dict[str, Any]:
     status = _mapping(source.get("source_status"))
     official = _mapping(status.get("official_eod"))
     futures_status = _mapping(_mapping(source.get("futures")).get("source_status"))
+    assumptions = _mapping(source.get("assumptions"))
     errors = source.get("errors")
     return {
+        "record_origin": (
+            source.get("history_record_origin")
+            or source.get("collection_mode")
+            or "scheduled_eod"
+        ),
+        "option_price_basis": (
+            source.get("history_option_price_basis")
+            or source.get("option_price_basis")
+            or assumptions.get("iv_price")
+            or "sina_bid_ask_mid"
+        ),
         "option_chain": status.get("option_chain"),
         "volume": status.get("volume"),
         "official_eod_status": official.get("status"),
@@ -315,6 +374,10 @@ def _validate_record(record: Any) -> dict[str, Any]:
         raise ValueError(f"history record {market_date} has invalid previous_date")
 
     quality = _require_exact_keys(record.get("data_quality"), QUALITY_KEYS, "data_quality")
+    if not isinstance(quality.get("record_origin"), str) or not isinstance(
+        quality.get("option_price_basis"), str
+    ):
+        raise ValueError(f"history record {market_date} has invalid pricing provenance")
     if (
         quality.get("freshness") != "fresh"
         or quality.get("official_eod_status") != "ok"
@@ -397,7 +460,14 @@ def build_history_document(
     for record in records:
         validated = _validate_record(record)
         by_date[validated["date"]] = validated
-    normalized = [by_date[key] for key in sorted(by_date)][-retention_sessions:]
+    retained = [by_date[key] for key in sorted(by_date)][-retention_sessions:]
+    normalized: list[dict[str, Any]] = []
+    for record in retained:
+        normalized_record = {
+            **record,
+            "previous_date": normalized[-1]["date"] if normalized else None,
+        }
+        normalized.append(_validate_record(normalized_record))
     latest = normalized[-1] if normalized else None
     return {
         "schema_version": SCHEMA_VERSION,
@@ -423,12 +493,18 @@ def write_history(path: Path, document: dict[str, Any]) -> bool:
 
 
 def rebuild_from_snapshots(
-    snapshot_dir: Path, retention_sessions: int = DEFAULT_RETENTION_SESSIONS
+    snapshot_dir: Path,
+    retention_sessions: int = DEFAULT_RETENTION_SESSIONS,
+    *,
+    exclude_dates: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     if retention_sessions <= 0:
         raise ValueError("retention_sessions must be positive")
+    excluded = exclude_dates or set()
     by_date: dict[str, dict[str, Any]] = {}
     for path in sorted(snapshot_dir.glob("*.json"), reverse=True):
+        if path.stem in excluded:
+            continue
         if len(by_date) >= retention_sessions:
             break
         source = json.loads(path.read_text(encoding="utf-8"))

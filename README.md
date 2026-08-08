@@ -33,6 +33,25 @@ python radar_history.py
 python radar_history.py --check
 ```
 
+首次启用历史比较时，可以从最新 verified snapshot 向前回填 20 个交易日。默认语义是“现有锚点之前 20 个交易日”，因此锚点也计入后会得到至少 21 条记录，足以计算严格的 20 交易日变化：
+
+```powershell
+# 先下载、计算、暂存并校验，不发布文件
+python backfill_cffex.py --dry-run
+
+# 校验通过后发布 snapshots 并重建 radar_history.json
+python backfill_cffex.py
+python radar_history.py --check
+```
+
+回填器优先按月份下载一次 CFFEX 历史 ZIP 并在内存中复用，只有月包不可用时才回退到单日 CSV。所有目标日期会先在临时目录完成计算和验证，数量不足或任一交易日数据不完整时不会发布。默认不覆盖已有 verified snapshot；只有显式传入 `--overwrite` 才允许替换。
+
+历史 CSV 不包含当时的 bid/ask 和盘口深度，因此 History 的 forward、IV、RR/BF 与 Gamma 统一使用 CFFEX 官方 EOD 结算价（无正结算价时回退正收盘价）重算。回填器也会为现有锚点补入独立的 `history_products`，保留原始实时盘口产品数据；后续日跑会继续生成同口径的 History 指标。`radar_latest.json` 仍保留当前盘口口径。
+
+每条 History 记录都会明确写入 `data_quality.record_origin` 和 `data_quality.option_price_basis`。官方结算价口径的机器可读值为 `cffex_official_settlement_fallback_close`，不应把它误称为历史实时盘口中间价。
+
+网络会默认忽略机器上的 `HTTP_PROXY` / `HTTPS_PROXY`，避免失效的本地代理拖慢 CFFEX 请求。确实需要使用环境代理时设置 `CFFEX_TRUST_ENV=true`。
+
 ## 消费端读取顺序
 
 每日雷达建议固定读取：

@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import unittest
+from copy import deepcopy
 from datetime import date, timedelta
 from pathlib import Path
 from unittest.mock import patch
@@ -19,7 +20,7 @@ from radar_history import (
 
 
 def sample_radar(market_date: str, *, fresh: bool = True, atm_iv: float = 0.2) -> dict:
-    return {
+    radar = {
         "date": market_date,
         "generated_at": f"{market_date}T15:55:00+08:00",
         "data_fresh": fresh,
@@ -62,6 +63,7 @@ def sample_radar(market_date: str, *, fresh: bool = True, atm_iv: float = 0.2) -
             },
             "products": {
                 "IF": {
+                    "status": "ok",
                     "main_contract": {"symbol": "IF2609", "close": 4645.6, "open": 4600.0},
                     "next_contract": {"symbol": "IF2612", "close": 4565.6},
                     "next_minus_main_points": -80.0,
@@ -80,6 +82,20 @@ def sample_radar(market_date: str, *, fresh: bool = True, atm_iv: float = 0.2) -
         },
         "errors": [],
     }
+    for product, forward in (("HO", 3250.0), ("MO", 7550.0)):
+        cloned = deepcopy(radar["products"]["IO"])
+        cloned["expiries"][0]["symbol"] = f"{product}2609"
+        cloned["expiries"][0]["forward"] = forward
+        radar["products"][product] = cloned
+
+    for product, close in (("IH", 3245.0), ("IC", 6845.0), ("IM", 7545.0)):
+        cloned = deepcopy(radar["futures"]["products"]["IF"])
+        cloned["main_contract"]["symbol"] = f"{product}2609"
+        cloned["main_contract"]["close"] = close
+        cloned["next_contract"]["symbol"] = f"{product}2612"
+        cloned["next_contract"]["close"] = close - 80.0
+        radar["futures"]["products"][product] = cloned
+    return radar
 
 
 class RadarHistoryTests(unittest.TestCase):
@@ -115,6 +131,37 @@ class RadarHistoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "successful futures data"):
             build_history_record(missing_futures)
 
+        partial_options = sample_radar("2026-08-07")
+        partial_options["source_status"]["official_quote_match_coverage"] = 0.99
+        with self.assertRaisesRegex(ValueError, "incomplete official option coverage"):
+            build_history_record(partial_options)
+
+        empty_product = sample_radar("2026-08-07")
+        empty_product["products"]["HO"]["expiries"] = []
+        with self.assertRaisesRegex(ValueError, "no active HO expiries"):
+            build_history_record(empty_product)
+
+        incomplete_future = sample_radar("2026-08-07")
+        incomplete_future["futures"]["products"]["IH"]["status"] = "missing"
+        with self.assertRaisesRegex(ValueError, "incomplete IH futures data"):
+            build_history_record(incomplete_future)
+
+    def test_settlement_options_require_matching_settlement_linkage(self) -> None:
+        source = sample_radar("2026-08-07")
+        source["history_products"] = deepcopy(source["products"])
+        source["history_option_price_basis"] = "cffex_official_settlement_fallback_close"
+        with self.assertRaisesRegex(ValueError, "settlement-based futures linkage"):
+            build_history_record(source)
+
+        source["history_futures_option_linkage"] = deepcopy(
+            source["futures_option_linkage"]
+        )
+        record = build_history_record(source)
+        self.assertEqual(
+            record["futures_option_linkage"]["IF"]["matched_option_symbol"],
+            "IO2609",
+        )
+
     def test_non_finite_numbers_are_normalized_to_null(self) -> None:
         source = sample_radar("2026-08-07", atm_iv=math.nan)
         record = build_history_record(source)
@@ -131,11 +178,12 @@ class RadarHistoryTests(unittest.TestCase):
     def test_rebuild_skips_fresh_but_unverified_legacy_snapshots(self) -> None:
         fixture_dir = Path(__file__).parent / "fixtures" / "snapshots"
         records = rebuild_from_snapshots(fixture_dir)
-        self.assertEqual([item["date"] for item in records], ["2026-08-07"])
+        self.assertEqual(records, [])
 
     def test_rebuild_stops_after_retention_window(self) -> None:
         fixture_dir = Path(__file__).parent / "fixtures" / "bounded_snapshots"
-        records = rebuild_from_snapshots(fixture_dir, retention_sessions=2)
+        with patch("radar_history._validate_verified_sources"):
+            records = rebuild_from_snapshots(fixture_dir, retention_sessions=2)
         self.assertEqual([item["date"] for item in records], ["2026-08-09", "2026-08-10"])
 
     def test_rebuild_rejects_filename_date_mismatch(self) -> None:
@@ -203,6 +251,10 @@ class RadarHistoryTests(unittest.TestCase):
             patch("eod_enrich.SNAPSHOT_DIR", fixture_dir),
             patch("eod_enrich.LATEST_PATH") as latest_path,
             patch("eod_enrich.RADAR_LATEST_PATH") as radar_path,
+            patch(
+                "eod_enrich.is_verified_snapshot",
+                side_effect=lambda _snapshot, snapshot_date: snapshot_date == "2026-08-07",
+            ),
         ):
             restored = restore_latest_verified()
 
@@ -223,6 +275,8 @@ class RadarHistoryTests(unittest.TestCase):
         self.assertEqual(document["record_count"], 60)
         self.assertEqual(document["first_date"], "2026-01-02")
         self.assertEqual(document["latest_date"], "2026-03-02")
+        self.assertIsNone(document["records"][0]["previous_date"])
+        self.assertEqual(document["records"][1]["previous_date"], "2026-01-02")
 
     def test_strict_schema_rejects_missing_products_and_nonfinite_values(self) -> None:
         record = build_history_record(sample_radar("2026-08-07"))
