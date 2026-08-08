@@ -1,0 +1,19 @@
+{
+  "date": "2026-08-10",
+  "generated_at": "2026-08-10T15:55:00+08:00",
+  "data_fresh": true,
+  "previous_date": "2026-08-09",
+  "source_status": {
+    "option_chain": "ok",
+    "volume": "ok",
+    "official_eod": {"status": "ok", "trade_date": "20260810"},
+    "freshness": "fresh",
+    "freshness_method": "test fixture"
+  },
+  "products": {},
+  "futures": {
+    "source_status": {"status": "ok", "trade_date": "20260810", "records": 16},
+    "products": {}
+  },
+  "errors": []
+}

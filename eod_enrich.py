@@ -389,25 +389,58 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
             ]
         }
 
+    # Dated snapshots receive futures linkage after the EOD option pass. Preserve
+    # those blocks when a holiday/source failure restores the latest verified day.
+    if "futures" in result:
+        compact["futures"] = result["futures"]
+    if "futures_option_linkage" in result:
+        compact["futures_option_linkage"] = result["futures_option_linkage"]
+
     return compact
+
+
+def is_verified_snapshot(snapshot: Any, snapshot_date: str) -> bool:
+    if not isinstance(snapshot, dict):
+        return False
+    if snapshot.get("data_fresh") is not True or snapshot.get("date") != snapshot_date:
+        return False
+    source_status = snapshot.get("source_status")
+    if not isinstance(source_status, dict) or source_status.get("freshness") != "fresh":
+        return False
+    official = source_status.get("official_eod")
+    if not isinstance(official, dict) or official.get("status") != "ok":
+        return False
+    official_date = str(official.get("trade_date") or "").replace("-", "")
+    if official_date != snapshot_date.replace("-", ""):
+        return False
+    futures = snapshot.get("futures")
+    if not isinstance(futures, dict):
+        return False
+    futures_status = futures.get("source_status")
+    if not isinstance(futures_status, dict) or futures_status.get("status") != "ok":
+        return False
+    futures_date = str(futures_status.get("trade_date") or "").replace("-", "")
+    return futures_date == snapshot_date.replace("-", "")
 
 
 def restore_latest_verified() -> dict[str, Any] | None:
     snapshots = sorted(SNAPSHOT_DIR.glob("*.json"), reverse=True)
-    if not snapshots:
-        return None
-    try:
-        verified = json.loads(snapshots[0].read_text(encoding="utf-8"))
-        LATEST_PATH.write_text(
-            json.dumps(verified, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        RADAR_LATEST_PATH.write_text(
-            json.dumps(build_radar_summary(verified), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        return verified
-    except Exception:
-        return None
+    for snapshot in snapshots:
+        try:
+            verified = json.loads(snapshot.read_text(encoding="utf-8"))
+            if not is_verified_snapshot(verified, snapshot.stem):
+                continue
+            LATEST_PATH.write_text(
+                json.dumps(verified, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            RADAR_LATEST_PATH.write_text(
+                json.dumps(build_radar_summary(verified), ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            return verified
+        except Exception:
+            continue
+    return None
 
 
 def main() -> None:

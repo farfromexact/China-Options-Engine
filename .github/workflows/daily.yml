@@ -8,6 +8,9 @@ on:
       - "engine.py"
       - "eod_enrich.py"
       - "futures_link.py"
+      - "radar_history.py"
+      - "tests/**"
+      - "README.md"
       - "requirements.txt"
       - ".github/workflows/daily.yml"
   schedule:
@@ -18,6 +21,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: china-options-engine-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   run-engine:
@@ -36,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+
       - name: Collect option chains and calculate IV/Greeks
         env:
           RISK_FREE_RATE: "0.015"
@@ -49,6 +59,12 @@ jobs:
 
       - name: Link IH IF IC IM futures with HO IO MO option metrics
         run: python futures_link.py
+
+      - name: Update compact radar history
+        run: python radar_history.py
+
+      - name: Validate compact radar history
+        run: python radar_history.py --check
 
       - name: Commit data snapshot
         run: |
