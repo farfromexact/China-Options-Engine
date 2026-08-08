@@ -128,10 +128,15 @@ class RadarHistoryTests(unittest.TestCase):
         self.assertEqual([item["date"] for item in records], ["2026-08-07", "2026-08-08"])
         self.assertEqual(records[-1]["options"]["IO"]["expiries"][0]["metrics"]["atm_iv"], 0.23)
 
-    def test_rebuild_skips_stale_snapshots(self) -> None:
+    def test_rebuild_skips_fresh_but_unverified_legacy_snapshots(self) -> None:
         fixture_dir = Path(__file__).parent / "fixtures" / "snapshots"
         records = rebuild_from_snapshots(fixture_dir)
         self.assertEqual([item["date"] for item in records], ["2026-08-07"])
+
+    def test_rebuild_stops_after_retention_window(self) -> None:
+        fixture_dir = Path(__file__).parent / "fixtures" / "bounded_snapshots"
+        records = rebuild_from_snapshots(fixture_dir, retention_sessions=2)
+        self.assertEqual([item["date"] for item in records], ["2026-08-09", "2026-08-10"])
 
     def test_rebuild_rejects_filename_date_mismatch(self) -> None:
         fixture_dir = Path(__file__).parent / "fixtures" / "mismatched_snapshots"

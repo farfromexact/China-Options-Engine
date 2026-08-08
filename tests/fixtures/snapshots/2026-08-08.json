@@ -1,16 +1,16 @@
 {
   "date": "2026-08-08",
   "generated_at": "2026-08-08T15:55:00+08:00",
-  "data_fresh": false,
+  "data_fresh": true,
   "previous_date": "2026-08-07",
   "source_status": {
-    "option_chain": "stale",
+    "option_chain": "ok",
     "volume": "missing",
     "official_eod": {
       "status": "missing"
     },
-    "freshness": "stale",
-    "freshness_method": "test fixture"
+    "freshness": "fresh",
+    "freshness_method": "pre-EOD legacy test fixture"
   },
   "products": {},
   "errors": []

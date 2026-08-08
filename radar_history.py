@@ -107,6 +107,10 @@ RECORD_KEYS = (
 )
 
 
+class UnverifiedSnapshotError(ValueError):
+    """A dated snapshot is real JSON but not eligible for verified history."""
+
+
 def _mapping(value: Any) -> Mapping[str, Any]:
     return value if isinstance(value, Mapping) else {}
 
@@ -140,20 +144,26 @@ def _validate_verified_sources(source: Mapping[str, Any], market_date: str) -> N
     source_status = _mapping(source.get("source_status"))
     freshness = source_status.get("freshness")
     if freshness != "fresh":
-        raise ValueError(f"verified history snapshot has non-fresh source status: {freshness}")
+        raise UnverifiedSnapshotError(
+            f"verified history snapshot has non-fresh source status: {freshness}"
+        )
 
     raw_official = source_status.get("official_eod")
     if not isinstance(raw_official, Mapping):
-        raise ValueError("verified history snapshot is missing official EOD status")
+        raise UnverifiedSnapshotError("verified history snapshot is missing official EOD status")
     if raw_official.get("status") != "ok":
-        raise ValueError(
+        raise UnverifiedSnapshotError(
             f"verified history snapshot has invalid official EOD status: {raw_official.get('status')}"
         )
+    if not raw_official.get("trade_date"):
+        raise UnverifiedSnapshotError("verified history snapshot is missing official EOD trade date")
     _validate_trade_date(raw_official.get("trade_date"), market_date, "official EOD")
 
     futures_status = _mapping(_mapping(source.get("futures")).get("source_status"))
     if futures_status.get("status") != "ok":
-        raise ValueError("verified history snapshot is missing successful futures data")
+        raise UnverifiedSnapshotError("verified history snapshot is missing successful futures data")
+    if not futures_status.get("trade_date"):
+        raise UnverifiedSnapshotError("verified history snapshot is missing futures trade date")
     _validate_trade_date(futures_status.get("trade_date"), market_date, "futures")
 
 
@@ -412,19 +422,31 @@ def write_history(path: Path, document: dict[str, Any]) -> bool:
     return True
 
 
-def rebuild_from_snapshots(snapshot_dir: Path) -> list[dict[str, Any]]:
-    records: list[dict[str, Any]] = []
-    for path in sorted(snapshot_dir.glob("*.json")):
+def rebuild_from_snapshots(
+    snapshot_dir: Path, retention_sessions: int = DEFAULT_RETENTION_SESSIONS
+) -> list[dict[str, Any]]:
+    if retention_sessions <= 0:
+        raise ValueError("retention_sessions must be positive")
+    by_date: dict[str, dict[str, Any]] = {}
+    for path in sorted(snapshot_dir.glob("*.json"), reverse=True):
+        if len(by_date) >= retention_sessions:
+            break
         source = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(source, Mapping):
             raise ValueError(f"snapshot must contain a JSON object: {path}")
         if source.get("data_fresh") is not True:
             continue
-        record = build_history_record(source)
-        if record["date"] != path.stem:
+        market_date = _validated_date(source.get("date"))
+        if market_date != path.stem:
             raise ValueError(f"snapshot filename/date mismatch: {path}")
-        records = upsert_record(records, record)
-    return records
+        try:
+            record = build_history_record(source)
+        except UnverifiedSnapshotError:
+            # Legacy/pre-EOD files remain useful audit artifacts but must not
+            # block rebuilding the verified, fixed-size consumer history.
+            continue
+        by_date[market_date] = record
+    return [by_date[key] for key in sorted(by_date)]
 
 
 def parse_args() -> argparse.Namespace:
@@ -446,7 +468,7 @@ def main() -> None:
         print(json.dumps({"status": "ok", "record_count": len(records), "latest_date": document["latest_date"]}))
         return
 
-    records = rebuild_from_snapshots(args.snapshots)
+    records = rebuild_from_snapshots(args.snapshots, args.retention)
     if not records:
         raise RuntimeError("no verified snapshots are available to rebuild radar history")
 
