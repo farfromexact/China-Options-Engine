@@ -419,6 +419,7 @@ def main() -> None:
             }
         )
         print(json.dumps({"futures_linkage": "missing", "error": f"{type(exc).__name__}: {exc}"}, ensure_ascii=False))
+        raise
 
 
 if __name__ == "__main__":
