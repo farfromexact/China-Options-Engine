@@ -16,6 +16,7 @@
 
 - HO、IO、MO 最近四个到期月份的 ATM IV、25/10 Delta wings、RR25、BF25、PCR、成交、持仓和前三 Gamma 节点；
 - IH、IF、IC、IM 主力与下一合约、涨跌、成交、持仓和期限结构；
+- 自部署后的现金指数收盘、现金基差及代表 ETF 份额/净申赎估算；
 - 期指—期权同月份联动和 forward 差异；
 - 数据新鲜度、官方覆盖率、期指数据状态和错误清单。
 
@@ -80,6 +81,8 @@ python radar_history.py --check
 
 历史 CSV 不包含当时的 bid/ask 和盘口深度，因此 History 的 forward、IV、RR/BF 与 Gamma 统一使用 CFFEX 官方 EOD 结算价（无正结算价时回退正收盘价）重算。回填器也会为现有锚点补入独立的 `history_products`，保留原始实时盘口产品数据；后续日跑会继续生成同口径的 History 指标。`radar_latest.json` 仍保留当前盘口口径。
 
+现金市场字段采用向后兼容的 history schema：现有旧历史记录继续合法；下一次从 snapshots 重建后，每个期指摘要都会带现金指数/基差/ETF字段。部署前 snapshot 没有这些字段时对应值保持 `null`，不会伪造成 0；因此严格的 1/3/5/20 日现金基差或 ETF 份额比较，应从实际存在非空数据的日期开始计算。
+
 每条 History 记录都会明确写入 `data_quality.record_origin` 和 `data_quality.option_price_basis`。官方结算价口径的机器可读值为 `cffex_official_settlement_fallback_close`，不应把它误称为历史实时盘口中间价。
 
 网络会默认忽略机器上的 `HTTP_PROXY` / `HTTPS_PROXY`，避免失效的本地代理拖慢 CFFEX 请求。确实需要使用环境代理时设置 `CFFEX_TRUST_ENV=true`；公共现金市场层同理可通过 `PUBLIC_MARKET_TRUST_ENV=true` 显式允许环境代理。
@@ -89,11 +92,11 @@ python radar_history.py --check
 每日雷达建议固定读取：
 
 1. `data/radar_latest.json`：当前状态，包括 `futures.cash_market`、现金基差与代表 ETF 份额/流量估算；
-2. `data/radar_history.json`：1、3、5、20 个交易日的既有期权/期指历史比较；
+2. `data/radar_history.json`：1、3、5、20 个交易日比较；新现金市场字段同样在每个期指摘要内保留；
 3. `data/latest.json`：需要逐执行价或逐合约细节时；
-4. `data/snapshots/YYYY-MM-DD.json`：审计、复核、现金市场历史取值或历史重建时。
+4. `data/snapshots/YYYY-MM-DD.json`：审计、复核或历史重建时。
 
-历史期权记录应按 `symbol` 连接，不能只按“近月”位置连接，以免换月时把不同合约误当成连续序列。现金指数和 ETF 份额层自部署日起在 dated snapshot 中保留；如需严格 20D 现金基差/ETF 份额变化序列，应从这些 snapshots 按日期读取，不把部署前缺失值伪造为 0。
+历史期权记录应按 `symbol` 连接，不能只按“近月”位置连接，以免换月时把不同合约误当成连续序列。现金指数和 ETF 份额层自部署日起进入 dated snapshot 和后续重建的 `radar_history.json`；部署前缺失值必须保持 `null`。
 
 ## 验证
 
