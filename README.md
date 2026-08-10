@@ -1,10 +1,10 @@
 # China Options Engine
 
-中国股指期货、股指期权的日频数据和衍生指标层，覆盖 IH、IF、IC、IM 与 HO、IO、MO。
+中国股指期货、股指期权的日频数据和衍生指标层，覆盖 IH、IF、IC、IM 与 HO、IO、MO，并补充对应现金指数与代表性 ETF 的公开市场数据。
 
 ## 数据产物
 
-- `data/latest.json`：最新完整期权链、逐合约数据、IV 和 Greeks。
+- `data/latest.json`：最新完整期权链、逐合约数据、IV、Greeks、期指及现金市场联动。
 - `data/radar_latest.json`：供每日雷达读取的最新紧凑快照。
 - `data/radar_history.json`：按交易日整理的紧凑历史，供 Automation 和 Dashboard 做多期比较。
 - `data/snapshots/YYYY-MM-DD.json`：可审计、可回填的完整历史快照。
@@ -18,6 +18,38 @@
 - IH、IF、IC、IM 主力与下一合约、涨跌、成交、持仓和期限结构；
 - 期指—期权同月份联动和 forward 差异；
 - 数据新鲜度、官方覆盖率、期指数据状态和错误清单。
+
+## 现金指数、真基差与 ETF 份额层
+
+`futures_link.py` 在完成 CFFEX 期指解析后，会调用 `cash_market.py` 从零鉴权公开数据源补充：
+
+- `IH` ↔ 上证50（000016）↔ 50ETF（510050）；
+- `IF` ↔ 沪深300（000300）↔ 300ETF（510300）；
+- `IC` ↔ 中证500（000905）↔ 500ETF（510500）；
+- `IM` ↔ 中证1000（000852）↔ 中证1000ETF（512100）。
+
+当前公开源：
+
+- 腾讯公开行情接口：现金指数及 ETF 的收盘/最新价、前收、涨跌、成交额与时间戳；
+- 东方财富公开 quote 接口：代表 ETF 的总份额（优先 `f84`，缺失时显式回退 `f85`）。
+
+这些数据写入 `futures.cash_market`，同时每个期指产品摘要增加：
+
+- `cash_index_close`、`cash_index_change_pct`；
+- `cash_basis_points`、`cash_basis_pct`；
+- `annualized_cash_basis_pct_inferred`；
+- `reference_etf_total_shares`、`reference_etf_share_change`、`reference_etf_share_change_pct`；
+- `reference_etf_estimated_net_creation_redemption_cny`。
+
+这里的 `cash_basis` 才是“期指收盘价 - 对应现金指数收盘价”的真实现金基差；年化值只按主力合约日历 DTE 线性年化，**未做分红和融资成本调整**，不得误称为理论 fair-value basis。
+
+ETF “资金流”采用：
+
+`当日总份额变化 × ETF 当日市场收盘价`
+
+它是 **一级市场净申赎规模估算**，不是二级市场逐笔资金流；由于 ETF 申赎可包含实物证券，不能表述为精确现金进出。旧快照没有 ETF 份额字段时，部署后的第一个成功交易日只记录总份额，从第二个成功交易日起才会自然产生 `share_change` 与估算净申赎。
+
+公开现金市场源被临时封锁或不可用时，该层降级为 `partial/missing` 并记录错误，但不会破坏已经验证成功的 CFFEX 期权和期指日终产物。
 
 ## 历史更新与回填
 
@@ -50,18 +82,18 @@ python radar_history.py --check
 
 每条 History 记录都会明确写入 `data_quality.record_origin` 和 `data_quality.option_price_basis`。官方结算价口径的机器可读值为 `cffex_official_settlement_fallback_close`，不应把它误称为历史实时盘口中间价。
 
-网络会默认忽略机器上的 `HTTP_PROXY` / `HTTPS_PROXY`，避免失效的本地代理拖慢 CFFEX 请求。确实需要使用环境代理时设置 `CFFEX_TRUST_ENV=true`。
+网络会默认忽略机器上的 `HTTP_PROXY` / `HTTPS_PROXY`，避免失效的本地代理拖慢 CFFEX 请求。确实需要使用环境代理时设置 `CFFEX_TRUST_ENV=true`；公共现金市场层同理可通过 `PUBLIC_MARKET_TRUST_ENV=true` 显式允许环境代理。
 
 ## 消费端读取顺序
 
 每日雷达建议固定读取：
 
-1. `data/radar_latest.json`：当前状态；
-2. `data/radar_history.json`：1、3、5、20 个交易日比较；
+1. `data/radar_latest.json`：当前状态，包括 `futures.cash_market`、现金基差与代表 ETF 份额/流量估算；
+2. `data/radar_history.json`：1、3、5、20 个交易日的既有期权/期指历史比较；
 3. `data/latest.json`：需要逐执行价或逐合约细节时；
-4. `data/snapshots/YYYY-MM-DD.json`：审计、复核或历史重建时。
+4. `data/snapshots/YYYY-MM-DD.json`：审计、复核、现金市场历史取值或历史重建时。
 
-历史期权记录应按 `symbol` 连接，不能只按“近月”位置连接，以免换月时把不同合约误当成连续序列。
+历史期权记录应按 `symbol` 连接，不能只按“近月”位置连接，以免换月时把不同合约误当成连续序列。现金指数和 ETF 份额层自部署日起在 dated snapshot 中保留；如需严格 20D 现金基差/ETF 份额变化序列，应从这些 snapshots 按日期读取，不把部署前缺失值伪造为 0。
 
 ## 验证
 
