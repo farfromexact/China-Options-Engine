@@ -1,6 +1,6 @@
 {
   "date": "2026-08-10",
-  "generated_at": "2026-08-10T20:34:26.951229+08:00",
+  "generated_at": "2026-08-10T23:17:02.726959+08:00",
   "data_fresh": true,
   "source_status": {
     "option_chain": "ok",
@@ -67,6 +67,51 @@
         "涨跌2",
         "Delta"
       ]
+    },
+    "cash_market": {
+      "status": "partial",
+      "trade_date": "2026-08-10",
+      "quotes": {
+        "status": "ok",
+        "source": "Tencent public quote endpoint qt.gtimg.cn",
+        "records": 8,
+        "symbols": [
+          "sh000016",
+          "sh510050",
+          "sh000300",
+          "sh510300",
+          "sh000905",
+          "sh510500",
+          "sh000852",
+          "sh512100"
+        ]
+      },
+      "etf_shares": {
+        "510050": {
+          "status": "missing",
+          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+        },
+        "510300": {
+          "status": "missing",
+          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+        },
+        "510500": {
+          "status": "missing",
+          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+        },
+        "512100": {
+          "status": "missing",
+          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+        }
+      },
+      "index_close_coverage": 1.0,
+      "etf_share_coverage": 0.0,
+      "errors": [
+        "ETF 510050 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 510300 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 510500 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 512100 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+      ]
     }
   },
   "previous_date": "2026-08-07",
@@ -76,15 +121,15 @@
         {
           "symbol": "HO2608",
           "expiry": "2026-08-21",
-          "forward": 2956.7144881471936,
+          "forward": 2956.7153850487016,
           "metrics": {
-            "atm_iv": 0.1648404287187596,
-            "call25_iv": 0.16803952579383252,
-            "put25_iv": 0.17255894044970577,
-            "call10_iv": 0.19083476928103024,
-            "put10_iv": 0.1795207713566696,
-            "rr25": -0.004519414655873244,
-            "bf25": 0.005458804403009554,
+            "atm_iv": 0.16571062910933673,
+            "call25_iv": 0.16892556922358262,
+            "put25_iv": 0.1734718895778561,
+            "call10_iv": 0.19184212942450193,
+            "put10_iv": 0.1804703006944837,
+            "rr25": -0.004546320354273464,
+            "bf25": 0.005488100291382608,
             "call_oi": 22915.0,
             "put_oi": 17380.0,
             "pcr_oi": 0.7584551603753,
@@ -97,27 +142,27 @@
             "gamma_peaks": [
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 202989543.43261397
+                "abs_gamma_1pct": 202992318.6137675
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 183147404.82325277
+                "abs_gamma_1pct": 183150144.5333277
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 152124902.34075603
+                "abs_gamma_1pct": 152125810.00786978
               },
               {
                 "strike": 2850.0,
-                "abs_gamma_1pct": 73303754.19876772
+                "abs_gamma_1pct": 73301697.67677759
               },
               {
                 "strike": 3050.0,
-                "abs_gamma_1pct": 65445906.331161305
+                "abs_gamma_1pct": 65446877.24419785
               }
             ],
-            "atm_iv_change_1d": 0.011248126485058185,
-            "rr25_change_1d": -0.0032873884049622326,
+            "atm_iv_change_1d": 0.012118326875635327,
+            "rr25_change_1d": -0.003314294103362453,
             "pcr_oi_change_1d": 0.02708294189923799,
             "call_oi_change_1d": -813.0,
             "put_oi_change_1d": 26.0,
@@ -130,15 +175,15 @@
         {
           "symbol": "HO2609",
           "expiry": "2026-09-18",
-          "forward": 2937.2388778799527,
+          "forward": 2937.2384730659533,
           "metrics": {
-            "atm_iv": 0.16015287637088665,
-            "call25_iv": 0.16653106472120552,
-            "put25_iv": 0.16278132769989076,
-            "call10_iv": 0.19064691331186415,
-            "put10_iv": 0.17314587846296292,
-            "rr25": 0.0037497370213147585,
-            "bf25": 0.004503319839661485,
+            "atm_iv": 0.16038584224763114,
+            "call25_iv": 0.1667740915518595,
+            "put25_iv": 0.16301815809805467,
+            "call10_iv": 0.19092517149345217,
+            "put10_iv": 0.17339809043411014,
+            "rr25": 0.003755933453804816,
+            "bf25": 0.004510282577325941,
             "call_oi": 16276.0,
             "put_oi": 10632.0,
             "pcr_oi": 0.6532317522732858,
@@ -151,27 +196,27 @@
             "gamma_peaks": [
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 66353706.78579703
+                "abs_gamma_1pct": 66354302.54893957
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 62631385.921072885
+                "abs_gamma_1pct": 62631744.75234093
               },
               {
                 "strike": 2800.0,
-                "abs_gamma_1pct": 45675440.31266868
+                "abs_gamma_1pct": 45675814.07405582
               },
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 25936851.302679308
+                "abs_gamma_1pct": 25936919.756919593
               },
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 25192047.410076495
+                "abs_gamma_1pct": 25192238.40610904
               }
             ],
-            "atm_iv_change_1d": -0.001045465003881002,
-            "rr25_change_1d": 0.005036292087524902,
+            "atm_iv_change_1d": -0.0008124991271365178,
+            "rr25_change_1d": 0.005042488520014959,
             "pcr_oi_change_1d": -0.04524514844086447,
             "call_oi_change_1d": 453.0,
             "put_oi_change_1d": -420.0,
@@ -184,15 +229,15 @@
         {
           "symbol": "HO2610",
           "expiry": "2026-10-16",
-          "forward": 2921.28430965095,
+          "forward": 2921.284674914858,
           "metrics": {
-            "atm_iv": 0.15590439968010594,
-            "call25_iv": 0.16478130364862453,
-            "put25_iv": 0.16280196108745554,
-            "call10_iv": 0.18646258913718539,
-            "put10_iv": 0.17594754082107067,
-            "rr25": 0.001979342561168995,
-            "bf25": 0.007887232687934093,
+            "atm_iv": 0.1560356890745676,
+            "call25_iv": 0.16492018818110474,
+            "put25_iv": 0.1629396521139737,
+            "call10_iv": 0.18662006851657156,
+            "put10_iv": 0.17609645112084812,
+            "rr25": 0.001980536067131028,
+            "bf25": 0.007894231072971603,
             "call_oi": 979.0,
             "put_oi": 759.0,
             "pcr_oi": 0.7752808988764045,
@@ -205,27 +250,27 @@
             "gamma_peaks": [
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 3220212.656701338
+                "abs_gamma_1pct": 3220235.974781643
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 2861713.3575267503
+                "abs_gamma_1pct": 2861740.8727861308
               },
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 1745035.9851942617
+                "abs_gamma_1pct": 1745053.1641340712
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 1439539.261634282
+                "abs_gamma_1pct": 1439552.8111955975
               },
               {
                 "strike": 2750.0,
-                "abs_gamma_1pct": 1337990.5836246377
+                "abs_gamma_1pct": 1337995.4524018248
               }
             ],
-            "atm_iv_change_1d": -0.001409809641603782,
-            "rr25_change_1d": -0.004097927284186592,
+            "atm_iv_change_1d": -0.0012785202471421175,
+            "rr25_change_1d": -0.004096733778224559,
             "pcr_oi_change_1d": 0.03663195092513094,
             "call_oi_change_1d": 76.0,
             "put_oi_change_1d": 92.0,
@@ -238,15 +283,15 @@
         {
           "symbol": "HO2612",
           "expiry": "2026-12-18",
-          "forward": 2894.0043656239927,
+          "forward": 2894.0053215042,
           "metrics": {
-            "atm_iv": 0.16576018861813216,
-            "call25_iv": 0.17875615859692004,
-            "put25_iv": 0.16653266842415795,
-            "call10_iv": 0.22510671603316956,
-            "put10_iv": 0.1820082090990297,
-            "rr25": 0.012223490172762086,
-            "bf25": 0.006884224892406837,
+            "atm_iv": 0.16583156542413463,
+            "call25_iv": 0.17883311957594006,
+            "put25_iv": 0.166605230881936,
+            "call10_iv": 0.22520415674888944,
+            "put10_iv": 0.18208752841222287,
+            "rr25": 0.012227888694004069,
+            "bf25": 0.006887609804803407,
             "call_oi": 9596.0,
             "put_oi": 7388.0,
             "pcr_oi": 0.7699041267194664,
@@ -259,27 +304,27 @@
             "gamma_peaks": [
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 26529538.693256468
+                "abs_gamma_1pct": 26529823.36001207
               },
               {
                 "strike": 2800.0,
-                "abs_gamma_1pct": 20902353.682525486
+                "abs_gamma_1pct": 20902543.091874685
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 17901913.810395505
+                "abs_gamma_1pct": 17902083.879716884
               },
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 11051142.785049995
+                "abs_gamma_1pct": 11051249.15639746
               },
               {
                 "strike": 2700.0,
-                "abs_gamma_1pct": 10563934.17613132
+                "abs_gamma_1pct": 10564010.749095142
               }
             ],
-            "atm_iv_change_1d": -0.0023896637862453607,
-            "rr25_change_1d": 0.0004434877893686462,
+            "atm_iv_change_1d": -0.0023182869802428896,
+            "rr25_change_1d": 0.000447886310610629,
             "pcr_oi_change_1d": -0.004333374590668848,
             "call_oi_change_1d": 55.0,
             "put_oi_change_1d": 1.0,
@@ -296,15 +341,15 @@
         {
           "symbol": "IO2608",
           "expiry": "2026-08-21",
-          "forward": 4677.712260239766,
+          "forward": 4677.712131646744,
           "metrics": {
-            "atm_iv": 0.18398359061214703,
-            "call25_iv": 0.18583461233159546,
-            "put25_iv": 0.20198715858928262,
-            "call10_iv": 0.1953340148081917,
-            "put10_iv": 0.2184169413723107,
-            "rr25": -0.016152546257687167,
-            "bf25": 0.009927294848292023,
+            "atm_iv": 0.1849550005368374,
+            "call25_iv": 0.18681646556024328,
+            "put25_iv": 0.20305410437975566,
+            "call10_iv": 0.19636617076677593,
+            "put10_iv": 0.21957087023799166,
+            "rr25": -0.016237638819512373,
+            "bf25": 0.009980284433162068,
             "call_oi": 59338.0,
             "put_oi": 40802.0,
             "pcr_oi": 0.6876200748255755,
@@ -317,27 +362,27 @@
             "gamma_peaks": [
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 630515132.5132
+                "abs_gamma_1pct": 630520570.0599583
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 484708228.7754329
+                "abs_gamma_1pct": 484712777.2072825
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 447187877.10238254
+                "abs_gamma_1pct": 447190392.8950355
               },
               {
                 "strike": 4650.0,
-                "abs_gamma_1pct": 377728928.9622646
+                "abs_gamma_1pct": 377732424.73539186
               },
               {
                 "strike": 4750.0,
-                "abs_gamma_1pct": 340597310.61618984
+                "abs_gamma_1pct": 340599867.25216633
               }
             ],
-            "atm_iv_change_1d": 0.008066985754928091,
-            "rr25_change_1d": 0.0002154318484086093,
+            "atm_iv_change_1d": 0.00903839567961845,
+            "rr25_change_1d": 0.000130339286583403,
             "pcr_oi_change_1d": 0.006707953301019698,
             "call_oi_change_1d": 1144.0,
             "put_oi_change_1d": 1177.0,
@@ -350,15 +395,15 @@
         {
           "symbol": "IO2609",
           "expiry": "2026-09-18",
-          "forward": 4647.957960250553,
+          "forward": 4647.958665770245,
           "metrics": {
-            "atm_iv": 0.1827946352799102,
-            "call25_iv": 0.18347754941700586,
-            "put25_iv": 0.1898570671353654,
-            "call10_iv": 0.19500775976661777,
-            "put10_iv": 0.20839046777430584,
-            "rr25": -0.00637951771835954,
-            "bf25": 0.0038726729962754447,
+            "atm_iv": 0.18306055977507402,
+            "call25_iv": 0.18374457969747118,
+            "put25_iv": 0.19013411111905648,
+            "call10_iv": 0.19529190936809868,
+            "put10_iv": 0.20869461267212,
+            "rr25": -0.006389531421585298,
+            "bf25": 0.0038787856331898296,
             "call_oi": 38428.0,
             "put_oi": 25611.0,
             "pcr_oi": 0.6664671593629645,
@@ -371,27 +416,27 @@
             "gamma_peaks": [
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 188498111.87437087
+                "abs_gamma_1pct": 188500095.24462324
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 179394858.9915115
+                "abs_gamma_1pct": 179396535.39962664
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 136775343.94361708
+                "abs_gamma_1pct": 136776634.72219962
               },
               {
                 "strike": 4500.0,
-                "abs_gamma_1pct": 113955566.90237805
+                "abs_gamma_1pct": 113956431.52981094
               },
               {
                 "strike": 5000.0,
-                "abs_gamma_1pct": 86528391.53870441
+                "abs_gamma_1pct": 86528870.88030538
               }
             ],
-            "atm_iv_change_1d": -0.0049023306609984885,
-            "rr25_change_1d": 0.003822762390110951,
+            "atm_iv_change_1d": -0.004636406165834661,
+            "rr25_change_1d": 0.0038127486868851923,
             "pcr_oi_change_1d": -0.014007327550987658,
             "call_oi_change_1d": 1251.0,
             "put_oi_change_1d": 313.0,
@@ -404,15 +449,15 @@
         {
           "symbol": "IO2610",
           "expiry": "2026-10-16",
-          "forward": 4629.469732739417,
+          "forward": 4629.470292035235,
           "metrics": {
-            "atm_iv": 0.1737679588783346,
-            "call25_iv": 0.18359710157726652,
-            "put25_iv": 0.18516019676348267,
-            "call10_iv": 0.21259369284059776,
-            "put10_iv": 0.22736161316191444,
-            "rr25": -0.0015630951862161402,
-            "bf25": 0.01061069029204001,
+            "atm_iv": 0.1739142751616985,
+            "call25_iv": 0.1837519410438873,
+            "put25_iv": 0.18531676645222642,
+            "call10_iv": 0.21277325268019592,
+            "put10_iv": 0.22755397537493283,
+            "rr25": -0.0015648254083391044,
+            "bf25": 0.010620078586358384,
             "call_oi": 1939.0,
             "put_oi": 4852.0,
             "pcr_oi": 2.5023207839092314,
@@ -425,27 +470,27 @@
             "gamma_peaks": [
               {
                 "strike": 4200.0,
-                "abs_gamma_1pct": 9705721.426836329
+                "abs_gamma_1pct": 9705507.28911386
               },
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 8230535.02132302
+                "abs_gamma_1pct": 8230617.108153141
               },
               {
                 "strike": 4350.0,
-                "abs_gamma_1pct": 6929328.739358121
+                "abs_gamma_1pct": 6929358.141953963
               },
               {
                 "strike": 4650.0,
-                "abs_gamma_1pct": 6788392.330979041
+                "abs_gamma_1pct": 6788457.959725941
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 6771143.382435622
+                "abs_gamma_1pct": 6771210.292940438
               }
             ],
-            "atm_iv_change_1d": -0.0054187363717204395,
-            "rr25_change_1d": 0.003292683141960462,
+            "atm_iv_change_1d": -0.005272420088356544,
+            "rr25_change_1d": 0.0032909529198374976,
             "pcr_oi_change_1d": 0.14079061149543826,
             "call_oi_change_1d": 83.0,
             "put_oi_change_1d": 469.0,
@@ -458,15 +503,15 @@
         {
           "symbol": "IO2612",
           "expiry": "2026-12-18",
-          "forward": 4574.226663920752,
+          "forward": 4574.225855457892,
           "metrics": {
-            "atm_iv": 0.17737891333533598,
-            "call25_iv": 0.19964241105209735,
-            "put25_iv": 0.18386632812550327,
-            "call10_iv": 0.24275901402424052,
-            "put10_iv": 0.21873981583775182,
-            "rr25": 0.015776082926594076,
-            "bf25": 0.014375456253464342,
+            "atm_iv": 0.17745530796782316,
+            "call25_iv": 0.19972915112792636,
+            "put25_iv": 0.18394568359191601,
+            "call10_iv": 0.24286458709557218,
+            "put10_iv": 0.21883458693078975,
+            "rr25": 0.015783467536010343,
+            "bf25": 0.014382109392098025,
             "call_oi": 18075.0,
             "put_oi": 11009.0,
             "pcr_oi": 0.6090733056708161,
@@ -479,27 +524,27 @@
             "gamma_peaks": [
               {
                 "strike": 4500.0,
-                "abs_gamma_1pct": 47126624.81778273
+                "abs_gamma_1pct": 47127050.88623413
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 38069954.6343925
+                "abs_gamma_1pct": 38070294.84577883
               },
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 35691751.99811274
+                "abs_gamma_1pct": 35692040.9521344
               },
               {
                 "strike": 5000.0,
-                "abs_gamma_1pct": 30329626.954877578
+                "abs_gamma_1pct": 30329771.484803114
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 27477969.43498256
+                "abs_gamma_1pct": 27478175.521995213
               }
             ],
-            "atm_iv_change_1d": -0.003601333659610101,
-            "rr25_change_1d": 0.00393371963292935,
+            "atm_iv_change_1d": -0.0035249390271229197,
+            "rr25_change_1d": 0.003941104242345617,
             "pcr_oi_change_1d": 0.0016699907536890102,
             "call_oi_change_1d": -25.0,
             "put_oi_change_1d": 15.0,
@@ -516,15 +561,15 @@
         {
           "symbol": "MO2608",
           "expiry": "2026-08-21",
-          "forward": 7687.961950585453,
+          "forward": 7687.963398533592,
           "metrics": {
-            "atm_iv": 0.2925059050866271,
-            "call25_iv": 0.28966677167030064,
-            "put25_iv": 0.308212655707102,
-            "call10_iv": 0.2912485879995648,
-            "put10_iv": 0.31858516620923305,
-            "rr25": -0.018545884036801352,
-            "bf25": 0.006433808602074209,
+            "atm_iv": 0.2940503699714861,
+            "call25_iv": 0.2911962131036762,
+            "put25_iv": 0.30984167289336584,
+            "call10_iv": 0.2927867700263915,
+            "put10_iv": 0.320269028367455,
+            "rr25": -0.018645459789689622,
+            "bf25": 0.006468573027034907,
             "call_oi": 136268.0,
             "put_oi": 100383.0,
             "pcr_oi": 0.7366586432618076,
@@ -537,27 +582,27 @@
             "gamma_peaks": [
               {
                 "strike": 7500.0,
-                "abs_gamma_1pct": 896529274.278919
+                "abs_gamma_1pct": 896537912.7925909
               },
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 729028569.2857481
+                "abs_gamma_1pct": 729035474.3897415
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 720489037.7068666
+                "abs_gamma_1pct": 720497041.4304361
               },
               {
                 "strike": 7700.0,
-                "abs_gamma_1pct": 686234663.5666785
+                "abs_gamma_1pct": 686242612.6728308
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 631730145.9969307
+                "abs_gamma_1pct": 631736783.0946527
               }
             ],
-            "atm_iv_change_1d": 0.020726086868609606,
-            "rr25_change_1d": -0.008232712895690886,
+            "atm_iv_change_1d": 0.022270551753468593,
+            "rr25_change_1d": -0.008332288648579156,
             "pcr_oi_change_1d": 0.019441300653932125,
             "call_oi_change_1d": 556.0,
             "put_oi_change_1d": 3048.0,
@@ -570,15 +615,15 @@
         {
           "symbol": "MO2609",
           "expiry": "2026-09-18",
-          "forward": 7614.9237575248135,
+          "forward": 7614.923688274199,
           "metrics": {
-            "atm_iv": 0.276528286125449,
-            "call25_iv": 0.27571089914476077,
-            "put25_iv": 0.29165938155370524,
-            "call10_iv": 0.29439136790562753,
-            "put10_iv": 0.32942975312363854,
-            "rr25": -0.015948482408944475,
-            "bf25": 0.007156854223783982,
+            "atm_iv": 0.27693058837270557,
+            "call25_iv": 0.2761127214923891,
+            "put25_iv": 0.2920843355647343,
+            "call10_iv": 0.29482070279595274,
+            "put10_iv": 0.32991008691805984,
+            "rr25": -0.015971614072345208,
+            "bf25": 0.00716794015585609,
             "call_oi": 78444.0,
             "put_oi": 55451.0,
             "pcr_oi": 0.7068864412829534,
@@ -591,27 +636,27 @@
             "gamma_peaks": [
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 449503554.1614789
+                "abs_gamma_1pct": 449507034.37520516
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 242685364.8661851
+                "abs_gamma_1pct": 242687617.98443377
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 193888585.4659568
+                "abs_gamma_1pct": 193890319.6847584
               },
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 181935370.64420992
+                "abs_gamma_1pct": 181937007.61949992
               },
               {
                 "strike": 7200.0,
-                "abs_gamma_1pct": 171726825.3829302
+                "abs_gamma_1pct": 171728300.39147034
               }
             ],
-            "atm_iv_change_1d": 0.001144379222191294,
-            "rr25_change_1d": 0.005283716312100728,
+            "atm_iv_change_1d": 0.0015466814694478637,
+            "rr25_change_1d": 0.005260584648699995,
             "pcr_oi_change_1d": 0.0026847825275415627,
             "call_oi_change_1d": 1760.0,
             "put_oi_change_1d": 1450.0,
@@ -624,15 +669,15 @@
         {
           "symbol": "MO2610",
           "expiry": "2026-10-16",
-          "forward": 7576.487549314608,
+          "forward": 7576.488586477984,
           "metrics": {
-            "atm_iv": 0.2588968944244058,
-            "call25_iv": 0.25852191113121514,
-            "put25_iv": 0.278201932206786,
-            "call10_iv": 0.2721548279703057,
-            "put10_iv": 0.3206633283433863,
-            "rr25": -0.019680021075570875,
-            "bf25": 0.009465027244594804,
+            "atm_iv": 0.25911487551061013,
+            "call25_iv": 0.2587399923538237,
+            "put25_iv": 0.2784371031974524,
+            "call10_iv": 0.2723845889687801,
+            "put10_iv": 0.3209345785704182,
+            "rr25": -0.019697110843628685,
+            "bf25": 0.009473672265027933,
             "call_oi": 4620.0,
             "put_oi": 7504.0,
             "pcr_oi": 1.6242424242424243,
@@ -645,27 +690,27 @@
             "gamma_peaks": [
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 23823371.759982035
+                "abs_gamma_1pct": 23823612.121536355
               },
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 22067183.2685046
+                "abs_gamma_1pct": 22067367.63783572
               },
               {
                 "strike": 6200.0,
-                "abs_gamma_1pct": 15055300.484824061
+                "abs_gamma_1pct": 15055337.640455147
               },
               {
                 "strike": 7000.0,
-                "abs_gamma_1pct": 14916803.691364508
+                "abs_gamma_1pct": 14916896.157512564
               },
               {
                 "strike": 7200.0,
-                "abs_gamma_1pct": 14084205.311332282
+                "abs_gamma_1pct": 14084329.800564522
               }
             ],
-            "atm_iv_change_1d": 0.0018469864678711811,
-            "rr25_change_1d": -0.008935931749563086,
+            "atm_iv_change_1d": 0.0020649675540755363,
+            "rr25_change_1d": -0.008953021517620896,
             "pcr_oi_change_1d": -0.08535718984344154,
             "call_oi_change_1d": 474.0,
             "put_oi_change_1d": 416.0,
@@ -678,15 +723,15 @@
         {
           "symbol": "MO2612",
           "expiry": "2026-12-18",
-          "forward": 7432.481524620517,
+          "forward": 7432.484158072821,
           "metrics": {
-            "atm_iv": 0.25781737481221484,
-            "call25_iv": 0.26526479290242383,
-            "put25_iv": 0.2721838850394838,
-            "call10_iv": 0.3068928472648637,
-            "put10_iv": 0.2971625450401619,
-            "rr25": -0.00691909213705999,
-            "bf25": 0.010906964158738985,
+            "atm_iv": 0.25792843054992676,
+            "call25_iv": 0.2653792879783043,
+            "put25_iv": 0.2723021839172936,
+            "call10_iv": 0.30702576745424615,
+            "put10_iv": 0.2972918158555341,
+            "rr25": -0.006922895938989315,
+            "bf25": 0.01091230539787219,
             "call_oi": 33951.0,
             "put_oi": 22270.0,
             "pcr_oi": 0.6559453329798828,
@@ -699,27 +744,27 @@
             "gamma_peaks": [
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 84713147.68471636
+                "abs_gamma_1pct": 84713966.805722
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 76579325.29039098
+                "abs_gamma_1pct": 76580083.22834185
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 64049446.26514532
+                "abs_gamma_1pct": 64050078.43338704
               },
               {
                 "strike": 8600.0,
-                "abs_gamma_1pct": 60692443.39625198
+                "abs_gamma_1pct": 60692918.3763227
               },
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 59264039.59760144
+                "abs_gamma_1pct": 59264596.30003701
               }
             ],
-            "atm_iv_change_1d": -0.003347481753713577,
-            "rr25_change_1d": -0.0113006769298451,
+            "atm_iv_change_1d": -0.003236426016001659,
+            "rr25_change_1d": -0.011304480731774424,
             "pcr_oi_change_1d": -0.0018529406396040615,
             "call_oi_change_1d": 123.0,
             "put_oi_change_1d": 18.0,
@@ -755,6 +800,210 @@
         "涨跌1",
         "涨跌2",
         "Delta"
+      ]
+    },
+    "cash_market": {
+      "trade_date": "2026-08-10",
+      "generated_at": "2026-08-10T23:17:31.004404+08:00",
+      "status": "partial",
+      "indices": {
+        "000016": {
+          "future_product": "IH",
+          "code": "000016",
+          "name": "上证50",
+          "symbol": "sh000016",
+          "close": 2967.73,
+          "previous_close": 2960.42,
+          "open": 2963.24,
+          "high": 2980.64,
+          "low": 2954.62,
+          "change_amount": 7.31,
+          "change_pct": 0.0025,
+          "turnover_cny": 209769470000.0,
+          "quote_timestamp_raw": "20260810161402"
+        },
+        "000300": {
+          "future_product": "IF",
+          "code": "000300",
+          "name": "沪深300",
+          "symbol": "sh000300",
+          "close": 4702.02,
+          "previous_close": 4694.44,
+          "open": 4698.82,
+          "high": 4714.46,
+          "low": 4659.47,
+          "change_amount": 7.58,
+          "change_pct": 0.0016,
+          "turnover_cny": 733103400000.0,
+          "quote_timestamp_raw": "20260810161414"
+        },
+        "000905": {
+          "future_product": "IC",
+          "code": "000905",
+          "name": "中证500",
+          "symbol": "sh000905",
+          "close": 8030.95,
+          "previous_close": 7980.12,
+          "open": 8003.92,
+          "high": 8031.16,
+          "low": 7910.84,
+          "change_amount": 50.83,
+          "change_pct": 0.0064,
+          "turnover_cny": 490434040000.0,
+          "quote_timestamp_raw": "20260810161414"
+        },
+        "000852": {
+          "future_product": "IM",
+          "code": "000852",
+          "name": "中证1000",
+          "symbol": "sh000852",
+          "close": 7733.9,
+          "previous_close": 7679.53,
+          "open": 7723.38,
+          "high": 7736.1,
+          "low": 7621.65,
+          "change_amount": 54.37,
+          "change_pct": 0.0070999999999999995,
+          "turnover_cny": 529904420000.0,
+          "quote_timestamp_raw": "20260810161402"
+        }
+      },
+      "reference_etfs": {
+        "510050": {
+          "future_product": "IH",
+          "code": "510050",
+          "name": "上证50ETF华夏",
+          "symbol": "sh510050",
+          "close": 3.075,
+          "previous_close": 3.066,
+          "open": 3.069,
+          "high": 3.088,
+          "low": 3.063,
+          "change_amount": 0.009,
+          "change_pct": 0.0029,
+          "turnover_cny": 987200000.0,
+          "quote_timestamp_raw": "20260810161454",
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
+          "flow_method": "daily total-share change * ETF market close",
+          "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
+          "nav": null,
+          "nav_status": "not_required_for_flow; market close proxy used"
+        },
+        "510300": {
+          "future_product": "IF",
+          "code": "510300",
+          "name": "沪深300ETF华泰柏瑞",
+          "symbol": "sh510300",
+          "close": 4.759,
+          "previous_close": 4.751,
+          "open": 4.755,
+          "high": 4.772,
+          "low": 4.72,
+          "change_amount": 0.008,
+          "change_pct": 0.0017000000000000001,
+          "turnover_cny": 2663760000.0,
+          "quote_timestamp_raw": "20260810161441",
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
+          "flow_method": "daily total-share change * ETF market close",
+          "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
+          "nav": null,
+          "nav_status": "not_required_for_flow; market close proxy used"
+        },
+        "510500": {
+          "future_product": "IC",
+          "code": "510500",
+          "name": "中证500ETF南方",
+          "symbol": "sh510500",
+          "close": 8.037,
+          "previous_close": 7.987,
+          "open": 8.002,
+          "high": 8.04,
+          "low": 7.922,
+          "change_amount": 0.05,
+          "change_pct": 0.0063,
+          "turnover_cny": 2574610000.0,
+          "quote_timestamp_raw": "20260810161458",
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
+          "flow_method": "daily total-share change * ETF market close",
+          "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
+          "nav": null,
+          "nav_status": "not_required_for_flow; market close proxy used"
+        },
+        "512100": {
+          "future_product": "IM",
+          "code": "512100",
+          "name": "中证1000ETF南方",
+          "symbol": "sh512100",
+          "close": 3.129,
+          "previous_close": 3.111,
+          "open": 3.118,
+          "high": 3.132,
+          "low": 3.089,
+          "change_amount": 0.018,
+          "change_pct": 0.0058,
+          "turnover_cny": 4612480000.0,
+          "quote_timestamp_raw": "20260810161447",
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
+          "flow_method": "daily total-share change * ETF market close",
+          "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
+          "nav": null,
+          "nav_status": "not_required_for_flow; market close proxy used"
+        }
+      },
+      "source_status": {
+        "quotes": {
+          "status": "ok",
+          "source": "Tencent public quote endpoint qt.gtimg.cn",
+          "records": 8,
+          "symbols": [
+            "sh000016",
+            "sh510050",
+            "sh000300",
+            "sh510300",
+            "sh000905",
+            "sh510500",
+            "sh000852",
+            "sh512100"
+          ]
+        },
+        "etf_shares": {
+          "510050": {
+            "status": "missing",
+            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          },
+          "510300": {
+            "status": "missing",
+            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          },
+          "510500": {
+            "status": "missing",
+            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          },
+          "512100": {
+            "status": "missing",
+            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          }
+        },
+        "index_close_coverage": 1.0,
+        "etf_share_coverage": 0.0
+      },
+      "errors": [
+        "ETF 510050 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 510300 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 510500 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+        "ETF 512100 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
       ]
     },
     "products": {
@@ -914,7 +1163,24 @@
             "oi_change": -117.0,
             "oi_change_pct": -0.02635728767740482
           }
-        ]
+        ],
+        "cash_index_code": "000016",
+        "cash_index_name": "SSE50",
+        "cash_index_close": 2967.73,
+        "cash_index_change_pct": 0.0025,
+        "cash_index_turnover_cny": 209769470000.0,
+        "cash_basis_points": -31.730000000000018,
+        "cash_basis_pct": -0.010691673433904033,
+        "annualized_cash_basis_pct_inferred": -0.10006309752243518,
+        "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+        "reference_etf_code": "510050",
+        "reference_etf_close": 3.075,
+        "reference_etf_total_shares": null,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
+        "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IF": {
         "product": "IF",
@@ -1072,7 +1338,24 @@
             "oi_change": 652.0,
             "oi_change_pct": 0.032227769264989374
           }
-        ]
+        ],
+        "cash_index_code": "000300",
+        "cash_index_name": "CSI300",
+        "cash_index_close": 4702.02,
+        "cash_index_change_pct": 0.0016,
+        "cash_index_turnover_cny": 733103400000.0,
+        "cash_basis_points": -57.42000000000007,
+        "cash_basis_pct": -0.012211772812535902,
+        "annualized_cash_basis_pct_inferred": -0.1142896686301437,
+        "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+        "reference_etf_code": "510300",
+        "reference_etf_close": 4.759,
+        "reference_etf_total_shares": null,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
+        "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IC": {
         "product": "IC",
@@ -1230,7 +1513,24 @@
             "oi_change": 446.0,
             "oi_change_pct": 0.02357543080663918
           }
-        ]
+        ],
+        "cash_index_code": "000905",
+        "cash_index_name": "CSI500",
+        "cash_index_close": 8030.95,
+        "cash_index_change_pct": 0.0064,
+        "cash_index_turnover_cny": 490434040000.0,
+        "cash_basis_points": -149.55000000000018,
+        "cash_basis_pct": -0.018621707269999215,
+        "annualized_cash_basis_pct_inferred": -0.17428008086024907,
+        "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+        "reference_etf_code": "510500",
+        "reference_etf_close": 8.037,
+        "reference_etf_total_shares": null,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
+        "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IM": {
         "product": "IM",
@@ -1388,7 +1688,24 @@
             "oi_change": 692.0,
             "oi_change_pct": 0.017540746749131836
           }
-        ]
+        ],
+        "cash_index_code": "000852",
+        "cash_index_name": "CSI1000",
+        "cash_index_close": 7733.9,
+        "cash_index_change_pct": 0.0070999999999999995,
+        "cash_index_turnover_cny": 529904420000.0,
+        "cash_basis_points": -126.69999999999982,
+        "cash_basis_pct": -0.016382420253688284,
+        "annualized_cash_basis_pct_inferred": -0.15332265109221085,
+        "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+        "reference_etf_code": "512100",
+        "reference_etf_close": 3.129,
+        "reference_etf_total_shares": null,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
+        "reference_etf_flow_method": "daily total-share change * ETF market close"
       }
     },
     "cross_section": {
@@ -1439,7 +1756,38 @@
           "oi_change": -7585.0,
           "oi_change_pct": -0.05022580089790621
         }
-      ]
+      ],
+      "cash_basis_rank": [
+        {
+          "product": "IH",
+          "main_symbol": "IH2609",
+          "cash_index_code": "000016",
+          "cash_basis_pct": -0.010691673433904033,
+          "annualized_cash_basis_pct_inferred": -0.10006309752243518
+        },
+        {
+          "product": "IF",
+          "main_symbol": "IF2609",
+          "cash_index_code": "000300",
+          "cash_basis_pct": -0.012211772812535902,
+          "annualized_cash_basis_pct_inferred": -0.1142896686301437
+        },
+        {
+          "product": "IM",
+          "main_symbol": "IM2609",
+          "cash_index_code": "000852",
+          "cash_basis_pct": -0.016382420253688284,
+          "annualized_cash_basis_pct_inferred": -0.15332265109221085
+        },
+        {
+          "product": "IC",
+          "main_symbol": "IC2609",
+          "cash_index_code": "000905",
+          "cash_basis_pct": -0.018621707269999215,
+          "annualized_cash_basis_pct_inferred": -0.17428008086024907
+        }
+      ],
+      "etf_share_change_rank": []
     }
   },
   "futures_option_linkage": {
@@ -1467,17 +1815,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "HO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 2937.2388778799527,
-      "future_minus_option_forward_points": -1.2388778799527245,
-      "future_minus_option_forward_pct": -0.00042178315467719966,
+      "option_forward": 2937.2384730659533,
+      "future_minus_option_forward_points": -1.238473065953258,
+      "future_minus_option_forward_pct": -0.00042164539151651274,
       "option_metrics": {
-        "atm_iv": 0.16015287637088665,
-        "call25_iv": 0.16653106472120552,
-        "put25_iv": 0.16278132769989076,
-        "call10_iv": 0.19064691331186415,
-        "put10_iv": 0.17314587846296292,
-        "rr25": 0.0037497370213147585,
-        "bf25": 0.004503319839661485,
+        "atm_iv": 0.16038584224763114,
+        "call25_iv": 0.1667740915518595,
+        "put25_iv": 0.16301815809805467,
+        "call10_iv": 0.19092517149345217,
+        "put10_iv": 0.17339809043411014,
+        "rr25": 0.003755933453804816,
+        "bf25": 0.004510282577325941,
         "pcr_oi": 0.6532317522732858,
         "pcr_volume": 0.7993939393939394,
         "call_oi": 16276.0,
@@ -1489,27 +1837,27 @@
         "gamma_peaks": [
           {
             "strike": 2900.0,
-            "abs_gamma_1pct": 66353706.78579703
+            "abs_gamma_1pct": 66354302.54893957
           },
           {
             "strike": 3000.0,
-            "abs_gamma_1pct": 62631385.921072885
+            "abs_gamma_1pct": 62631744.75234093
           },
           {
             "strike": 2800.0,
-            "abs_gamma_1pct": 45675440.31266868
+            "abs_gamma_1pct": 45675814.07405582
           },
           {
             "strike": 3100.0,
-            "abs_gamma_1pct": 25936851.302679308
+            "abs_gamma_1pct": 25936919.756919593
           },
           {
             "strike": 2950.0,
-            "abs_gamma_1pct": 25192047.410076495
+            "abs_gamma_1pct": 25192238.40610904
           }
         ],
-        "atm_iv_change_1d": -0.001045465003881002,
-        "rr25_change_1d": 0.005036292087524902,
+        "atm_iv_change_1d": -0.0008124991271365178,
+        "rr25_change_1d": 0.005042488520014959,
         "pcr_oi_change_1d": -0.04524514844086447,
         "pcr_volume_change_1d": 0.13672351156131135,
         "gamma_peak_change_1d": 0.0
@@ -1539,17 +1887,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "IO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 4647.957960250553,
-      "future_minus_option_forward_points": -3.3579602505524235,
-      "future_minus_option_forward_pct": -0.0007224592561442637,
+      "option_forward": 4647.958665770245,
+      "future_minus_option_forward_points": -3.3586657702444427,
+      "future_minus_option_forward_pct": -0.0007226109377820501,
       "option_metrics": {
-        "atm_iv": 0.1827946352799102,
-        "call25_iv": 0.18347754941700586,
-        "put25_iv": 0.1898570671353654,
-        "call10_iv": 0.19500775976661777,
-        "put10_iv": 0.20839046777430584,
-        "rr25": -0.00637951771835954,
-        "bf25": 0.0038726729962754447,
+        "atm_iv": 0.18306055977507402,
+        "call25_iv": 0.18374457969747118,
+        "put25_iv": 0.19013411111905648,
+        "call10_iv": 0.19529190936809868,
+        "put10_iv": 0.20869461267212,
+        "rr25": -0.006389531421585298,
+        "bf25": 0.0038787856331898296,
         "pcr_oi": 0.6664671593629645,
         "pcr_volume": 0.5430861723446894,
         "call_oi": 38428.0,
@@ -1561,27 +1909,27 @@
         "gamma_peaks": [
           {
             "strike": 4700.0,
-            "abs_gamma_1pct": 188498111.87437087
+            "abs_gamma_1pct": 188500095.24462324
           },
           {
             "strike": 4600.0,
-            "abs_gamma_1pct": 179394858.9915115
+            "abs_gamma_1pct": 179396535.39962664
           },
           {
             "strike": 4800.0,
-            "abs_gamma_1pct": 136775343.94361708
+            "abs_gamma_1pct": 136776634.72219962
           },
           {
             "strike": 4500.0,
-            "abs_gamma_1pct": 113955566.90237805
+            "abs_gamma_1pct": 113956431.52981094
           },
           {
             "strike": 5000.0,
-            "abs_gamma_1pct": 86528391.53870441
+            "abs_gamma_1pct": 86528870.88030538
           }
         ],
-        "atm_iv_change_1d": -0.0049023306609984885,
-        "rr25_change_1d": 0.003822762390110951,
+        "atm_iv_change_1d": -0.004636406165834661,
+        "rr25_change_1d": 0.0038127486868851923,
         "pcr_oi_change_1d": -0.014007327550987658,
         "pcr_volume_change_1d": -0.004442664903774096,
         "gamma_peak_change_1d": 0.0
@@ -1640,17 +1988,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "MO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 7614.9237575248135,
-      "future_minus_option_forward_points": -7.723757524813664,
-      "future_minus_option_forward_pct": -0.0010142921676899658,
+      "option_forward": 7614.923688274199,
+      "future_minus_option_forward_points": -7.7236882741990485,
+      "future_minus_option_forward_pct": -0.0010142830828485294,
       "option_metrics": {
-        "atm_iv": 0.276528286125449,
-        "call25_iv": 0.27571089914476077,
-        "put25_iv": 0.29165938155370524,
-        "call10_iv": 0.29439136790562753,
-        "put10_iv": 0.32942975312363854,
-        "rr25": -0.015948482408944475,
-        "bf25": 0.007156854223783982,
+        "atm_iv": 0.27693058837270557,
+        "call25_iv": 0.2761127214923891,
+        "put25_iv": 0.2920843355647343,
+        "call10_iv": 0.29482070279595274,
+        "put10_iv": 0.32991008691805984,
+        "rr25": -0.015971614072345208,
+        "bf25": 0.00716794015585609,
         "pcr_oi": 0.7068864412829534,
         "pcr_volume": 0.6569755193190916,
         "call_oi": 78444.0,
@@ -1662,27 +2010,27 @@
         "gamma_peaks": [
           {
             "strike": 8000.0,
-            "abs_gamma_1pct": 449503554.1614789
+            "abs_gamma_1pct": 449507034.37520516
           },
           {
             "strike": 7600.0,
-            "abs_gamma_1pct": 242685364.8661851
+            "abs_gamma_1pct": 242687617.98443377
           },
           {
             "strike": 7800.0,
-            "abs_gamma_1pct": 193888585.4659568
+            "abs_gamma_1pct": 193890319.6847584
           },
           {
             "strike": 7400.0,
-            "abs_gamma_1pct": 181935370.64420992
+            "abs_gamma_1pct": 181937007.61949992
           },
           {
             "strike": 7200.0,
-            "abs_gamma_1pct": 171726825.3829302
+            "abs_gamma_1pct": 171728300.39147034
           }
         ],
-        "atm_iv_change_1d": 0.001144379222191294,
-        "rr25_change_1d": 0.005283716312100728,
+        "atm_iv_change_1d": 0.0015466814694478637,
+        "rr25_change_1d": 0.005260584648699995,
         "pcr_oi_change_1d": 0.0026847825275415627,
         "pcr_volume_change_1d": 0.027071023911828362,
         "gamma_peak_change_1d": 0.0

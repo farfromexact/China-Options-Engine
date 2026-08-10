@@ -1,6 +1,6 @@
 {
   "run_date": "2026-08-10",
-  "generated_at": "2026-08-10T20:34:52.297337+08:00",
+  "generated_at": "2026-08-10T23:17:24.163039+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
@@ -54,6 +54,13 @@
       "IF": "IO",
       "IM": "MO"
     },
-    "IC_note": "no direct CFFEX CSI 500 index option; proxy only"
+    "IC_note": "no direct CFFEX CSI 500 index option; proxy only",
+    "cash_market_status": "partial",
+    "cash_market_errors": [
+      "ETF 510050 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+      "ETF 510300 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+      "ETF 510500 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
+      "ETF 512100 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+    ]
   }
 }
