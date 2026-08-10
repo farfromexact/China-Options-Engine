@@ -1,6 +1,6 @@
 {
   "date": "2026-08-10",
-  "generated_at": "2026-08-10T23:25:03.929548+08:00",
+  "generated_at": "2026-08-10T23:34:16.215956+08:00",
   "data_fresh": true,
   "source_status": {
     "option_chain": "ok",
@@ -69,7 +69,7 @@
       ]
     },
     "cash_market": {
-      "status": "partial",
+      "status": "ok",
       "trade_date": "2026-08-10",
       "quotes": {
         "status": "ok",
@@ -88,30 +88,33 @@
       },
       "etf_shares": {
         "510050": {
-          "status": "missing",
-          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          "status": "ok",
+          "source": "Tencent extended ETF quote fields",
+          "share_field": "tencent_extended_72",
+          "market_cap_crosscheck_pct": 4.457397812407393e-06
         },
         "510300": {
-          "status": "missing",
-          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          "status": "ok",
+          "source": "Tencent extended ETF quote fields",
+          "share_field": "tencent_extended_72",
+          "market_cap_crosscheck_pct": 3.3154512566468952e-06
         },
         "510500": {
-          "status": "missing",
-          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          "status": "ok",
+          "source": "Tencent extended ETF quote fields",
+          "share_field": "tencent_extended_72",
+          "market_cap_crosscheck_pct": -2.3873539231056284e-06
         },
         "512100": {
-          "status": "missing",
-          "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+          "status": "ok",
+          "source": "Tencent extended ETF quote fields",
+          "share_field": "tencent_extended_72",
+          "market_cap_crosscheck_pct": 1.679219838401913e-05
         }
       },
       "index_close_coverage": 1.0,
-      "etf_share_coverage": 0.0,
-      "errors": [
-        "ETF 510050 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 510300 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 510500 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 512100 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
-      ]
+      "etf_share_coverage": 1.0,
+      "errors": []
     }
   },
   "previous_date": "2026-08-07",
@@ -121,15 +124,15 @@
         {
           "symbol": "HO2608",
           "expiry": "2026-08-21",
-          "forward": 2956.715429288164,
+          "forward": 2956.715480062721,
           "metrics": {
-            "atm_iv": 0.16575390959942726,
-            "call25_iv": 0.16896963783053393,
-            "put25_iv": 0.17351729595499044,
-            "call10_iv": 0.19189223173374864,
-            "put10_iv": 0.18051752645711935,
-            "rr25": -0.004547658124456511,
-            "bf25": 0.005489557293334918,
+            "atm_iv": 0.16580362541589214,
+            "call25_iv": 0.16902025896476644,
+            "put25_iv": 0.17356945372232715,
+            "call10_iv": 0.1919497836989458,
+            "put10_iv": 0.1805717741350557,
+            "rr25": -0.004549194757560715,
+            "bf25": 0.005491230927654661,
             "call_oi": 22915.0,
             "put_oi": 17380.0,
             "pcr_oi": 0.7584551603753,
@@ -142,27 +145,27 @@
             "gamma_peaks": [
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 202992455.50227362
+                "abs_gamma_1pct": 202992612.61246347
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 183150279.67085877
+                "abs_gamma_1pct": 183150434.77125445
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 152125854.77787563
+                "abs_gamma_1pct": 152125906.16129416
               },
               {
                 "strike": 2850.0,
-                "abs_gamma_1pct": 73301596.20904331
+                "abs_gamma_1pct": 73301479.74889468
               },
               {
                 "strike": 3050.0,
-                "abs_gamma_1pct": 65446925.13441475
+                "abs_gamma_1pct": 65446980.0990359
               }
             ],
-            "atm_iv_change_1d": 0.012161607365725857,
-            "rr25_change_1d": -0.0033156318735454993,
+            "atm_iv_change_1d": 0.012211323182190731,
+            "rr25_change_1d": -0.0033171685066497036,
             "pcr_oi_change_1d": 0.02708294189923799,
             "call_oi_change_1d": -813.0,
             "put_oi_change_1d": 26.0,
@@ -175,15 +178,15 @@
         {
           "symbol": "HO2609",
           "expiry": "2026-09-18",
-          "forward": 2937.2384530985946,
+          "forward": 2937.23843018164,
           "metrics": {
-            "atm_iv": 0.16039735970690444,
-            "call25_iv": 0.16678610637880123,
-            "put25_iv": 0.16302986661154767,
-            "call10_iv": 0.19093892809613902,
-            "put10_iv": 0.17341055937631114,
-            "rr25": 0.003756239767253561,
-            "bf25": 0.004510626788270022,
+            "atm_iv": 0.16041058161110075,
+            "call25_iv": 0.16679989925162558,
+            "put25_iv": 0.1630433078435041,
+            "call10_iv": 0.19095472050581797,
+            "put10_iv": 0.1734248735698977,
+            "rr25": 0.0037565914081214846,
+            "bf25": 0.004511021936464105,
             "call_oi": 16276.0,
             "put_oi": 10632.0,
             "pcr_oi": 0.6532317522732858,
@@ -196,27 +199,27 @@
             "gamma_peaks": [
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 66354331.93504186
+                "abs_gamma_1pct": 66354365.66211158
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 62631762.4517427
+                "abs_gamma_1pct": 62631782.76573172
               },
               {
                 "strike": 2800.0,
-                "abs_gamma_1pct": 45675832.509843454
+                "abs_gamma_1pct": 45675853.66899276
               },
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 25936923.1332434
+                "abs_gamma_1pct": 25936927.008301727
               },
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 25192247.82701795
+                "abs_gamma_1pct": 25192258.639600463
               }
             ],
-            "atm_iv_change_1d": -0.0008009816678632153,
-            "rr25_change_1d": 0.005042794833463704,
+            "atm_iv_change_1d": -0.0007877597636669065,
+            "rr25_change_1d": 0.005043146474331628,
             "pcr_oi_change_1d": -0.04524514844086447,
             "call_oi_change_1d": 453.0,
             "put_oi_change_1d": -420.0,
@@ -229,15 +232,15 @@
         {
           "symbol": "HO2610",
           "expiry": "2026-10-16",
-          "forward": 2921.284692931417,
+          "forward": 2921.2847136093988,
           "metrics": {
-            "atm_iv": 0.1560421735582154,
-            "call25_iv": 0.16492704779178308,
-            "put25_iv": 0.16294645276597047,
-            "call10_iv": 0.18662784653349976,
-            "put10_iv": 0.17610380589803287,
-            "rr25": 0.0019805950258126037,
-            "bf25": 0.007894576720661378,
+            "atm_iv": 0.15604961694115482,
+            "call25_iv": 0.16493492177371707,
+            "put25_iv": 0.16295425906943484,
+            "call10_iv": 0.18663677473103477,
+            "put10_iv": 0.1761122482681033,
+            "rr25": 0.001980662704282238,
+            "bf25": 0.007894973480421119,
             "call_oi": 979.0,
             "put_oi": 759.0,
             "pcr_oi": 0.7752808988764045,
@@ -250,27 +253,27 @@
             "gamma_peaks": [
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 3220237.1249470557
+                "abs_gamma_1pct": 3220238.4450167
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 2861742.229981488
+                "abs_gamma_1pct": 2861743.7876643054
               },
               {
                 "strike": 2950.0,
-                "abs_gamma_1pct": 1745054.0114880502
+                "abs_gamma_1pct": 1745054.9840147048
               },
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 1439553.479529527
+                "abs_gamma_1pct": 1439554.2465909214
               },
               {
                 "strike": 2750.0,
-                "abs_gamma_1pct": 1337995.692553204
+                "abs_gamma_1pct": 1337995.9681799696
               }
             ],
-            "atm_iv_change_1d": -0.001272035763494328,
-            "rr25_change_1d": -0.004096674819542984,
+            "atm_iv_change_1d": -0.001264592380554902,
+            "rr25_change_1d": -0.0040966071410733496,
             "pcr_oi_change_1d": 0.03663195092513094,
             "call_oi_change_1d": 76.0,
             "put_oi_change_1d": 92.0,
@@ -283,15 +286,15 @@
         {
           "symbol": "HO2612",
           "expiry": "2026-12-18",
-          "forward": 2894.0053686527735,
+          "forward": 2894.0054227661776,
           "metrics": {
-            "atm_iv": 0.1658350884992243,
-            "call25_iv": 0.17883691827941983,
-            "put25_iv": 0.16660881246957832,
-            "call10_iv": 0.22520896630205897,
-            "put10_iv": 0.18209144350923734,
-            "rr25": 0.012228105809841516,
-            "bf25": 0.0068877768752747814,
+            "atm_iv": 0.1658391322879973,
+            "call25_iv": 0.17884127843473058,
+            "put25_iv": 0.16661292341797418,
+            "call10_iv": 0.22521448671086094,
+            "put10_iv": 0.18209593725986783,
+            "rr25": 0.012228355016756398,
+            "bf25": 0.006887968638355085,
             "call_oi": 9596.0,
             "put_oi": 7388.0,
             "pcr_oi": 0.7699041267194664,
@@ -304,27 +307,27 @@
             "gamma_peaks": [
               {
                 "strike": 3000.0,
-                "abs_gamma_1pct": 26529837.401253853
+                "abs_gamma_1pct": 26529853.516694464
               },
               {
                 "strike": 2800.0,
-                "abs_gamma_1pct": 20902552.43454592
+                "abs_gamma_1pct": 20902563.157336444
               },
               {
                 "strike": 2900.0,
-                "abs_gamma_1pct": 17902092.268423904
+                "abs_gamma_1pct": 17902101.896327265
               },
               {
                 "strike": 3100.0,
-                "abs_gamma_1pct": 11051254.403178718
+                "abs_gamma_1pct": 11051260.42502375
               },
               {
                 "strike": 2700.0,
-                "abs_gamma_1pct": 10564014.526039984
+                "abs_gamma_1pct": 10564018.860918637
               }
             ],
-            "atm_iv_change_1d": -0.0023147639051532276,
-            "rr25_change_1d": 0.00044810342644807655,
+            "atm_iv_change_1d": -0.002310720116380227,
+            "rr25_change_1d": 0.0004483526333629584,
             "pcr_oi_change_1d": -0.004333374590668848,
             "call_oi_change_1d": 55.0,
             "put_oi_change_1d": 1.0,
@@ -341,15 +344,15 @@
         {
           "symbol": "IO2608",
           "expiry": "2026-08-21",
-          "forward": 4677.712125303922,
+          "forward": 4677.712118024134,
           "metrics": {
-            "atm_iv": 0.1850033147877366,
-            "call25_iv": 0.1868652991296626,
-            "put25_iv": 0.2031071701571212,
-            "call10_iv": 0.1964175061833219,
-            "put10_iv": 0.21962826219177192,
-            "rr25": -0.01624187102745861,
-            "bf25": 0.009982919855655303,
+            "atm_iv": 0.18505881282677394,
+            "call25_iv": 0.18692139369338975,
+            "put25_iv": 0.20316812621377298,
+            "call10_iv": 0.1964764745884864,
+            "put10_iv": 0.2196941876750669,
+            "rr25": -0.016246732520383222,
+            "bf25": 0.00998594712680742,
             "call_oi": 59338.0,
             "put_oi": 40802.0,
             "pcr_oi": 0.6876200748255755,
@@ -362,27 +365,27 @@
             "gamma_peaks": [
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 630520838.267649
+                "abs_gamma_1pct": 630521146.0954484
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 484713001.55933714
+                "abs_gamma_1pct": 484713259.0530813
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 447190516.9859984
+                "abs_gamma_1pct": 447190659.40779775
               },
               {
                 "strike": 4650.0,
-                "abs_gamma_1pct": 377732597.1648641
+                "abs_gamma_1pct": 377732795.0659209
               },
               {
                 "strike": 4750.0,
-                "abs_gamma_1pct": 340599993.3585216
+                "abs_gamma_1pct": 340600138.0935218
               }
             ],
-            "atm_iv_change_1d": 0.009086709930517661,
-            "rr25_change_1d": 0.00012610707863716653,
+            "atm_iv_change_1d": 0.009142207969555005,
+            "rr25_change_1d": 0.00012124558571255384,
             "pcr_oi_change_1d": 0.006707953301019698,
             "call_oi_change_1d": 1144.0,
             "put_oi_change_1d": 1177.0,
@@ -395,15 +398,15 @@
         {
           "symbol": "IO2609",
           "expiry": "2026-09-18",
-          "forward": 4647.958700569843,
+          "forward": 4647.958740510069,
           "metrics": {
-            "atm_iv": 0.18307370665472933,
-            "call25_iv": 0.18375778124113443,
-            "put25_iv": 0.1901478076962128,
-            "call10_iv": 0.1953059572503379,
-            "put10_iv": 0.20870964906963763,
-            "rr25": -0.006390026455078385,
-            "bf25": 0.003879087813944304,
+            "atm_iv": 0.18308879911375284,
+            "call25_iv": 0.18377293645328727,
+            "put25_iv": 0.19016353119759874,
+            "call10_iv": 0.19532208404742998,
+            "put10_iv": 0.2087269106680014,
+            "rr25": -0.006390594744311473,
+            "bf25": 0.003879434711690166,
             "call_oi": 38428.0,
             "put_oi": 25611.0,
             "pcr_oi": 0.6664671593629645,
@@ -416,27 +419,27 @@
             "gamma_peaks": [
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 188500193.07474273
+                "abs_gamma_1pct": 188500305.35651174
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 179396618.0888306
+                "abs_gamma_1pct": 179396712.99304518
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 136776698.39002734
+                "abs_gamma_1pct": 136776771.46297783
               },
               {
                 "strike": 4500.0,
-                "abs_gamma_1pct": 113956474.1777021
+                "abs_gamma_1pct": 113956523.12561803
               },
               {
                 "strike": 5000.0,
-                "abs_gamma_1pct": 86528894.5234902
+                "abs_gamma_1pct": 86528921.65924115
               }
             ],
-            "atm_iv_change_1d": -0.004623259286179349,
-            "rr25_change_1d": 0.003812253653392106,
+            "atm_iv_change_1d": -0.004608166827155841,
+            "rr25_change_1d": 0.0038116853641590176,
             "pcr_oi_change_1d": -0.014007327550987658,
             "call_oi_change_1d": 1251.0,
             "put_oi_change_1d": 313.0,
@@ -449,15 +452,15 @@
         {
           "symbol": "IO2610",
           "expiry": "2026-10-16",
-          "forward": 4629.470319622374,
+          "forward": 4629.47035128471,
           "metrics": {
-            "atm_iv": 0.17392150183524652,
-            "call25_iv": 0.1837595886785347,
-            "put25_iv": 0.18532449953467833,
-            "call10_iv": 0.21278212126628576,
-            "put10_iv": 0.2275634762719186,
-            "rr25": -0.001564910856143631,
-            "bf25": 0.01062054227136,
+            "atm_iv": 0.17392979716017665,
+            "call25_iv": 0.1837683672139631,
+            "put25_iv": 0.18533337615252335,
+            "call10_iv": 0.21279230130175747,
+            "put10_iv": 0.22757438212092787,
+            "rr25": -0.0015650089385602362,
+            "bf25": 0.010621074523066598,
             "call_oi": 1939.0,
             "put_oi": 4852.0,
             "pcr_oi": 2.5023207839092314,
@@ -470,27 +473,27 @@
             "gamma_peaks": [
               {
                 "strike": 4200.0,
-                "abs_gamma_1pct": 9705496.721717253
+                "abs_gamma_1pct": 9705484.59270376
               },
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 8230621.157099032
+                "abs_gamma_1pct": 8230625.804162554
               },
               {
                 "strike": 4350.0,
-                "abs_gamma_1pct": 6929359.592234771
+                "abs_gamma_1pct": 6929361.256752888
               },
               {
                 "strike": 4650.0,
-                "abs_gamma_1pct": 6788461.196874304
+                "abs_gamma_1pct": 6788464.91222013
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 6771213.593313521
+                "abs_gamma_1pct": 6771217.381223876
               }
             ],
-            "atm_iv_change_1d": -0.005265193414808522,
-            "rr25_change_1d": 0.003290867472032971,
+            "atm_iv_change_1d": -0.005256898089878392,
+            "rr25_change_1d": 0.003290769389616366,
             "pcr_oi_change_1d": 0.14079061149543826,
             "call_oi_change_1d": 83.0,
             "put_oi_change_1d": 469.0,
@@ -503,15 +506,15 @@
         {
           "symbol": "IO2612",
           "expiry": "2026-12-18",
-          "forward": 4574.225815580646,
+          "forward": 4574.225769812696,
           "metrics": {
-            "atm_iv": 0.17745907871676916,
-            "call25_iv": 0.19973343250703976,
-            "put25_iv": 0.18394960048222941,
-            "call10_iv": 0.242869798046105,
-            "put10_iv": 0.21883926471368764,
-            "rr25": 0.015783832024810346,
-            "bf25": 0.014382437777865437,
+            "atm_iv": 0.17746340678580125,
+            "call25_iv": 0.19973834667682813,
+            "put25_iv": 0.18395409629223386,
+            "call10_iv": 0.24287577917845407,
+            "put10_iv": 0.2188446338763576,
+            "rr25": 0.015784250384594273,
+            "bf25": 0.014382814698729762,
             "call_oi": 18075.0,
             "put_oi": 11009.0,
             "pcr_oi": 0.6090733056708161,
@@ -524,27 +527,27 @@
             "gamma_peaks": [
               {
                 "strike": 4500.0,
-                "abs_gamma_1pct": 47127071.902118236
+                "abs_gamma_1pct": 47127096.02250561
               },
               {
                 "strike": 4600.0,
-                "abs_gamma_1pct": 38070311.626758605
+                "abs_gamma_1pct": 38070330.88665518
               },
               {
                 "strike": 4700.0,
-                "abs_gamma_1pct": 35692055.20483667
+                "abs_gamma_1pct": 35692071.56297378
               },
               {
                 "strike": 5000.0,
-                "abs_gamma_1pct": 30329778.613720715
+                "abs_gamma_1pct": 30329786.79572983
               },
               {
                 "strike": 4800.0,
-                "abs_gamma_1pct": 27478185.687267557
+                "abs_gamma_1pct": 27478197.354172118
               }
             ],
-            "atm_iv_change_1d": -0.003521168278176917,
-            "rr25_change_1d": 0.00394146873114562,
+            "atm_iv_change_1d": -0.0035168402091448336,
+            "rr25_change_1d": 0.003941887090929547,
             "pcr_oi_change_1d": 0.0016699907536890102,
             "call_oi_change_1d": -25.0,
             "put_oi_change_1d": 15.0,
@@ -561,15 +564,15 @@
         {
           "symbol": "MO2608",
           "expiry": "2026-08-21",
-          "forward": 7687.963469953304,
+          "forward": 7687.9635519232015,
           "metrics": {
-            "atm_iv": 0.29412718579613045,
-            "call25_iv": 0.29127228172338815,
-            "put25_iv": 0.30992269380685694,
-            "call10_iv": 0.2928632733168182,
-            "put10_iv": 0.3203527770512814,
-            "rr25": -0.018650412083468793,
-            "bf25": 0.006470301968992065,
+            "atm_iv": 0.2942154232726613,
+            "call25_iv": 0.2913596608945172,
+            "put25_iv": 0.31001576159600247,
+            "call10_iv": 0.2929511517831299,
+            "put10_iv": 0.3204489781984111,
+            "rr25": -0.018656100701485268,
+            "bf25": 0.006472287972598523,
             "call_oi": 136268.0,
             "put_oi": 100383.0,
             "pcr_oi": 0.7366586432618076,
@@ -582,27 +585,27 @@
             "gamma_peaks": [
               {
                 "strike": 7500.0,
-                "abs_gamma_1pct": 896538338.8895706
+                "abs_gamma_1pct": 896538827.9304833
               },
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 729035814.9849284
+                "abs_gamma_1pct": 729036205.8934349
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 720497436.2159142
+                "abs_gamma_1pct": 720497889.3198832
               },
               {
                 "strike": 7700.0,
-                "abs_gamma_1pct": 686243004.7648275
+                "abs_gamma_1pct": 686243454.7774861
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 631737110.4717133
+                "abs_gamma_1pct": 631737486.209641
               }
             ],
-            "atm_iv_change_1d": 0.022347367578112953,
-            "rr25_change_1d": -0.008337240942358326,
+            "atm_iv_change_1d": 0.022435605054643815,
+            "rr25_change_1d": -0.008342929560374801,
             "pcr_oi_change_1d": 0.019441300653932125,
             "call_oi_change_1d": 556.0,
             "put_oi_change_1d": 3048.0,
@@ -615,15 +618,15 @@
         {
           "symbol": "MO2609",
           "expiry": "2026-09-18",
-          "forward": 7614.923684858428,
+          "forward": 7614.923680938076,
           "metrics": {
-            "atm_iv": 0.27695047754864854,
-            "call25_iv": 0.2761325869158863,
-            "put25_iv": 0.2921053445831498,
-            "call10_iv": 0.2948419283825423,
-            "put10_iv": 0.32993383380751534,
-            "rr25": -0.01597275766726347,
-            "bf25": 0.007168488200869516,
+            "atm_iv": 0.27697331008229203,
+            "call25_iv": 0.27615539217888,
+            "put25_iv": 0.2921294626796024,
+            "call10_iv": 0.2948662950948469,
+            "put10_iv": 0.32996109494494086,
+            "rr25": -0.01597407050072236,
+            "bf25": 0.007169117346949194,
             "call_oi": 78444.0,
             "put_oi": 55451.0,
             "pcr_oi": 0.7068864412829534,
@@ -636,27 +639,27 @@
             "gamma_peaks": [
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 449507206.0370831
+                "abs_gamma_1pct": 449507403.05714023
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 242687729.11979002
+                "abs_gamma_1pct": 242687856.6722553
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 193890405.22533154
+                "abs_gamma_1pct": 193890503.40210772
               },
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 181937088.36352602
+                "abs_gamma_1pct": 181937181.0352019
               },
               {
                 "strike": 7200.0,
-                "abs_gamma_1pct": 171728373.14642656
+                "abs_gamma_1pct": 171728456.6488688
               }
             ],
-            "atm_iv_change_1d": 0.0015665706453908412,
-            "rr25_change_1d": 0.005259441053781733,
+            "atm_iv_change_1d": 0.0015894031790343321,
+            "rr25_change_1d": 0.005258128220322844,
             "pcr_oi_change_1d": 0.0026847825275415627,
             "call_oi_change_1d": 1760.0,
             "put_oi_change_1d": 1450.0,
@@ -669,15 +672,15 @@
         {
           "symbol": "MO2610",
           "expiry": "2026-10-16",
-          "forward": 7576.488637635833,
+          "forward": 7576.488696350763,
           "metrics": {
-            "atm_iv": 0.25912564176412944,
-            "call25_iv": 0.25875076354394305,
-            "put25_iv": 0.2784487184528185,
-            "call10_iv": 0.27239593702754755,
-            "put10_iv": 0.3209479757997445,
-            "rr25": -0.019697954908875437,
-            "bf25": 0.009474099234251354,
+            "atm_iv": 0.2591380000879042,
+            "call25_iv": 0.25876312753325625,
+            "put25_iv": 0.2784620513230103,
+            "call10_iv": 0.2724089631900051,
+            "put10_iv": 0.3209633541541932,
+            "rr25": -0.01969892378975402,
+            "bf25": 0.009474589340229045,
             "call_oi": 4620.0,
             "put_oi": 7504.0,
             "pcr_oi": 1.6242424242424243,
@@ -690,27 +693,27 @@
             "gamma_peaks": [
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 23823623.977416836
+                "abs_gamma_1pct": 23823637.58467049
               },
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 22067376.731870618
+                "abs_gamma_1pct": 22067387.169291556
               },
               {
                 "strike": 6200.0,
-                "abs_gamma_1pct": 15055339.473109247
+                "abs_gamma_1pct": 15055341.576480241
               },
               {
                 "strike": 7000.0,
-                "abs_gamma_1pct": 14916900.718405286
+                "abs_gamma_1pct": 14916905.953039687
               },
               {
                 "strike": 7200.0,
-                "abs_gamma_1pct": 14084335.941016756
+                "abs_gamma_1pct": 14084342.988547904
               }
             ],
-            "atm_iv_change_1d": 0.0020757338075948484,
-            "rr25_change_1d": -0.008953865582867648,
+            "atm_iv_change_1d": 0.0020880921313696232,
+            "rr25_change_1d": -0.00895483446374623,
             "pcr_oi_change_1d": -0.08535718984344154,
             "call_oi_change_1d": 474.0,
             "put_oi_change_1d": 416.0,
@@ -723,15 +726,15 @@
         {
           "symbol": "MO2612",
           "expiry": "2026-12-18",
-          "forward": 7432.484287967256,
+          "forward": 7432.484437049815,
           "metrics": {
-            "atm_iv": 0.2579339121299635,
-            "call25_iv": 0.2653849393173627,
-            "put25_iv": 0.2723080229979948,
-            "call10_iv": 0.30703232822945065,
-            "put10_iv": 0.2972981964956755,
-            "rr25": -0.006923083680632103,
-            "bf25": 0.010912569027715202,
+            "atm_iv": 0.2579402038924413,
+            "call25_iv": 0.26539142592908915,
+            "put25_iv": 0.272314725098643,
+            "call10_iv": 0.3070398586921425,
+            "put10_iv": 0.2973055201984508,
+            "rr25": -0.006923299169553865,
+            "bf25": 0.010912871621424736,
             "call_oi": 33951.0,
             "put_oi": 22270.0,
             "pcr_oi": 0.6559453329798828,
@@ -744,27 +747,27 @@
             "gamma_peaks": [
               {
                 "strike": 8000.0,
-                "abs_gamma_1pct": 84714007.20897786
+                "abs_gamma_1pct": 84714053.58067383
               },
               {
                 "strike": 7600.0,
-                "abs_gamma_1pct": 76580120.61375743
+                "abs_gamma_1pct": 76580163.52181491
               },
               {
                 "strike": 7800.0,
-                "abs_gamma_1pct": 64050109.61517981
+                "abs_gamma_1pct": 64050145.40320286
               },
               {
                 "strike": 8600.0,
-                "abs_gamma_1pct": 60692941.8047087
+                "abs_gamma_1pct": 60692968.69396891
               },
               {
                 "strike": 7400.0,
-                "abs_gamma_1pct": 59264623.75948346
+                "abs_gamma_1pct": 59264655.27529038
               }
             ],
-            "atm_iv_change_1d": -0.0032309444359648887,
-            "rr25_change_1d": -0.011304668473417212,
+            "atm_iv_change_1d": -0.003224652673487094,
+            "rr25_change_1d": -0.011304883962338974,
             "pcr_oi_change_1d": -0.0018529406396040615,
             "call_oi_change_1d": 123.0,
             "put_oi_change_1d": 18.0,
@@ -804,14 +807,15 @@
     },
     "cash_market": {
       "trade_date": "2026-08-10",
-      "generated_at": "2026-08-10T23:25:40.821006+08:00",
-      "status": "partial",
+      "generated_at": "2026-08-10T23:34:53.559562+08:00",
+      "status": "ok",
       "indices": {
         "000016": {
           "future_product": "IH",
           "code": "000016",
           "name": "上证50",
           "symbol": "sh000016",
+          "security_type": "ZS",
           "close": 2967.73,
           "previous_close": 2960.42,
           "open": 2963.24,
@@ -820,6 +824,11 @@
           "change_amount": 7.31,
           "change_pct": 0.0025,
           "turnover_cny": 209769470000.0,
+          "float_market_cap_cny": 22782888000000.0,
+          "total_market_cap_cny": 23591941000000.0,
+          "listed_shares": null,
+          "listed_shares_field": null,
+          "share_cap_crosscheck_pct": null,
           "quote_timestamp_raw": "20260810161402"
         },
         "000300": {
@@ -827,6 +836,7 @@
           "code": "000300",
           "name": "沪深300",
           "symbol": "sh000300",
+          "security_type": "ZS",
           "close": 4702.02,
           "previous_close": 4694.44,
           "open": 4698.82,
@@ -835,6 +845,11 @@
           "change_amount": 7.58,
           "change_pct": 0.0016,
           "turnover_cny": 733103400000.0,
+          "float_market_cap_cny": 52831694999999.99,
+          "total_market_cap_cny": 55721193000000.01,
+          "listed_shares": null,
+          "listed_shares_field": null,
+          "share_cap_crosscheck_pct": null,
           "quote_timestamp_raw": "20260810161414"
         },
         "000905": {
@@ -842,6 +857,7 @@
           "code": "000905",
           "name": "中证500",
           "symbol": "sh000905",
+          "security_type": "ZS",
           "close": 8030.95,
           "previous_close": 7980.12,
           "open": 8003.92,
@@ -850,6 +866,11 @@
           "change_amount": 50.83,
           "change_pct": 0.0064,
           "turnover_cny": 490434040000.0,
+          "float_market_cap_cny": 16127551000000.0,
+          "total_market_cap_cny": 17737528000000.0,
+          "listed_shares": null,
+          "listed_shares_field": null,
+          "share_cap_crosscheck_pct": null,
           "quote_timestamp_raw": "20260810161414"
         },
         "000852": {
@@ -857,6 +878,7 @@
           "code": "000852",
           "name": "中证1000",
           "symbol": "sh000852",
+          "security_type": "ZS",
           "close": 7733.9,
           "previous_close": 7679.53,
           "open": 7723.38,
@@ -865,6 +887,11 @@
           "change_amount": 54.37,
           "change_pct": 0.0070999999999999995,
           "turnover_cny": 529904420000.0,
+          "float_market_cap_cny": 13232506000000.0,
+          "total_market_cap_cny": 14804959000000.0,
+          "listed_shares": null,
+          "listed_shares_field": null,
+          "share_cap_crosscheck_pct": null,
           "quote_timestamp_raw": "20260810161402"
         }
       },
@@ -874,6 +901,7 @@
           "code": "510050",
           "name": "上证50ETF华夏",
           "symbol": "sh510050",
+          "security_type": "ETF",
           "close": 3.075,
           "previous_close": 3.066,
           "open": 3.069,
@@ -882,7 +910,17 @@
           "change_amount": 0.009,
           "change_pct": 0.0029,
           "turnover_cny": 987200000.0,
+          "float_market_cap_cny": 20844000000.0,
+          "total_market_cap_cny": 20844000000.0,
+          "listed_shares": 6778566800.0,
+          "listed_shares_field": "tencent_extended_72",
+          "share_cap_crosscheck_pct": 4.457397812407393e-06,
           "quote_timestamp_raw": "20260810161454",
+          "total_shares": 6778566800.0,
+          "float_shares": 6778566800.0,
+          "share_field": "tencent_extended_72",
+          "share_source": "tencent_extended_quote",
+          "market_cap_cny": 20844000000.0,
           "previous_total_shares": null,
           "share_change": null,
           "share_change_pct": null,
@@ -897,6 +935,7 @@
           "code": "510300",
           "name": "沪深300ETF华泰柏瑞",
           "symbol": "sh510300",
+          "security_type": "ETF",
           "close": 4.759,
           "previous_close": 4.751,
           "open": 4.755,
@@ -905,7 +944,17 @@
           "change_amount": 0.008,
           "change_pct": 0.0017000000000000001,
           "turnover_cny": 2663760000.0,
+          "float_market_cap_cny": 118314000000.00002,
+          "total_market_cap_cny": 118314000000.00002,
+          "listed_shares": 24861187700.0,
+          "listed_shares_field": "tencent_extended_72",
+          "share_cap_crosscheck_pct": 3.3154512566468952e-06,
           "quote_timestamp_raw": "20260810161441",
+          "total_shares": 24861187700.0,
+          "float_shares": 24861187700.0,
+          "share_field": "tencent_extended_72",
+          "share_source": "tencent_extended_quote",
+          "market_cap_cny": 118314000000.00002,
           "previous_total_shares": null,
           "share_change": null,
           "share_change_pct": null,
@@ -920,6 +969,7 @@
           "code": "510500",
           "name": "中证500ETF南方",
           "symbol": "sh510500",
+          "security_type": "ETF",
           "close": 8.037,
           "previous_close": 7.987,
           "open": 8.002,
@@ -928,7 +978,17 @@
           "change_amount": 0.05,
           "change_pct": 0.0063,
           "turnover_cny": 2574610000.0,
+          "float_market_cap_cny": 43128000000.0,
+          "total_market_cap_cny": 43128000000.0,
+          "listed_shares": 5366168600.0,
+          "listed_shares_field": "tencent_extended_72",
+          "share_cap_crosscheck_pct": -2.3873539231056284e-06,
           "quote_timestamp_raw": "20260810161458",
+          "total_shares": 5366168600.0,
+          "float_shares": 5366168600.0,
+          "share_field": "tencent_extended_72",
+          "share_source": "tencent_extended_quote",
+          "market_cap_cny": 43128000000.0,
           "previous_total_shares": null,
           "share_change": null,
           "share_change_pct": null,
@@ -943,6 +1003,7 @@
           "code": "512100",
           "name": "中证1000ETF南方",
           "symbol": "sh512100",
+          "security_type": "ETF",
           "close": 3.129,
           "previous_close": 3.111,
           "open": 3.118,
@@ -951,7 +1012,17 @@
           "change_amount": 0.018,
           "change_pct": 0.0058,
           "turnover_cny": 4612480000.0,
+          "float_market_cap_cny": 25123000000.0,
+          "total_market_cap_cny": 25123000000.0,
+          "listed_shares": 8029217600.0,
+          "listed_shares_field": "tencent_extended_72",
+          "share_cap_crosscheck_pct": 1.679219838401913e-05,
           "quote_timestamp_raw": "20260810161447",
+          "total_shares": 8029217600.0,
+          "float_shares": 8029217600.0,
+          "share_field": "tencent_extended_72",
+          "share_source": "tencent_extended_quote",
+          "market_cap_cny": 25123000000.0,
           "previous_total_shares": null,
           "share_change": null,
           "share_change_pct": null,
@@ -980,31 +1051,34 @@
         },
         "etf_shares": {
           "510050": {
-            "status": "missing",
-            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+            "status": "ok",
+            "source": "Tencent extended ETF quote fields",
+            "share_field": "tencent_extended_72",
+            "market_cap_crosscheck_pct": 4.457397812407393e-06
           },
           "510300": {
-            "status": "missing",
-            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+            "status": "ok",
+            "source": "Tencent extended ETF quote fields",
+            "share_field": "tencent_extended_72",
+            "market_cap_crosscheck_pct": 3.3154512566468952e-06
           },
           "510500": {
-            "status": "missing",
-            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+            "status": "ok",
+            "source": "Tencent extended ETF quote fields",
+            "share_field": "tencent_extended_72",
+            "market_cap_crosscheck_pct": -2.3873539231056284e-06
           },
           "512100": {
-            "status": "missing",
-            "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
+            "status": "ok",
+            "source": "Tencent extended ETF quote fields",
+            "share_field": "tencent_extended_72",
+            "market_cap_crosscheck_pct": 1.679219838401913e-05
           }
         },
         "index_close_coverage": 1.0,
-        "etf_share_coverage": 0.0
+        "etf_share_coverage": 1.0
       },
-      "errors": [
-        "ETF 510050 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510050&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 510300 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510300&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 510500 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.510500&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2",
-        "ETF 512100 shares: HTTPError: 502 Server Error: Bad Gateway for url: https://push2.eastmoney.com/api/qt/stock/get?secid=1.512100&fields=f57%2Cf58%2Cf84%2Cf85%2Cf116%2Cf117%2Cf124&fltt=2&invt=2"
-      ]
+      "errors": []
     },
     "products": {
       "IH": {
@@ -1175,7 +1249,7 @@
         "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
         "reference_etf_code": "510050",
         "reference_etf_close": 3.075,
-        "reference_etf_total_shares": null,
+        "reference_etf_total_shares": 6778566800.0,
         "reference_etf_previous_total_shares": null,
         "reference_etf_share_change": null,
         "reference_etf_share_change_pct": null,
@@ -1350,7 +1424,7 @@
         "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
         "reference_etf_code": "510300",
         "reference_etf_close": 4.759,
-        "reference_etf_total_shares": null,
+        "reference_etf_total_shares": 24861187700.0,
         "reference_etf_previous_total_shares": null,
         "reference_etf_share_change": null,
         "reference_etf_share_change_pct": null,
@@ -1525,7 +1599,7 @@
         "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
         "reference_etf_code": "510500",
         "reference_etf_close": 8.037,
-        "reference_etf_total_shares": null,
+        "reference_etf_total_shares": 5366168600.0,
         "reference_etf_previous_total_shares": null,
         "reference_etf_share_change": null,
         "reference_etf_share_change_pct": null,
@@ -1700,7 +1774,7 @@
         "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
         "reference_etf_code": "512100",
         "reference_etf_close": 3.129,
-        "reference_etf_total_shares": null,
+        "reference_etf_total_shares": 8029217600.0,
         "reference_etf_previous_total_shares": null,
         "reference_etf_share_change": null,
         "reference_etf_share_change_pct": null,
@@ -1815,17 +1889,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "HO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 2937.2384530985946,
-      "future_minus_option_forward_points": -1.2384530985946185,
-      "future_minus_option_forward_pct": -0.00042163859637889847,
+      "option_forward": 2937.23843018164,
+      "future_minus_option_forward_points": -1.2384301816400693,
+      "future_minus_option_forward_pct": -0.0004216307974574214,
       "option_metrics": {
-        "atm_iv": 0.16039735970690444,
-        "call25_iv": 0.16678610637880123,
-        "put25_iv": 0.16302986661154767,
-        "call10_iv": 0.19093892809613902,
-        "put10_iv": 0.17341055937631114,
-        "rr25": 0.003756239767253561,
-        "bf25": 0.004510626788270022,
+        "atm_iv": 0.16041058161110075,
+        "call25_iv": 0.16679989925162558,
+        "put25_iv": 0.1630433078435041,
+        "call10_iv": 0.19095472050581797,
+        "put10_iv": 0.1734248735698977,
+        "rr25": 0.0037565914081214846,
+        "bf25": 0.004511021936464105,
         "pcr_oi": 0.6532317522732858,
         "pcr_volume": 0.7993939393939394,
         "call_oi": 16276.0,
@@ -1837,27 +1911,27 @@
         "gamma_peaks": [
           {
             "strike": 2900.0,
-            "abs_gamma_1pct": 66354331.93504186
+            "abs_gamma_1pct": 66354365.66211158
           },
           {
             "strike": 3000.0,
-            "abs_gamma_1pct": 62631762.4517427
+            "abs_gamma_1pct": 62631782.76573172
           },
           {
             "strike": 2800.0,
-            "abs_gamma_1pct": 45675832.509843454
+            "abs_gamma_1pct": 45675853.66899276
           },
           {
             "strike": 3100.0,
-            "abs_gamma_1pct": 25936923.1332434
+            "abs_gamma_1pct": 25936927.008301727
           },
           {
             "strike": 2950.0,
-            "abs_gamma_1pct": 25192247.82701795
+            "abs_gamma_1pct": 25192258.639600463
           }
         ],
-        "atm_iv_change_1d": -0.0008009816678632153,
-        "rr25_change_1d": 0.005042794833463704,
+        "atm_iv_change_1d": -0.0007877597636669065,
+        "rr25_change_1d": 0.005043146474331628,
         "pcr_oi_change_1d": -0.04524514844086447,
         "pcr_volume_change_1d": 0.13672351156131135,
         "gamma_peak_change_1d": 0.0
@@ -1887,17 +1961,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "IO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 4647.958700569843,
-      "future_minus_option_forward_points": -3.3587005698427674,
-      "future_minus_option_forward_pct": -0.0007226184194431393,
+      "option_forward": 4647.958740510069,
+      "future_minus_option_forward_points": -3.3587405100688557,
+      "future_minus_option_forward_pct": -0.0007226270063017525,
       "option_metrics": {
-        "atm_iv": 0.18307370665472933,
-        "call25_iv": 0.18375778124113443,
-        "put25_iv": 0.1901478076962128,
-        "call10_iv": 0.1953059572503379,
-        "put10_iv": 0.20870964906963763,
-        "rr25": -0.006390026455078385,
-        "bf25": 0.003879087813944304,
+        "atm_iv": 0.18308879911375284,
+        "call25_iv": 0.18377293645328727,
+        "put25_iv": 0.19016353119759874,
+        "call10_iv": 0.19532208404742998,
+        "put10_iv": 0.2087269106680014,
+        "rr25": -0.006390594744311473,
+        "bf25": 0.003879434711690166,
         "pcr_oi": 0.6664671593629645,
         "pcr_volume": 0.5430861723446894,
         "call_oi": 38428.0,
@@ -1909,27 +1983,27 @@
         "gamma_peaks": [
           {
             "strike": 4700.0,
-            "abs_gamma_1pct": 188500193.07474273
+            "abs_gamma_1pct": 188500305.35651174
           },
           {
             "strike": 4600.0,
-            "abs_gamma_1pct": 179396618.0888306
+            "abs_gamma_1pct": 179396712.99304518
           },
           {
             "strike": 4800.0,
-            "abs_gamma_1pct": 136776698.39002734
+            "abs_gamma_1pct": 136776771.46297783
           },
           {
             "strike": 4500.0,
-            "abs_gamma_1pct": 113956474.1777021
+            "abs_gamma_1pct": 113956523.12561803
           },
           {
             "strike": 5000.0,
-            "abs_gamma_1pct": 86528894.5234902
+            "abs_gamma_1pct": 86528921.65924115
           }
         ],
-        "atm_iv_change_1d": -0.004623259286179349,
-        "rr25_change_1d": 0.003812253653392106,
+        "atm_iv_change_1d": -0.004608166827155841,
+        "rr25_change_1d": 0.0038116853641590176,
         "pcr_oi_change_1d": -0.014007327550987658,
         "pcr_volume_change_1d": -0.004442664903774096,
         "gamma_peak_change_1d": 0.0
@@ -1988,17 +2062,17 @@
       "direct_option_available": true,
       "matched_option_symbol": "MO2609",
       "matched_option_expiry": "2026-09-18",
-      "option_forward": 7614.923684858428,
-      "future_minus_option_forward_points": -7.723684858427987,
-      "future_minus_option_forward_pct": -0.0010142826347407552,
+      "option_forward": 7614.923680938076,
+      "future_minus_option_forward_points": -7.723680938076541,
+      "future_minus_option_forward_pct": -0.0010142821204381482,
       "option_metrics": {
-        "atm_iv": 0.27695047754864854,
-        "call25_iv": 0.2761325869158863,
-        "put25_iv": 0.2921053445831498,
-        "call10_iv": 0.2948419283825423,
-        "put10_iv": 0.32993383380751534,
-        "rr25": -0.01597275766726347,
-        "bf25": 0.007168488200869516,
+        "atm_iv": 0.27697331008229203,
+        "call25_iv": 0.27615539217888,
+        "put25_iv": 0.2921294626796024,
+        "call10_iv": 0.2948662950948469,
+        "put10_iv": 0.32996109494494086,
+        "rr25": -0.01597407050072236,
+        "bf25": 0.007169117346949194,
         "pcr_oi": 0.7068864412829534,
         "pcr_volume": 0.6569755193190916,
         "call_oi": 78444.0,
@@ -2010,27 +2084,27 @@
         "gamma_peaks": [
           {
             "strike": 8000.0,
-            "abs_gamma_1pct": 449507206.0370831
+            "abs_gamma_1pct": 449507403.05714023
           },
           {
             "strike": 7600.0,
-            "abs_gamma_1pct": 242687729.11979002
+            "abs_gamma_1pct": 242687856.6722553
           },
           {
             "strike": 7800.0,
-            "abs_gamma_1pct": 193890405.22533154
+            "abs_gamma_1pct": 193890503.40210772
           },
           {
             "strike": 7400.0,
-            "abs_gamma_1pct": 181937088.36352602
+            "abs_gamma_1pct": 181937181.0352019
           },
           {
             "strike": 7200.0,
-            "abs_gamma_1pct": 171728373.14642656
+            "abs_gamma_1pct": 171728456.6488688
           }
         ],
-        "atm_iv_change_1d": 0.0015665706453908412,
-        "rr25_change_1d": 0.005259441053781733,
+        "atm_iv_change_1d": 0.0015894031790343321,
+        "rr25_change_1d": 0.005258128220322844,
         "pcr_oi_change_1d": 0.0026847825275415627,
         "pcr_volume_change_1d": 0.027071023911828362,
         "gamma_peak_change_1d": 0.0
