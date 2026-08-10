@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import math
 import os
-import re
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping
@@ -96,9 +95,11 @@ def _session() -> requests.Session:
 def parse_tencent_quote_text(text: str) -> dict[str, dict[str, Any]]:
     """Parse Tencent's public quote payload.
 
-    The endpoint returns one line per instrument as v_<symbol>="~" separated
-    fields. The field positions used here are stable public quote fields that
-    are also used by multiple open-source market-data implementations.
+    Core quote fields are the stable `~`-delimited public payload. For listed
+    ETFs Tencent also publishes exact listed-share counts in the extended
+    payload. We retain that raw share count only when the instrument type is
+    explicitly ETF, and cross-check it against total market cap / price when
+    those fields are present.
     """
     result: dict[str, dict[str, Any]] = {}
     for raw_line in text.splitlines():
@@ -126,10 +127,50 @@ def parse_tencent_quote_text(text: str) -> dict[str, dict[str, Any]]:
             else None
         )
 
+        security_type = values[61].strip() if len(values) > 61 and values[61] else None
+        float_market_cap_cny = (
+            _num(values[44]) * 100_000_000.0
+            if len(values) > 44 and _num(values[44]) is not None
+            else None
+        )
+        total_market_cap_cny = (
+            _num(values[45]) * 100_000_000.0
+            if len(values) > 45 and _num(values[45]) is not None
+            else None
+        )
+
+        listed_shares = None
+        listed_shares_field = None
+        if security_type == "ETF":
+            # Extended A-share/ETF payloads currently expose listed share
+            # counts at 72/73/76; for exchange-listed ETFs these values are
+            # expected to agree because the fund units are fully tradable.
+            for field_index in (72, 73, 76):
+                candidate = _num(values[field_index]) if len(values) > field_index else None
+                if candidate is not None and candidate > 0:
+                    listed_shares = candidate
+                    listed_shares_field = f"tencent_extended_{field_index}"
+                    break
+
+        share_cap_crosscheck_pct = None
+        if (
+            listed_shares is not None
+            and price not in (None, 0)
+            and total_market_cap_cny not in (None, 0)
+        ):
+            implied_market_cap = listed_shares * price
+            share_cap_crosscheck_pct = implied_market_cap / total_market_cap_cny - 1.0
+            # Tencent market cap is rounded to 0.01 yi CNY; a wider mismatch
+            # indicates payload-layout drift, so do not consume the share count.
+            if abs(share_cap_crosscheck_pct) > 0.002:
+                listed_shares = None
+                listed_shares_field = None
+
         result[symbol] = {
             "symbol": symbol,
             "name": values[1] or None,
             "code": values[2] or symbol[-6:],
+            "security_type": security_type,
             "close": price,
             "previous_close": previous_close,
             "open": _num(values[5]) if len(values) > 5 else None,
@@ -142,6 +183,11 @@ def parse_tencent_quote_text(text: str) -> dict[str, dict[str, Any]]:
                 if len(values) > 37 and _num(values[37]) is not None
                 else None
             ),
+            "float_market_cap_cny": float_market_cap_cny,
+            "total_market_cap_cny": total_market_cap_cny,
+            "listed_shares": listed_shares,
+            "listed_shares_field": listed_shares_field,
+            "share_cap_crosscheck_pct": share_cap_crosscheck_pct,
             "quote_timestamp_raw": values[30] if len(values) > 30 and values[30] else None,
         }
     return result
@@ -179,8 +225,6 @@ def parse_eastmoney_share_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
     total_shares = _num(data.get("f84"))
     float_shares = _num(data.get("f85"))
     if total_shares is None or total_shares <= 0:
-        # Listed ETFs normally have total shares == float shares. Use f85 only
-        # as an explicit fallback and retain provenance in the output.
         total_shares = float_shares
         share_field = "f85_float_shares_fallback"
     else:
@@ -193,6 +237,7 @@ def parse_eastmoney_share_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
         "total_shares": total_shares,
         "float_shares": float_shares,
         "share_field": share_field,
+        "share_source": "eastmoney_fallback",
         "market_cap_cny": _num(data.get("f116")),
         "float_market_cap_cny": _num(data.get("f117")),
         "quote_epoch": _num(data.get("f124")),
@@ -253,6 +298,21 @@ def _previous_etf_shares(previous: Mapping[str, Any] | None, code: str) -> float
     return _num(payload.get("total_shares"))
 
 
+def _shares_from_tencent_quote(etf_quote: Mapping[str, Any]) -> dict[str, Any] | None:
+    listed_shares = _num(etf_quote.get("listed_shares"))
+    if listed_shares is None or listed_shares <= 0:
+        return None
+    return {
+        "total_shares": listed_shares,
+        "float_shares": listed_shares,
+        "share_field": etf_quote.get("listed_shares_field"),
+        "share_source": "tencent_extended_quote",
+        "market_cap_cny": _num(etf_quote.get("total_market_cap_cny")),
+        "float_market_cap_cny": _num(etf_quote.get("float_market_cap_cny")),
+        "share_cap_crosscheck_pct": _num(etf_quote.get("share_cap_crosscheck_pct")),
+    }
+
+
 def collect_cash_market(run_date: date, snapshot_dir: Path) -> dict[str, Any]:
     """Collect cash-index and representative ETF data from public endpoints.
 
@@ -289,18 +349,31 @@ def collect_cash_market(run_date: date, snapshot_dir: Path) -> dict[str, Any]:
         }
 
         etf_quote = quotes.get(ref["etf_quote"], {})
-        shares: dict[str, Any] = {}
-        try:
-            shares, status = fetch_etf_shares(session, ref["eastmoney_secid"])
-            share_status[ref["etf_code"]] = status
-        except Exception as exc:
+        shares = _shares_from_tencent_quote(etf_quote)
+        if shares is not None:
             share_status[ref["etf_code"]] = {
-                "status": "missing",
-                "error": f"{type(exc).__name__}: {exc}",
+                "status": "ok",
+                "source": "Tencent extended ETF quote fields",
+                "share_field": shares.get("share_field"),
+                "market_cap_crosscheck_pct": shares.get("share_cap_crosscheck_pct"),
             }
-            errors.append(
-                f"ETF {ref['etf_code']} shares: {type(exc).__name__}: {exc}"
-            )
+        else:
+            try:
+                shares, status = fetch_etf_shares(session, ref["eastmoney_secid"])
+                share_status[ref["etf_code"]] = {
+                    **status,
+                    "fallback_reason": "Tencent extended listed-share field unavailable or failed cross-check",
+                }
+            except Exception as exc:
+                shares = {}
+                share_status[ref["etf_code"]] = {
+                    "status": "missing",
+                    "error": f"{type(exc).__name__}: {exc}",
+                    "fallback_reason": "Tencent extended listed-share field unavailable or failed cross-check",
+                }
+                errors.append(
+                    f"ETF {ref['etf_code']} shares: {type(exc).__name__}: {exc}"
+                )
 
         total_shares = _num(shares.get("total_shares"))
         previous_shares = _previous_etf_shares(previous, ref["etf_code"])
