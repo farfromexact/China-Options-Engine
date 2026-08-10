@@ -5,9 +5,9 @@ import json
 import re
 from datetime import date, datetime, timedelta
 from io import StringIO
-from pathlib import Path
 from typing import Any
 
+from cash_market import collect_cash_market, enrich_futures_with_cash_market
 from eod_enrich import (
     LATEST_PATH,
     RADAR_LATEST_PATH,
@@ -340,6 +340,14 @@ def main() -> None:
             product: summarize_product(product, raw_products.get(product, []))
             for product in FUTURE_PRODUCTS
         }
+
+        # Public cash-market layer: spot-index closes, true cash basis, and ETF
+        # share-change creation/redemption estimates. This layer is intentionally
+        # non-fatal so a temporary public quote outage cannot destroy otherwise
+        # verified CFFEX option/futures output.
+        cash_market = collect_cash_market(run_date, SNAPSHOT_DIR)
+        enrich_futures_with_cash_market(futures_summary, cash_market)
+
         linkage = build_linkage(futures_summary, radar)
         history_linkage = None
         history_products = latest.get("history_products")
@@ -352,6 +360,7 @@ def main() -> None:
         futures_block = {
             "trade_date": run_date.isoformat(),
             "source_status": source_status,
+            "cash_market": cash_market,
             "products": futures_summary,
             "cross_section": {
                 "return_rank": sorted(
@@ -381,6 +390,41 @@ def main() -> None:
                     key=lambda item: item["oi_change_pct"] if item["oi_change_pct"] is not None else float("-inf"),
                     reverse=True,
                 ),
+                "cash_basis_rank": sorted(
+                    [
+                        {
+                            "product": product,
+                            "main_symbol": (summary.get("main_contract") or {}).get("symbol"),
+                            "cash_index_code": summary.get("cash_index_code"),
+                            "cash_basis_pct": summary.get("cash_basis_pct"),
+                            "annualized_cash_basis_pct_inferred": summary.get(
+                                "annualized_cash_basis_pct_inferred"
+                            ),
+                        }
+                        for product, summary in futures_summary.items()
+                        if summary.get("cash_basis_pct") is not None
+                    ],
+                    key=lambda item: item["cash_basis_pct"],
+                    reverse=True,
+                ),
+                "etf_share_change_rank": sorted(
+                    [
+                        {
+                            "product": product,
+                            "reference_etf_code": summary.get("reference_etf_code"),
+                            "share_change_pct": summary.get(
+                                "reference_etf_share_change_pct"
+                            ),
+                            "estimated_net_creation_redemption_cny": summary.get(
+                                "reference_etf_estimated_net_creation_redemption_cny"
+                            ),
+                        }
+                        for product, summary in futures_summary.items()
+                        if summary.get("reference_etf_share_change_pct") is not None
+                    ],
+                    key=lambda item: item["share_change_pct"],
+                    reverse=True,
+                ),
             },
         }
 
@@ -392,6 +436,14 @@ def main() -> None:
         radar["futures_option_linkage"] = linkage
         latest.setdefault("source_status", {})["futures"] = source_status
         radar.setdefault("source_status", {})["futures"] = source_status
+        cash_source_status = {
+            "status": cash_market.get("status"),
+            "trade_date": cash_market.get("trade_date"),
+            **(cash_market.get("source_status") or {}),
+            "errors": cash_market.get("errors", []),
+        }
+        latest.setdefault("source_status", {})["cash_market"] = cash_source_status
+        radar.setdefault("source_status", {})["cash_market"] = cash_source_status
 
         LATEST_PATH.write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
         RADAR_LATEST_PATH.write_text(json.dumps(radar, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -407,6 +459,8 @@ def main() -> None:
                     "products": list(FUTURE_PRODUCTS),
                     "direct_pairs": {"IH": "HO", "IF": "IO", "IM": "MO"},
                     "IC_note": "no direct CFFEX CSI 500 index option; proxy only",
+                    "cash_market_status": cash_market.get("status"),
+                    "cash_market_errors": cash_market.get("errors", []),
                 }
             }
         )
@@ -415,6 +469,13 @@ def main() -> None:
                 {
                     "futures_linkage": "ok",
                     "records": source_status.get("records"),
+                    "cash_market_status": cash_market.get("status"),
+                    "cash_index_close_coverage": (cash_market.get("source_status") or {}).get(
+                        "index_close_coverage"
+                    ),
+                    "etf_share_coverage": (cash_market.get("source_status") or {}).get(
+                        "etf_share_coverage"
+                    ),
                     "main_contracts": {
                         product: (summary.get("main_contract") or {}).get("symbol")
                         for product, summary in futures_summary.items()
