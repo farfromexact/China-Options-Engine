@@ -57,7 +57,10 @@ FUTURE_CONTRACT_KEYS = (
     "oi_change_pct",
 )
 
-FUTURE_SUMMARY_KEYS = (
+# Preserve the original 1.1 summary schema for backwards-compatible validation
+# of already-committed history. New rebuilds add the cash-index / ETF fields
+# below; older records remain valid until the next deterministic snapshot rebuild.
+FUTURE_SUMMARY_BASE_KEYS = (
     "next_minus_main_points",
     "annualized_roll_pct_inferred",
     "term_structure_signal",
@@ -67,6 +70,28 @@ FUTURE_SUMMARY_KEYS = (
     "main_volume_share",
     "main_oi_share",
 )
+
+FUTURE_CASH_MARKET_KEYS = (
+    "cash_index_code",
+    "cash_index_name",
+    "cash_index_close",
+    "cash_index_change_pct",
+    "cash_index_turnover_cny",
+    "cash_basis_points",
+    "cash_basis_pct",
+    "annualized_cash_basis_pct_inferred",
+    "cash_basis_note",
+    "reference_etf_code",
+    "reference_etf_close",
+    "reference_etf_total_shares",
+    "reference_etf_previous_total_shares",
+    "reference_etf_share_change",
+    "reference_etf_share_change_pct",
+    "reference_etf_estimated_net_creation_redemption_cny",
+    "reference_etf_flow_method",
+)
+
+FUTURE_SUMMARY_KEYS = FUTURE_SUMMARY_BASE_KEYS + FUTURE_CASH_MARKET_KEYS
 
 LINKAGE_KEYS = (
     "direct_option_product",
@@ -348,6 +373,17 @@ def _require_exact_keys(value: Any, expected: tuple[str, ...], label: str) -> Ma
     return value
 
 
+def _require_legacy_or_current_future_summary(value: Any, label: str) -> Mapping[str, Any]:
+    if not isinstance(value, Mapping):
+        raise ValueError(f"{label} must be an object")
+    legacy_keys = {"main_contract", "next_contract", *FUTURE_SUMMARY_BASE_KEYS}
+    current_keys = {"main_contract", "next_contract", *FUTURE_SUMMARY_KEYS}
+    actual = set(value)
+    if actual != legacy_keys and actual != current_keys:
+        raise ValueError(f"{label} has unexpected schema")
+    return value
+
+
 def _validate_finite_values(value: Any, label: str = "record") -> None:
     if isinstance(value, float) and not math.isfinite(value):
         raise ValueError(f"{label} contains a non-finite number")
@@ -414,9 +450,10 @@ def _validate_record(record: Any) -> dict[str, Any]:
                 _require_exact_keys(peak, ("strike", "abs_gamma_1pct"), "option gamma peak")
 
     futures = _require_exact_keys(record.get("futures"), FUTURE_PRODUCTS, "futures")
-    future_summary_keys = ("main_contract", "next_contract") + FUTURE_SUMMARY_KEYS
     for product in FUTURE_PRODUCTS:
-        summary = _require_exact_keys(futures[product], future_summary_keys, f"futures.{product}")
+        summary = _require_legacy_or_current_future_summary(
+            futures[product], f"futures.{product}"
+        )
         for contract_name in ("main_contract", "next_contract"):
             _require_exact_keys(summary.get(contract_name), FUTURE_CONTRACT_KEYS, f"futures.{product}.{contract_name}")
 
