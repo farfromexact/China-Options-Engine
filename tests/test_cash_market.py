@@ -31,6 +31,48 @@ class CashMarketTests(unittest.TestCase):
         self.assertAlmostEqual(parsed["previous_close"], 4600.0)
         self.assertAlmostEqual(parsed["change_pct"], 0.0109)
         self.assertAlmostEqual(parsed["turnover_cny"], 1234567.89 * 10000.0)
+        self.assertIsNone(parsed["listed_shares"])
+
+    def test_parse_tencent_etf_exact_listed_shares(self) -> None:
+        values = [""] * 87
+        values[1] = "沪深300ETF华泰柏瑞"
+        values[2] = "510300"
+        values[3] = "4.876"
+        values[4] = "4.850"
+        values[30] = "20260703161439"
+        values[31] = "0.026"
+        values[32] = "0.54"
+        values[33] = "4.927"
+        values[34] = "4.828"
+        values[37] = "979243"
+        values[44] = "832.33"
+        values[45] = "832.33"
+        values[61] = "ETF"
+        values[72] = "17069887700"
+        values[73] = "17069887700"
+        values[76] = "17069887700"
+        text = 'v_sh510300="' + "~".join(values) + '";'
+
+        parsed = parse_tencent_quote_text(text)["sh510300"]
+        self.assertEqual(parsed["security_type"], "ETF")
+        self.assertEqual(parsed["listed_shares"], 17069887700)
+        self.assertEqual(parsed["listed_shares_field"], "tencent_extended_72")
+        self.assertLess(abs(parsed["share_cap_crosscheck_pct"]), 0.002)
+
+    def test_parse_tencent_etf_rejects_share_layout_drift(self) -> None:
+        values = [""] * 87
+        values[1] = "300ETF"
+        values[2] = "510300"
+        values[3] = "4.876"
+        values[30] = "20260703161439"
+        values[45] = "832.33"
+        values[61] = "ETF"
+        values[72] = "1000000000"
+        text = 'v_sh510300="' + "~".join(values) + '";'
+
+        parsed = parse_tencent_quote_text(text)["sh510300"]
+        self.assertIsNone(parsed["listed_shares"])
+        self.assertIsNone(parsed["listed_shares_field"])
 
     def test_parse_eastmoney_total_shares(self) -> None:
         parsed = parse_eastmoney_share_payload(
