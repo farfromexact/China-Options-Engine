@@ -1,12 +1,12 @@
 {
-  "run_date": "2026-08-17",
-  "generated_at": "2026-08-17T17:27:09.266155+08:00",
+  "run_date": "2026-08-18",
+  "generated_at": "2026-08-18T17:19:53.972591+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
-    "trade_date": "20260817",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202608/17/20260817_1.csv",
-    "records": 732,
+    "trade_date": "20260818",
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202608/18/20260818_1.csv",
+    "records": 736,
     "header": [
       "合约代码",
       "今开盘",
@@ -36,12 +36,12 @@
       "HO2608-C-2950"
     ]
   },
-  "official_quote_matches": 732,
-  "total_chain_quotes": 732,
+  "official_quote_matches": 736,
+  "total_chain_quotes": 736,
   "official_quote_match_coverage": 1.0,
   "futures_linkage": {
     "status": "ok",
-    "trade_date": "2026-08-17",
+    "trade_date": "2026-08-18",
     "records": 16,
     "products": [
       "IH",
