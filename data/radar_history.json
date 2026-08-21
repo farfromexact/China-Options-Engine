@@ -2,10 +2,10 @@
   "schema_version": "1.1",
   "description": "Compact verified China index futures/options history for radar automation and dashboards.",
   "retention_sessions": 60,
-  "record_count": 30,
+  "record_count": 31,
   "first_date": "2026-07-10",
-  "latest_date": "2026-08-20",
-  "updated_at": "2026-08-20T17:21:11.625575+08:00",
+  "latest_date": "2026-08-21",
+  "updated_at": "2026-08-21T17:22:58.875784+08:00",
   "records": [
     {
       "date": "2026-07-10",
@@ -24301,6 +24301,816 @@
           "option_forward": 7522.350192291112,
           "future_minus_option_forward_points": -6.150192291112035,
           "future_minus_option_forward_pct": -0.0008175892020308677,
+          "linkage_status": null,
+          "proxy_option_products": null,
+          "proxy_warning": null
+        }
+      }
+    },
+    {
+      "date": "2026-08-21",
+      "generated_at": "2026-08-21T17:22:58.875784+08:00",
+      "data_fresh": true,
+      "previous_date": "2026-08-20",
+      "data_quality": {
+        "record_origin": "scheduled_eod",
+        "option_price_basis": "cffex_official_settlement_fallback_close",
+        "option_chain": "ok",
+        "volume": "ok",
+        "official_eod_status": "ok",
+        "freshness": "fresh",
+        "freshness_method": "CFFEX official daily CSV existence and HO/IO/MO option rows",
+        "official_quote_matches": 574,
+        "total_chain_quotes": 574,
+        "official_quote_match_coverage": 1.0,
+        "futures_status": "ok",
+        "futures_records": 16,
+        "errors": []
+      },
+      "options": {
+        "HO": {
+          "expiries": [
+            {
+              "tenor_rank": 1,
+              "symbol": "HO2609",
+              "expiry": "2026-09-18",
+              "dte_calendar": 28,
+              "forward": 2865.845719472062,
+              "metrics": {
+                "atm_iv": 0.147021809727655,
+                "call25_iv": 0.1478617035809648,
+                "put25_iv": 0.1501348435375671,
+                "call10_iv": 0.16368881872347849,
+                "put10_iv": 0.17001417292019594,
+                "rr25": -0.0022731399566023047,
+                "bf25": 0.0019764638316109306,
+                "call_oi": 26905.0,
+                "put_oi": 17391.0,
+                "pcr_oi": 0.6463854302174317,
+                "call_volume": 7998.0,
+                "put_volume": 5299.0,
+                "pcr_volume": 0.6625406351587897,
+                "call_oi_change": 2094.0,
+                "put_oi_change": 1537.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 2900.0,
+                    "abs_gamma_1pct": 198756230.06946057
+                  },
+                  {
+                    "strike": 2800.0,
+                    "abs_gamma_1pct": 116998565.19916275
+                  },
+                  {
+                    "strike": 3000.0,
+                    "abs_gamma_1pct": 99177294.83633725
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 2,
+              "symbol": "HO2610",
+              "expiry": "2026-10-16",
+              "dte_calendar": 56,
+              "forward": 2855.327181906609,
+              "metrics": {
+                "atm_iv": 0.14676931169829527,
+                "call25_iv": 0.15505866115382858,
+                "put25_iv": 0.15791513910131189,
+                "call10_iv": 0.18304736107675662,
+                "put10_iv": 0.16541704112458325,
+                "rr25": -0.00285647794748331,
+                "bf25": 0.009717588429274948,
+                "call_oi": 2039.0,
+                "put_oi": 1802.0,
+                "pcr_oi": 0.883766552231486,
+                "call_volume": 579.0,
+                "put_volume": 298.0,
+                "pcr_volume": 0.5146804835924007,
+                "call_oi_change": 264.0,
+                "put_oi_change": 163.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 2750.0,
+                    "abs_gamma_1pct": 8362965.574009852
+                  },
+                  {
+                    "strike": 3000.0,
+                    "abs_gamma_1pct": 4940879.05436623
+                  },
+                  {
+                    "strike": 2700.0,
+                    "abs_gamma_1pct": 4367167.814559814
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 3,
+              "symbol": "HO2612",
+              "expiry": "2026-12-18",
+              "dte_calendar": 119,
+              "forward": 2824.4801897449024,
+              "metrics": {
+                "atm_iv": 0.15996324947478585,
+                "call25_iv": 0.1740444575385796,
+                "put25_iv": 0.15973260392626099,
+                "call10_iv": 0.20433417267882767,
+                "put10_iv": 0.17152653526573292,
+                "rr25": 0.014311853612318626,
+                "bf25": 0.006925281257634447,
+                "call_oi": 10185.0,
+                "put_oi": 7508.0,
+                "pcr_oi": 0.7371624938635248,
+                "call_volume": 211.0,
+                "put_volume": 83.0,
+                "pcr_volume": 0.3933649289099526,
+                "call_oi_change": 55.0,
+                "put_oi_change": 9.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 3000.0,
+                    "abs_gamma_1pct": 24646778.917795476
+                  },
+                  {
+                    "strike": 2800.0,
+                    "abs_gamma_1pct": 24481302.06200613
+                  },
+                  {
+                    "strike": 2900.0,
+                    "abs_gamma_1pct": 19431315.21846822
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 4,
+              "symbol": "HO2703",
+              "expiry": "2027-03-19",
+              "dte_calendar": 210,
+              "forward": 2795.442234249314,
+              "metrics": {
+                "atm_iv": 0.1597355177723782,
+                "call25_iv": 0.1770682901028957,
+                "put25_iv": 0.16367588356401733,
+                "call10_iv": 0.20026542236548533,
+                "put10_iv": 0.1665768292322523,
+                "rr25": 0.013392406538878382,
+                "bf25": 0.010636569061078294,
+                "call_oi": 5248.0,
+                "put_oi": 4044.0,
+                "pcr_oi": 0.770579268292683,
+                "call_volume": 184.0,
+                "put_volume": 95.0,
+                "pcr_volume": 0.5163043478260869,
+                "call_oi_change": 55.0,
+                "put_oi_change": 35.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 3000.0,
+                    "abs_gamma_1pct": 12790556.079706633
+                  },
+                  {
+                    "strike": 2500.0,
+                    "abs_gamma_1pct": 11383431.148416907
+                  },
+                  {
+                    "strike": 2900.0,
+                    "abs_gamma_1pct": 9197443.825632736
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "IO": {
+          "expiries": [
+            {
+              "tenor_rank": 1,
+              "symbol": "IO2609",
+              "expiry": "2026-09-18",
+              "dte_calendar": 28,
+              "forward": 4580.920557041584,
+              "metrics": {
+                "atm_iv": 0.17543806264032602,
+                "call25_iv": 0.16947371883507792,
+                "put25_iv": 0.19824656122263618,
+                "call10_iv": 0.16949665336489447,
+                "put10_iv": 0.22199188158826966,
+                "rr25": -0.028772842387558256,
+                "bf25": 0.008422077388531013,
+                "call_oi": 58389.0,
+                "put_oi": 39557.0,
+                "pcr_oi": 0.6774734967202727,
+                "call_volume": 26975.0,
+                "put_volume": 21202.0,
+                "pcr_volume": 0.7859870250231696,
+                "call_oi_change": 3446.0,
+                "put_oi_change": 5032.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 4600.0,
+                    "abs_gamma_1pct": 436215428.72811913
+                  },
+                  {
+                    "strike": 4700.0,
+                    "abs_gamma_1pct": 355494767.8491179
+                  },
+                  {
+                    "strike": 4500.0,
+                    "abs_gamma_1pct": 230719702.14584947
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 2,
+              "symbol": "IO2610",
+              "expiry": "2026-10-16",
+              "dte_calendar": 56,
+              "forward": 4560.023040200473,
+              "metrics": {
+                "atm_iv": 0.16609735709519274,
+                "call25_iv": 0.1622009264320797,
+                "put25_iv": 0.18222537328418847,
+                "call10_iv": 0.1671986788887079,
+                "put10_iv": 0.21472416424477306,
+                "rr25": -0.020024446852108774,
+                "bf25": 0.00611579276294133,
+                "call_oi": 5118.0,
+                "put_oi": 8414.0,
+                "pcr_oi": 1.64400156311059,
+                "call_volume": 1590.0,
+                "put_volume": 1507.0,
+                "pcr_volume": 0.9477987421383648,
+                "call_oi_change": 528.0,
+                "put_oi_change": 4.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 4250.0,
+                    "abs_gamma_1pct": 19743903.04812499
+                  },
+                  {
+                    "strike": 4600.0,
+                    "abs_gamma_1pct": 17500082.212730132
+                  },
+                  {
+                    "strike": 4400.0,
+                    "abs_gamma_1pct": 17272419.942587286
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 3,
+              "symbol": "IO2612",
+              "expiry": "2026-12-18",
+              "dte_calendar": 119,
+              "forward": 4507.838238630578,
+              "metrics": {
+                "atm_iv": 0.1772376114322875,
+                "call25_iv": 0.18368321308567234,
+                "put25_iv": 0.1908959726908866,
+                "call10_iv": 0.20048970314860426,
+                "put10_iv": 0.2168763343170786,
+                "rr25": -0.007212759605214253,
+                "bf25": 0.010051981455991954,
+                "call_oi": 20403.0,
+                "put_oi": 11765.0,
+                "pcr_oi": 0.5766308876145665,
+                "call_volume": 1300.0,
+                "put_volume": 982.0,
+                "pcr_volume": 0.7553846153846154,
+                "call_oi_change": 308.0,
+                "put_oi_change": 428.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 4500.0,
+                    "abs_gamma_1pct": 61327214.460484676
+                  },
+                  {
+                    "strike": 4700.0,
+                    "abs_gamma_1pct": 40426658.60490915
+                  },
+                  {
+                    "strike": 4600.0,
+                    "abs_gamma_1pct": 38307718.1485299
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 4,
+              "symbol": "IO2703",
+              "expiry": "2027-03-19",
+              "dte_calendar": 210,
+              "forward": 4440.428804034721,
+              "metrics": {
+                "atm_iv": 0.17770735234417442,
+                "call25_iv": 0.18343604370937033,
+                "put25_iv": 0.18754776717900198,
+                "call10_iv": 0.2137957030148436,
+                "put10_iv": 0.19809520870721134,
+                "rr25": -0.004111723469631651,
+                "bf25": 0.007784553100011721,
+                "call_oi": 6305.0,
+                "put_oi": 8924.0,
+                "pcr_oi": 1.4153846153846155,
+                "call_volume": 323.0,
+                "put_volume": 139.0,
+                "pcr_volume": 0.43034055727554177,
+                "call_oi_change": 50.0,
+                "put_oi_change": 0.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 4100.0,
+                    "abs_gamma_1pct": 24406744.266878992
+                  },
+                  {
+                    "strike": 4500.0,
+                    "abs_gamma_1pct": 17568911.888925165
+                  },
+                  {
+                    "strike": 4400.0,
+                    "abs_gamma_1pct": 16087234.798790976
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "MO": {
+          "expiries": [
+            {
+              "tenor_rank": 1,
+              "symbol": "MO2609",
+              "expiry": "2026-09-18",
+              "dte_calendar": 28,
+              "forward": 7533.35335945016,
+              "metrics": {
+                "atm_iv": 0.26614950348717437,
+                "call25_iv": 0.25886719615314324,
+                "put25_iv": 0.30161618319112043,
+                "call10_iv": 0.25042472013362843,
+                "put10_iv": 0.3396110155998197,
+                "rr25": -0.04274898703797719,
+                "bf25": 0.014092186184957445,
+                "call_oi": 115762.0,
+                "put_oi": 89845.0,
+                "pcr_oi": 0.776118242601199,
+                "call_volume": 85665.0,
+                "put_volume": 74869.0,
+                "pcr_volume": 0.8739742018327205,
+                "call_oi_change": 7914.0,
+                "put_oi_change": 6614.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 8000.0,
+                    "abs_gamma_1pct": 721669550.9882623
+                  },
+                  {
+                    "strike": 7600.0,
+                    "abs_gamma_1pct": 544009236.2049073
+                  },
+                  {
+                    "strike": 7800.0,
+                    "abs_gamma_1pct": 496234480.88711107
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 2,
+              "symbol": "MO2610",
+              "expiry": "2026-10-16",
+              "dte_calendar": 56,
+              "forward": 7492.493126649499,
+              "metrics": {
+                "atm_iv": 0.2580767449061602,
+                "call25_iv": 0.2498669846867572,
+                "put25_iv": 0.28505997285188994,
+                "call10_iv": 0.24935000563517343,
+                "put10_iv": 0.3344770751009134,
+                "rr25": -0.03519298816513275,
+                "bf25": 0.009386733863163355,
+                "call_oi": 10067.0,
+                "put_oi": 14326.0,
+                "pcr_oi": 1.4230654614085627,
+                "call_volume": 4386.0,
+                "put_volume": 3734.0,
+                "pcr_volume": 0.8513451892384861,
+                "call_oi_change": 689.0,
+                "put_oi_change": 571.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 7400.0,
+                    "abs_gamma_1pct": 39691394.94957699
+                  },
+                  {
+                    "strike": 7600.0,
+                    "abs_gamma_1pct": 37504230.42776288
+                  },
+                  {
+                    "strike": 8000.0,
+                    "abs_gamma_1pct": 35482048.98860248
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 3,
+              "symbol": "MO2612",
+              "expiry": "2026-12-18",
+              "dte_calendar": 119,
+              "forward": 7335.381984903876,
+              "metrics": {
+                "atm_iv": 0.25531752276802955,
+                "call25_iv": 0.24936372221920278,
+                "put25_iv": 0.28970403140031936,
+                "call10_iv": 0.26613392194927854,
+                "put10_iv": 0.3158431302611708,
+                "rr25": -0.040340309181116585,
+                "bf25": 0.014216354041731494,
+                "call_oi": 37301.0,
+                "put_oi": 23550.0,
+                "pcr_oi": 0.6313503659419318,
+                "call_volume": 4197.0,
+                "put_volume": 3521.0,
+                "pcr_volume": 0.8389325708839648,
+                "call_oi_change": 542.0,
+                "put_oi_change": 626.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 8000.0,
+                    "abs_gamma_1pct": 100093256.38622122
+                  },
+                  {
+                    "strike": 7600.0,
+                    "abs_gamma_1pct": 91097506.82185388
+                  },
+                  {
+                    "strike": 7800.0,
+                    "abs_gamma_1pct": 80661978.84303635
+                  }
+                ]
+              }
+            },
+            {
+              "tenor_rank": 4,
+              "symbol": "MO2703",
+              "expiry": "2027-03-19",
+              "dte_calendar": 210,
+              "forward": 7150.216406821538,
+              "metrics": {
+                "atm_iv": 0.2495837205989777,
+                "call25_iv": 0.244131173734239,
+                "put25_iv": 0.27176993370969654,
+                "call10_iv": 0.26395187850079826,
+                "put10_iv": 0.2789066590987594,
+                "rr25": -0.027638759975457533,
+                "bf25": 0.00836683312299008,
+                "call_oi": 15875.0,
+                "put_oi": 11663.0,
+                "pcr_oi": 0.7346771653543307,
+                "call_volume": 1304.0,
+                "put_volume": 829.0,
+                "pcr_volume": 0.6357361963190185,
+                "call_oi_change": 72.0,
+                "put_oi_change": 123.0,
+                "volume_oi_coverage": 1.0,
+                "gamma_peaks": [
+                  {
+                    "strike": 6600.0,
+                    "abs_gamma_1pct": 41405437.25460537
+                  },
+                  {
+                    "strike": 7400.0,
+                    "abs_gamma_1pct": 32598887.091784015
+                  },
+                  {
+                    "strike": 7200.0,
+                    "abs_gamma_1pct": 28727881.865527675
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "futures": {
+        "IH": {
+          "main_contract": {
+            "symbol": "IH2609",
+            "contract_month": "2609",
+            "expiry_inferred": "2026-09-18",
+            "dte_calendar": 28,
+            "open": 2854.0,
+            "high": 2873.0,
+            "low": 2847.2,
+            "close": 2861.0,
+            "settle": 2862.0,
+            "pre_settle": 2854.6,
+            "change_points": 6.400000000000091,
+            "change_pct": 0.0022419953758845692,
+            "volume": 31876.0,
+            "open_interest": 74301.0,
+            "oi_change": -297.0,
+            "oi_change_pct": -0.003981339982305156
+          },
+          "next_contract": {
+            "symbol": "IH2612",
+            "contract_month": "2612",
+            "expiry_inferred": "2026-12-18",
+            "dte_calendar": 119,
+            "open": 2814.0,
+            "high": 2828.4,
+            "low": 2807.6,
+            "close": 2816.4,
+            "settle": 2816.2,
+            "pre_settle": 2813.2,
+            "change_points": 3.200000000000273,
+            "change_pct": 0.0011374946679938408,
+            "volume": 7742.0,
+            "open_interest": 29715.0,
+            "oi_change": 1809.0,
+            "oi_change_pct": 0.06482476886691034
+          },
+          "next_minus_main_points": -44.59999999999991,
+          "annualized_roll_pct_inferred": -0.062527126840304,
+          "term_structure_signal": "next_below_main",
+          "total_volume": 48648.0,
+          "total_open_interest": 112310.0,
+          "total_oi_change": -6932.0,
+          "main_volume_share": 0.6552376253905607,
+          "main_oi_share": 0.6615706526578221,
+          "cash_index_code": "000016",
+          "cash_index_name": "SSE50",
+          "cash_index_close": 2883.55,
+          "cash_index_change_pct": 0.0007000000000000001,
+          "cash_index_turnover_cny": 137610110000.0,
+          "cash_basis_points": -22.550000000000182,
+          "cash_basis_pct": -0.00782022160184501,
+          "annualized_cash_basis_pct_inferred": -0.10194217445262245,
+          "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+          "reference_etf_code": "510050",
+          "reference_etf_close": 2.993,
+          "reference_etf_total_shares": 7292466800.0,
+          "reference_etf_previous_total_shares": 6940566800.0,
+          "reference_etf_share_change": 351900000.0,
+          "reference_etf_share_change_pct": 0.05070191097361097,
+          "reference_etf_estimated_net_creation_redemption_cny": 1053236700.0,
+          "reference_etf_flow_method": "daily total-share change * ETF market close"
+        },
+        "IF": {
+          "main_contract": {
+            "symbol": "IF2609",
+            "contract_month": "2609",
+            "expiry_inferred": "2026-09-18",
+            "dte_calendar": 28,
+            "open": 4556.0,
+            "high": 4595.8,
+            "low": 4542.4,
+            "close": 4576.0,
+            "settle": 4577.6,
+            "pre_settle": 4546.6,
+            "change_points": 29.399999999999636,
+            "change_pct": 0.0064663704746403105,
+            "volume": 71450.0,
+            "open_interest": 158767.0,
+            "oi_change": 7381.0,
+            "oi_change_pct": 0.04875615975057139
+          },
+          "next_contract": {
+            "symbol": "IF2612",
+            "contract_month": "2612",
+            "expiry_inferred": "2026-12-18",
+            "dte_calendar": 119,
+            "open": 4469.0,
+            "high": 4515.2,
+            "low": 4466.2,
+            "close": 4495.0,
+            "settle": 4496.2,
+            "pre_settle": 4470.4,
+            "change_points": 24.600000000000364,
+            "change_pct": 0.005502863278453911,
+            "volume": 24690.0,
+            "open_interest": 76140.0,
+            "oi_change": 7141.0,
+            "oi_change_pct": 0.10349425353990638
+          },
+          "next_minus_main_points": -81.0,
+          "annualized_roll_pct_inferred": -0.07099871282563594,
+          "term_structure_signal": "next_below_main",
+          "total_volume": 113593.0,
+          "total_open_interest": 265054.0,
+          "total_oi_change": -460.0,
+          "main_volume_share": 0.6290000264100781,
+          "main_oi_share": 0.5989986946056275,
+          "cash_index_code": "000300",
+          "cash_index_name": "CSI300",
+          "cash_index_close": 4618.9,
+          "cash_index_change_pct": 0.005699999999999999,
+          "cash_index_turnover_cny": 505501100000.0,
+          "cash_basis_points": -42.899999999999636,
+          "cash_basis_pct": -0.009287925696594349,
+          "annualized_cash_basis_pct_inferred": -0.12107474568774776,
+          "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+          "reference_etf_code": "510300",
+          "reference_etf_close": 4.68,
+          "reference_etf_total_shares": 23743387700.0,
+          "reference_etf_previous_total_shares": 23858587700.0,
+          "reference_etf_share_change": -115200000.0,
+          "reference_etf_share_change_pct": -0.004828450093045533,
+          "reference_etf_estimated_net_creation_redemption_cny": -539136000.0,
+          "reference_etf_flow_method": "daily total-share change * ETF market close"
+        },
+        "IC": {
+          "main_contract": {
+            "symbol": "IC2609",
+            "contract_month": "2609",
+            "expiry_inferred": "2026-09-18",
+            "dte_calendar": 28,
+            "open": 7744.0,
+            "high": 7797.2,
+            "low": 7669.6,
+            "close": 7762.0,
+            "settle": 7765.8,
+            "pre_settle": 7744.0,
+            "change_points": 18.0,
+            "change_pct": 0.0023243801652892563,
+            "volume": 103559.0,
+            "open_interest": 168166.0,
+            "oi_change": -152.0,
+            "oi_change_pct": -0.0009030525552822633
+          },
+          "next_contract": {
+            "symbol": "IC2612",
+            "contract_month": "2612",
+            "expiry_inferred": "2026-12-18",
+            "dte_calendar": 119,
+            "open": 7550.2,
+            "high": 7608.0,
+            "low": 7482.6,
+            "close": 7563.0,
+            "settle": 7568.4,
+            "pre_settle": 7554.8,
+            "change_points": 8.199999999999818,
+            "change_pct": 0.001085402657912826,
+            "volume": 29557.0,
+            "open_interest": 85615.0,
+            "oi_change": 391.0,
+            "oi_change_pct": 0.004587909509058481
+          },
+          "next_minus_main_points": -199.0,
+          "annualized_roll_pct_inferred": -0.10283262215753824,
+          "term_structure_signal": "next_below_main",
+          "total_volume": 154785.0,
+          "total_open_interest": 282650.0,
+          "total_oi_change": -18296.0,
+          "main_volume_share": 0.6690506185999935,
+          "main_oi_share": 0.5949619670971166,
+          "cash_index_code": "000905",
+          "cash_index_name": "CSI500",
+          "cash_index_close": 7854.33,
+          "cash_index_change_pct": 0.0005,
+          "cash_index_turnover_cny": 358945350000.0,
+          "cash_basis_points": -92.32999999999993,
+          "cash_basis_pct": -0.011755299306242535,
+          "annualized_cash_basis_pct_inferred": -0.15323872309923306,
+          "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+          "reference_etf_code": "510500",
+          "reference_etf_close": 7.866,
+          "reference_etf_total_shares": 5069768600.0,
+          "reference_etf_previous_total_shares": 5164568600.0,
+          "reference_etf_share_change": -94800000.0,
+          "reference_etf_share_change_pct": -0.018355840989313223,
+          "reference_etf_estimated_net_creation_redemption_cny": -745696800.0,
+          "reference_etf_flow_method": "daily total-share change * ETF market close"
+        },
+        "IM": {
+          "main_contract": {
+            "symbol": "IM2609",
+            "contract_month": "2609",
+            "expiry_inferred": "2026-09-18",
+            "dte_calendar": 28,
+            "open": 7500.0,
+            "high": 7575.0,
+            "low": 7410.0,
+            "close": 7527.0,
+            "settle": 7529.6,
+            "pre_settle": 7510.4,
+            "change_points": 16.600000000000364,
+            "change_pct": 0.0022102684277801933,
+            "volume": 170783.0,
+            "open_interest": 254020.0,
+            "oi_change": 7707.0,
+            "oi_change_pct": 0.031289456910516295
+          },
+          "next_contract": {
+            "symbol": "IM2612",
+            "contract_month": "2612",
+            "expiry_inferred": "2026-12-18",
+            "dte_calendar": 119,
+            "open": 7296.6,
+            "high": 7371.6,
+            "low": 7216.0,
+            "close": 7314.6,
+            "settle": 7318.0,
+            "pre_settle": 7307.4,
+            "change_points": 7.200000000000728,
+            "change_pct": 0.0009853025699976363,
+            "volume": 49672.0,
+            "open_interest": 134240.0,
+            "oi_change": 4838.0,
+            "oi_change_pct": 0.03738736650129055
+          },
+          "next_minus_main_points": -212.39999999999964,
+          "annualized_roll_pct_inferred": -0.11318374730092509,
+          "term_structure_signal": "next_below_main",
+          "total_volume": 259444.0,
+          "total_open_interest": 444475.0,
+          "total_oi_change": -11867.0,
+          "main_volume_share": 0.6582653674781456,
+          "main_oi_share": 0.5715057089825074,
+          "cash_index_code": "000852",
+          "cash_index_name": "CSI1000",
+          "cash_index_close": 7601.8,
+          "cash_index_change_pct": 0.0016,
+          "cash_index_turnover_cny": 415934990000.0,
+          "cash_basis_points": -74.80000000000018,
+          "cash_basis_pct": -0.009839774790181296,
+          "annualized_cash_basis_pct_inferred": -0.12826849280057762,
+          "cash_basis_note": "main future close minus cash-index close; annualization uses calendar DTE and is not dividend/carry adjusted",
+          "reference_etf_code": "512100",
+          "reference_etf_close": 3.08,
+          "reference_etf_total_shares": 6787217600.0,
+          "reference_etf_previous_total_shares": 7341217600.0,
+          "reference_etf_share_change": -554000000.0,
+          "reference_etf_share_change_pct": -0.07546432079604887,
+          "reference_etf_estimated_net_creation_redemption_cny": -1706320000.0,
+          "reference_etf_flow_method": "daily total-share change * ETF market close"
+        }
+      },
+      "futures_option_linkage": {
+        "IH": {
+          "direct_option_product": "HO",
+          "direct_option_available": true,
+          "matched_option_symbol": "HO2609",
+          "matched_option_expiry": "2026-09-18",
+          "option_forward": 2865.845719472062,
+          "future_minus_option_forward_points": -4.845719472061774,
+          "future_minus_option_forward_pct": -0.0016908514785486913,
+          "linkage_status": null,
+          "proxy_option_products": null,
+          "proxy_warning": null
+        },
+        "IF": {
+          "direct_option_product": "IO",
+          "direct_option_available": true,
+          "matched_option_symbol": "IO2609",
+          "matched_option_expiry": "2026-09-18",
+          "option_forward": 4580.920557041584,
+          "future_minus_option_forward_points": -4.9205570415842885,
+          "future_minus_option_forward_pct": -0.001074141535596078,
+          "linkage_status": null,
+          "proxy_option_products": null,
+          "proxy_warning": null
+        },
+        "IC": {
+          "direct_option_product": null,
+          "direct_option_available": false,
+          "matched_option_symbol": null,
+          "matched_option_expiry": null,
+          "option_forward": null,
+          "future_minus_option_forward_points": null,
+          "future_minus_option_forward_pct": null,
+          "linkage_status": "no direct CFFEX CSI 500 index option",
+          "proxy_option_products": [
+            "MO",
+            "IO"
+          ],
+          "proxy_warning": "MO/IO and any CSI 500 ETF options are cross-sectional volatility proxies, not one-to-one IC hedges"
+        },
+        "IM": {
+          "direct_option_product": "MO",
+          "direct_option_available": true,
+          "matched_option_symbol": "MO2609",
+          "matched_option_expiry": "2026-09-18",
+          "option_forward": 7533.35335945016,
+          "future_minus_option_forward_points": -6.353359450159587,
+          "future_minus_option_forward_pct": -0.0008433640567503265,
           "linkage_status": null,
           "proxy_option_products": null,
           "proxy_warning": null
