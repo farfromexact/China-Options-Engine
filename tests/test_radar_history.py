@@ -132,9 +132,18 @@ class RadarHistoryTests(unittest.TestCase):
             build_history_record(missing_futures)
 
         partial_options = sample_radar("2026-08-07")
-        partial_options["source_status"]["official_quote_match_coverage"] = 0.99
-        with self.assertRaisesRegex(ValueError, "incomplete official option coverage"):
+        partial_options["source_status"]["official_quote_match_coverage"] = 0.949
+        with self.assertRaisesRegex(ValueError, "coverage below the 95% minimum"):
             build_history_record(partial_options)
+
+        acceptable_options = sample_radar("2026-08-07")
+        acceptable_options["source_status"]["official_quote_match_coverage"] = 0.95
+        self.assertEqual(
+            build_history_record(acceptable_options)["data_quality"][
+                "official_quote_match_coverage"
+            ],
+            0.95,
+        )
 
         empty_product = sample_radar("2026-08-07")
         empty_product["products"]["HO"]["expiries"] = []
@@ -237,6 +246,15 @@ class RadarHistoryTests(unittest.TestCase):
     def test_restore_validator_rejects_pre_eod_and_preserves_linkage(self) -> None:
         verified = sample_radar("2026-08-07")
         self.assertTrue(is_verified_snapshot(verified, "2026-08-07"))
+
+        acceptable_coverage = sample_radar("2026-08-07")
+        acceptable_coverage["source_status"]["official_quote_match_coverage"] = 0.95
+        self.assertTrue(is_verified_snapshot(acceptable_coverage, "2026-08-07"))
+
+        insufficient_coverage = sample_radar("2026-08-07")
+        insufficient_coverage["source_status"]["official_quote_match_coverage"] = 0.949
+        self.assertFalse(is_verified_snapshot(insufficient_coverage, "2026-08-07"))
+
         pre_eod = sample_radar("2026-08-08")
         del pre_eod["source_status"]["official_eod"]
         self.assertFalse(is_verified_snapshot(pre_eod, "2026-08-08"))

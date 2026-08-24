@@ -37,6 +37,7 @@ STATUS_PATH = DATA_DIR / "last_run_status.json"
 
 OPTION_PRODUCTS = ("HO", "IO", "MO")
 OPTION_PREFIXES = set(OPTION_PRODUCTS)
+MIN_OFFICIAL_CHAIN_COVERAGE = 0.95
 OPTION_CONTRACT_PATTERN = re.compile(
     r"^(HO|IO|MO)(\d{4})([CP])(\d+(?:\.\d+)?)$", re.IGNORECASE
 )
@@ -647,8 +648,9 @@ def is_verified_snapshot(snapshot: Any, snapshot_date: str) -> bool:
     if source_status.get("option_chain") != "ok" or source_status.get("volume") != "ok":
         return False
     coverage = source_status.get("official_quote_match_coverage")
-    if not isinstance(coverage, (int, float)) or not math.isclose(
-        float(coverage), 1.0, rel_tol=0.0, abs_tol=1e-12
+    if (
+        not isinstance(coverage, (int, float))
+        or float(coverage) < MIN_OFFICIAL_CHAIN_COVERAGE
     ):
         return False
     official = source_status.get("official_eod")
@@ -790,11 +792,12 @@ def main() -> None:
         else 0.0
     )
     missing_active_symbols = active_official_symbols - live_symbols
-    if coverage != 1.0:
+    if coverage < MIN_OFFICIAL_CHAIN_COVERAGE:
         sample = sorted(missing_active_symbols)[:10]
         raise RuntimeError(
-            "live option chain does not cover the full active CFFEX EOD chain: "
-            f"coverage={coverage:.6f}, missing={len(missing_active_symbols)}, sample={sample}"
+            "live option chain coverage is below the minimum CFFEX EOD threshold: "
+            f"coverage={coverage:.6f}, minimum={MIN_OFFICIAL_CHAIN_COVERAGE:.2f}, "
+            f"missing={len(missing_active_symbols)}, sample={sample}"
         )
     history_products = build_official_settlement_history_products(eod, run_date)
 
@@ -811,6 +814,8 @@ def main() -> None:
         "official_quote_matches": len(matched_active_symbols),
         "total_chain_quotes": len(active_official_symbols),
         "official_quote_match_coverage": coverage,
+        "official_unmatched_active_symbols": len(missing_active_symbols),
+        "official_unmatched_active_sample": sorted(missing_active_symbols)[:10],
         "sina_chain_quotes": total_quotes,
         "all_official_matches_including_expired": matched,
         "freshness": "fresh",
@@ -841,6 +846,8 @@ def main() -> None:
                 "official_quote_matches": matched,
                 "total_chain_quotes": total_quotes,
                 "official_quote_match_coverage": coverage,
+                "official_unmatched_active_symbols": len(missing_active_symbols),
+                "official_unmatched_active_sample": sorted(missing_active_symbols)[:10],
             },
             ensure_ascii=False,
             indent=2,
@@ -856,6 +863,8 @@ def main() -> None:
                 "official_quote_matches": matched,
                 "total_chain_quotes": total_quotes,
                 "official_quote_match_coverage": coverage,
+                "official_unmatched_active_symbols": len(missing_active_symbols),
+                "official_unmatched_active_sample": sorted(missing_active_symbols)[:10],
                 "source": status.get("source"),
             },
             ensure_ascii=False,

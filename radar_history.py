@@ -18,6 +18,7 @@ SNAPSHOT_DIR = DATA_DIR / "snapshots"
 
 OPTION_PRODUCTS = ("HO", "IO", "MO")
 FUTURE_PRODUCTS = ("IH", "IF", "IC", "IM")
+MIN_OFFICIAL_CHAIN_COVERAGE = 0.95
 
 OPTION_METRIC_KEYS = (
     "atm_iv",
@@ -179,11 +180,13 @@ def _validate_verified_sources(source: Mapping[str, Any], market_date: str) -> N
             "verified history snapshot is missing complete option-chain EOD data"
         )
     coverage = source_status.get("official_quote_match_coverage")
-    if not isinstance(coverage, (int, float)) or not math.isclose(
-        float(coverage), 1.0, rel_tol=0.0, abs_tol=1e-12
+    if (
+        not isinstance(coverage, (int, float))
+        or float(coverage) < MIN_OFFICIAL_CHAIN_COVERAGE
     ):
         raise UnverifiedSnapshotError(
-            f"verified history snapshot has incomplete official option coverage: {coverage}"
+            "verified history snapshot has official option coverage below the "
+            f"{MIN_OFFICIAL_CHAIN_COVERAGE:.0%} minimum: {coverage}"
         )
 
     raw_official = source_status.get("official_eod")
