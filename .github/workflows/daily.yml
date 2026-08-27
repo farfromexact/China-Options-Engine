@@ -15,10 +15,11 @@ on:
       - "requirements.txt"
       - ".github/workflows/daily.yml"
   schedule:
-    # 17:00 Asia/Shanghai = 09:00 UTC, Monday-Friday.
+    # 17:17 Asia/Shanghai = 09:17 UTC, Monday-Friday. Avoid the
+    # top-of-hour Actions scheduling peak, when scheduled runs can be delayed.
     # CFFEX official EOD validates the trading day. On China holidays/non-trading
     # days the enrichment step preserves the latest verified snapshot.
-    - cron: "0 9 * * 1-5"
+    - cron: "17 9 * * 1-5"
 
 permissions:
   contents: write
