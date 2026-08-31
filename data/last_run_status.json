@@ -1,63 +1,16 @@
 {
-  "run_date": "2026-08-31",
-  "generated_at": "2026-08-31T19:46:33.731727+08:00",
-  "data_fresh": true,
+  "run_date": "2026-09-01",
+  "generated_at": "2026-09-01T01:06:07.373272+08:00",
+  "data_fresh": false,
   "cffex_eod": {
-    "status": "ok",
-    "trade_date": "20260831",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202608/31/20260831_1.csv",
-    "records": 686,
-    "header": [
-      "合约代码",
-      "今开盘",
-      "最高价",
-      "最低价",
-      "成交量",
-      "成交金额",
-      "持仓量",
-      "持仓变化",
-      "今收盘",
-      "今结算",
-      "前结算",
-      "涨跌1",
-      "涨跌2",
-      "Delta"
-    ],
-    "sample_symbols": [
-      "HO2609-C-2500",
-      "HO2609-C-2550",
-      "HO2609-C-2600",
-      "HO2609-C-2650",
-      "HO2609-C-2700",
-      "HO2609-C-2750",
-      "HO2609-C-2800",
-      "HO2609-C-2850",
-      "HO2609-C-2900",
-      "HO2609-C-2950"
-    ]
+    "status": "missing",
+    "trade_date": "20260901",
+    "error": "RuntimeError: CFFEX daily CSV has no header"
   },
-  "official_quote_matches": 686,
-  "total_chain_quotes": 686,
-  "official_quote_match_coverage": 1.0,
-  "official_unmatched_active_symbols": 0,
-  "official_unmatched_active_sample": [],
+  "restored_latest_date": "2026-08-31",
   "futures_linkage": {
-    "status": "ok",
-    "trade_date": "2026-08-31",
-    "records": 16,
-    "products": [
-      "IH",
-      "IF",
-      "IC",
-      "IM"
-    ],
-    "direct_pairs": {
-      "IH": "HO",
-      "IF": "IO",
-      "IM": "MO"
-    },
-    "IC_note": "no direct CFFEX CSI 500 index option; proxy only",
-    "cash_market_status": "ok",
-    "cash_market_errors": []
+    "status": "skipped",
+    "reason": "latest option snapshot is not a fresh run-date snapshot",
+    "run_date": "2026-09-01"
   }
 }
