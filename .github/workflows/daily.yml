@@ -2,18 +2,6 @@ name: China Options Engine
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "engine.py"
-      - "eod_enrich.py"
-      - "futures_link.py"
-      - "radar_history.py"
-      - "backfill_cffex.py"
-      - "tests/**"
-      - "README.md"
-      - "requirements.txt"
-      - ".github/workflows/daily.yml"
 
 permissions:
   contents: write
