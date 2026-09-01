@@ -1,0 +1,21 @@
+name: ChatGPT Scheduler Bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/chatgpt-trigger.txt"
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Dispatch production daily workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run daily.yml --ref main
