@@ -1,11 +1,11 @@
 {
-  "run_date": "2026-09-09",
-  "generated_at": "2026-09-09T17:16:44.986025+08:00",
+  "run_date": "2026-09-10",
+  "generated_at": "2026-09-10T17:20:07.152055+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
-    "trade_date": "20260909",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202609/09/20260909_1.csv",
+    "trade_date": "20260910",
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202609/10/20260910_1.csv",
     "records": 686,
     "header": [
       "合约代码",
@@ -43,7 +43,7 @@
   "official_unmatched_active_sample": [],
   "futures_linkage": {
     "status": "ok",
-    "trade_date": "2026-09-09",
+    "trade_date": "2026-09-10",
     "records": 16,
     "products": [
       "IH",
