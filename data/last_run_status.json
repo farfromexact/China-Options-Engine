@@ -1,12 +1,12 @@
 {
-  "run_date": "2026-09-18",
-  "generated_at": "2026-09-18T17:21:01.400014+08:00",
+  "run_date": "2026-09-21",
+  "generated_at": "2026-09-21T17:20:05.146425+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
-    "trade_date": "20260918",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202609/18/20260918_1.csv",
-    "records": 692,
+    "trade_date": "20260921",
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202609/21/20260921_1.csv",
+    "records": 630,
     "header": [
       "合约代码",
       "今开盘",
@@ -24,26 +24,26 @@
       "Delta"
     ],
     "sample_symbols": [
-      "HO2609-C-2500",
-      "HO2609-C-2550",
-      "HO2609-C-2600",
-      "HO2609-C-2650",
-      "HO2609-C-2700",
-      "HO2609-C-2750",
-      "HO2609-C-2800",
-      "HO2609-C-2850",
-      "HO2609-C-2900",
-      "HO2609-C-2950"
+      "HO2610-C-2500",
+      "HO2610-C-2550",
+      "HO2610-C-2600",
+      "HO2610-C-2650",
+      "HO2610-C-2700",
+      "HO2610-C-2750",
+      "HO2610-C-2800",
+      "HO2610-C-2850",
+      "HO2610-C-2900",
+      "HO2610-C-2950"
     ]
   },
-  "official_quote_matches": 692,
-  "total_chain_quotes": 692,
+  "official_quote_matches": 630,
+  "total_chain_quotes": 630,
   "official_quote_match_coverage": 1.0,
   "official_unmatched_active_symbols": 0,
   "official_unmatched_active_sample": [],
   "futures_linkage": {
     "status": "ok",
-    "trade_date": "2026-09-18",
+    "trade_date": "2026-09-21",
     "records": 16,
     "products": [
       "IH",
