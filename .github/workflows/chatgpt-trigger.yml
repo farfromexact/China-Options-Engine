@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - ".github/chatgpt-trigger.txt"
+      - "automation/chatgpt-trigger.txt"
 
 permissions:
   actions: write
