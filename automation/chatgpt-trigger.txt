@@ -1,0 +1,1 @@
+scheduler trigger initialized; use timestamped updates only
