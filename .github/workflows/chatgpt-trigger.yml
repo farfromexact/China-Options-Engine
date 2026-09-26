@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "automation/chatgpt-trigger.txt"
+  issues:
+    types: [edited]
 
 permissions:
   actions: write
@@ -12,6 +14,7 @@ permissions:
 
 jobs:
   dispatch:
+    if: ${{ github.event_name == 'push' || github.event.issue.number == 5 }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
