@@ -6,15 +6,16 @@ on:
     paths:
       - "automation/chatgpt-trigger.txt"
   issues:
-    types: [edited]
+    types: [assigned]
 
 permissions:
   actions: write
   contents: read
+  issues: write
 
 jobs:
   dispatch:
-    if: ${{ github.event_name == 'push' || github.event.issue.number == 5 }}
+    if: ${{ github.event_name == 'push' || (github.event.issue.number == 5 && github.event.assignee.login == 'farfromexact') }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -22,3 +23,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run daily.yml --ref main --repo "$GITHUB_REPOSITORY"
+
+      - name: Reset scheduler trigger
+        if: ${{ github.event_name == 'issues' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue edit 5 --remove-assignee farfromexact --repo "$GITHUB_REPOSITORY"
