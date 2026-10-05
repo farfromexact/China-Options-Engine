@@ -1,16 +1,16 @@
 {
-  "run_date": "2026-10-01",
-  "generated_at": "2026-10-01T06:21:59.172691+08:00",
+  "run_date": "2026-10-06",
+  "generated_at": "2026-10-06T06:15:04.924218+08:00",
   "data_fresh": false,
   "cffex_eod": {
     "status": "missing",
-    "trade_date": "20261001",
+    "trade_date": "20261006",
     "error": "RuntimeError: CFFEX daily CSV has no header"
   },
   "restored_latest_date": "2026-09-23",
   "futures_linkage": {
     "status": "skipped",
     "reason": "latest option snapshot is not a fresh run-date snapshot",
-    "run_date": "2026-10-01"
+    "run_date": "2026-10-06"
   }
 }
