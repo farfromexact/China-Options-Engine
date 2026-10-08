@@ -15,9 +15,14 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 import requests
+from chinese_calendar import get_holiday_detail
 
 TZ_CN = timezone(timedelta(hours=8))
-REQ_TIMEOUT = 25
+# Each official endpoint is a fallback route, not a retry target. A bounded
+# request keeps an unavailable CFFEX origin from turning one daily run into a
+# multi-minute holiday probe.
+REQ_TIMEOUT = 10
+CFFEX_DAILY_ATTEMPTS = 1
 REFERER = "http://www.cffex.com.cn/rtj/"
 BROWSER_HEADERS = {
     "User-Agent": (
@@ -173,6 +178,7 @@ def download_single_daily_csv(trade_date: date) -> tuple[str, bytes]:
         create_session(),
         single,
         min_size=100,
+        attempts=CFFEX_DAILY_ATTEMPTS,
         validator=lambda source, content: parse_cffex_eod_content(
             trade_date, source, content
         ),
@@ -197,17 +203,31 @@ def extract_daily_from_monthly_zip(
     ds = trade_date.strftime("%Y%m%d")
     target = f"{ds}_1.csv"
     with zipfile.ZipFile(BytesIO(content)) as archive:
-        match = next(
-            (
-                name
-                for name in archive.namelist()
-                if name == target
-                or name.replace("\\", "/").endswith(f"/{target}")
-            ),
-            None,
-        )
+        daily_members: list[tuple[str, str]] = []
+        for name in archive.namelist():
+            filename = name.replace("\\", "/").rsplit("/", 1)[-1]
+            matched = re.fullmatch(r"(\d{8})_1\.csv", filename)
+            if matched:
+                daily_members.append((matched.group(1), name))
+
+        match = next((name for member_date, name in daily_members if member_date == ds), None)
         if match is None:
-            raise CffexNoSessionError(f"{target} not found in verified monthly ZIP")
+            later_dates = sorted(
+                member_date for member_date, _ in daily_members if member_date > ds
+            )
+            if later_dates:
+                raise CffexNoSessionError(
+                    f"{target} not found in verified monthly ZIP, which contains "
+                    f"a later daily file ({later_dates[-1]}_1.csv)"
+                )
+            latest_member = max((member_date for member_date, _ in daily_members), default=None)
+            coverage = (
+                f"through {latest_member}" if latest_member else "with no daily CSV members"
+            )
+            raise RuntimeError(
+                f"{target} not found; monthly ZIP only covers {coverage} and cannot "
+                "prove this is a non-trading day"
+            )
         return f"{source}#{match}", archive.read(match)
 
 
@@ -328,6 +348,26 @@ def latest_weekday_on_or_before(candidate: date) -> date:
     return candidate
 
 
+def cffex_statutory_holiday_name(candidate: date) -> str | None:
+    """Return a known Chinese statutory holiday for a weekday, if available.
+
+    The calendar is deliberately only a fast path for statutory closures. It
+    does not claim to model exchange-specific unscheduled closures; those still
+    require a verified CFFEX source response.
+    """
+    try:
+        is_holiday, holiday = get_holiday_detail(candidate)
+    except NotImplementedError:
+        # The package is annually updated after the State Council announcement.
+        # If an unknown future year is encountered, keep the source-based path
+        # instead of guessing that the day trades.
+        return None
+    if not is_holiday:
+        return None
+    value = getattr(holiday, "value", holiday)
+    return str(value or "Chinese statutory holiday")
+
+
 def select_initial_trade_date(now: datetime) -> date:
     local_now = now.astimezone(TZ_CN) if now.tzinfo else now.replace(tzinfo=TZ_CN)
     local_clock = local_now.time().replace(tzinfo=None)
@@ -344,14 +384,26 @@ def resolve_latest_completed_eod(
     requested_date = select_initial_trade_date(now)
     candidate = requested_date
     skipped_non_trading_dates: list[str] = []
+    skipped_statutory_holidays: list[dict[str, str]] = []
 
     for _ in range(MAX_CFFEX_SESSION_LOOKBACK):
+        holiday_name = cffex_statutory_holiday_name(candidate)
+        if holiday_name is not None:
+            skipped_non_trading_dates.append(candidate.isoformat())
+            skipped_statutory_holidays.append(
+                {"date": candidate.isoformat(), "holiday": holiday_name}
+            )
+            candidate = latest_weekday_on_or_before(candidate - timedelta(days=1))
+            continue
+
         eod, status = fetch_cffex_eod(candidate)
         status = dict(status)
         status["requested_trade_date"] = requested_date.isoformat()
         status["resolved_trade_date"] = candidate.isoformat()
         if skipped_non_trading_dates:
             status["skipped_non_trading_dates"] = skipped_non_trading_dates
+        if skipped_statutory_holidays:
+            status["skipped_statutory_holidays"] = skipped_statutory_holidays
 
         if status.get("status") == "ok":
             return candidate, eod, status
@@ -365,6 +417,7 @@ def resolve_latest_completed_eod(
         "status": "missing",
         "requested_trade_date": requested_date.isoformat(),
         "skipped_non_trading_dates": skipped_non_trading_dates,
+        "skipped_statutory_holidays": skipped_statutory_holidays,
         "error": (
             "no completed CFFEX session found within "
             f"{MAX_CFFEX_SESSION_LOOKBACK} weekday candidates"
