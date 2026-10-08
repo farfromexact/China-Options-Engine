@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 import os
@@ -8,10 +9,10 @@ import re
 import time
 import zipfile
 from copy import deepcopy
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time as clock_time, timedelta, timezone
 from io import BytesIO, StringIO
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 import requests
 
@@ -38,11 +39,21 @@ STATUS_PATH = DATA_DIR / "last_run_status.json"
 OPTION_PRODUCTS = ("HO", "IO", "MO")
 OPTION_PREFIXES = set(OPTION_PRODUCTS)
 MIN_OFFICIAL_CHAIN_COVERAGE = 0.95
+CFFEX_EOD_READY_AT = clock_time(18, 30)
+MAX_CFFEX_SESSION_LOOKBACK = 14
 OPTION_CONTRACT_PATTERN = re.compile(
     r"^(HO|IO|MO)(\d{4})([CP])(\d+(?:\.\d+)?)$", re.IGNORECASE
 )
 HISTORY_PRICE_FIELD = "history_price_eod"
 HISTORY_OPTION_PRICE_BASIS = "cffex_official_settlement_fallback_close"
+
+
+class CffexNoSessionError(FileNotFoundError):
+    """The verified monthly archive has no daily file for the requested date."""
+
+
+class CffexEodUnavailable(RuntimeError):
+    """A required CFFEX EOD snapshot could not be published."""
 
 
 def parse_num(value: Any) -> float | None:
@@ -95,6 +106,13 @@ def decode_bytes(content: bytes) -> str:
     return content.decode("gb18030", errors="ignore")
 
 
+def payload_diagnostic(content: bytes) -> str:
+    """Return a compact fingerprint without persisting the raw response body."""
+    preview = re.sub(r"\s+", " ", decode_bytes(content)[:160]).strip()
+    digest = hashlib.sha256(content).hexdigest()[:16]
+    return f"bytes={len(content)}, sha256={digest}, preview={preview!r}"
+
+
 def create_session() -> requests.Session:
     session = requests.Session()
     # GitHub-hosted jobs should not inherit an accidental local proxy, while
@@ -115,6 +133,7 @@ def fetch_first_available(
     *,
     min_size: int = 50,
     attempts: int = 3,
+    validator: Callable[[str, bytes], None] | None = None,
 ) -> tuple[str, bytes]:
     last_error: str | None = None
     for url in urls:
@@ -128,6 +147,8 @@ def fetch_first_available(
                 response.raise_for_status()
                 content = response.content or b""
                 if len(content) >= min_size:
+                    if validator is not None:
+                        validator(url, content)
                     return url, content
                 last_error = f"{url}: response too small ({len(content)} bytes)"
             except Exception as exc:
@@ -148,7 +169,14 @@ def download_single_daily_csv(trade_date: date) -> tuple[str, bytes]:
         f"https://www.cffex.com.cn/sj/hqsj/rtj/{yyyymm}/{dd}/{ds}_1.csv",
         f"https://www.cffex.com.cn/fzjy/mrhq/{yyyymm}/{dd}/{ds}_1.csv",
     ]
-    return fetch_first_available(create_session(), single, min_size=100)
+    return fetch_first_available(
+        create_session(),
+        single,
+        min_size=100,
+        validator=lambda source, content: parse_cffex_eod_content(
+            trade_date, source, content
+        ),
+    )
 
 
 def download_monthly_zip(yyyymm: str) -> tuple[str, bytes]:
@@ -179,7 +207,7 @@ def extract_daily_from_monthly_zip(
             None,
         )
         if match is None:
-            raise FileNotFoundError(f"{target} not found in monthly ZIP")
+            raise CffexNoSessionError(f"{target} not found in verified monthly ZIP")
         return f"{source}#{match}", archive.read(match)
 
 
@@ -187,11 +215,20 @@ def download_daily_csv(trade_date: date) -> tuple[str, bytes]:
     yyyymm = trade_date.strftime("%Y%m")
 
     try:
-        return download_single_daily_csv(trade_date)
+        source, content = download_single_daily_csv(trade_date)
+        # Validate here too: callers and tests may substitute the downloader.
+        parse_cffex_eod_content(trade_date, source, content)
+        return source, content
     except Exception as single_error:
         try:
             source, content = download_monthly_zip(yyyymm)
-            return extract_daily_from_monthly_zip(source, content, trade_date)
+            source, content = extract_daily_from_monthly_zip(source, content, trade_date)
+            parse_cffex_eod_content(trade_date, source, content)
+            return source, content
+        except CffexNoSessionError as no_session:
+            raise CffexNoSessionError(
+                f"{no_session}; direct daily sources failed: {single_error}"
+            ) from no_session
         except Exception as zip_error:
             raise RuntimeError(
                 f"single CSV failed: {single_error}; monthly ZIP failed: {zip_error}"
@@ -205,7 +242,10 @@ def parse_cffex_eod_content(
     text = decode_bytes(content)
     reader = csv.DictReader(StringIO(text))
     if not reader.fieldnames:
-        raise RuntimeError("CFFEX daily CSV has no header")
+        raise RuntimeError(
+            "CFFEX daily CSV has no header "
+            f"({payload_diagnostic(content)})"
+        )
 
     records: dict[str, dict[str, Any]] = {}
     samples: list[str] = []
@@ -238,7 +278,8 @@ def parse_cffex_eod_content(
 
     if not records:
         raise RuntimeError(
-            f"CFFEX daily CSV parsed but no HO/IO/MO rows found; samples={samples}"
+            "CFFEX daily CSV parsed but no HO/IO/MO rows found; "
+            f"samples={samples}; {payload_diagnostic(content)}"
         )
 
     return records, {
@@ -256,12 +297,79 @@ def fetch_cffex_eod(trade_date: date) -> tuple[dict[str, dict[str, Any]], dict[s
     try:
         source, content = download_daily_csv(trade_date)
         return parse_cffex_eod_content(trade_date, source, content)
+    except CffexNoSessionError as exc:
+        return {}, {
+            "status": "not_trading",
+            "trade_date": ds,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
     except Exception as exc:
         return {}, {
             "status": "missing",
             "trade_date": ds,
             "error": f"{type(exc).__name__}: {exc}",
         }
+
+
+def configured_eod_ready_at() -> clock_time:
+    raw = os.getenv("CFFEX_EOD_READY_AT", "").strip()
+    if not raw:
+        return CFFEX_EOD_READY_AT
+    try:
+        hour_text, minute_text = raw.split(":", 1)
+        return clock_time(int(hour_text), int(minute_text))
+    except ValueError as exc:
+        raise ValueError("CFFEX_EOD_READY_AT must use HH:MM in Asia/Shanghai") from exc
+
+
+def latest_weekday_on_or_before(candidate: date) -> date:
+    while candidate.weekday() >= 5:
+        candidate -= timedelta(days=1)
+    return candidate
+
+
+def select_initial_trade_date(now: datetime) -> date:
+    local_now = now.astimezone(TZ_CN) if now.tzinfo else now.replace(tzinfo=TZ_CN)
+    local_clock = local_now.time().replace(tzinfo=None)
+    candidate = local_now.date()
+    if local_clock < configured_eod_ready_at():
+        candidate -= timedelta(days=1)
+    return latest_weekday_on_or_before(candidate)
+
+
+def resolve_latest_completed_eod(
+    now: datetime,
+) -> tuple[date | None, dict[str, dict[str, Any]], dict[str, Any]]:
+    """Return the newest valid CFFEX session available at the current run time."""
+    requested_date = select_initial_trade_date(now)
+    candidate = requested_date
+    skipped_non_trading_dates: list[str] = []
+
+    for _ in range(MAX_CFFEX_SESSION_LOOKBACK):
+        eod, status = fetch_cffex_eod(candidate)
+        status = dict(status)
+        status["requested_trade_date"] = requested_date.isoformat()
+        status["resolved_trade_date"] = candidate.isoformat()
+        if skipped_non_trading_dates:
+            status["skipped_non_trading_dates"] = skipped_non_trading_dates
+
+        if status.get("status") == "ok":
+            return candidate, eod, status
+        if status.get("status") != "not_trading":
+            return None, {}, status
+
+        skipped_non_trading_dates.append(candidate.isoformat())
+        candidate = latest_weekday_on_or_before(candidate - timedelta(days=1))
+
+    return None, {}, {
+        "status": "missing",
+        "requested_trade_date": requested_date.isoformat(),
+        "skipped_non_trading_dates": skipped_non_trading_dates,
+        "error": (
+            "no completed CFFEX session found within "
+            f"{MAX_CFFEX_SESSION_LOOKBACK} weekday candidates"
+        ),
+    }
 
 
 def enrich_quote(quote: dict[str, Any], official: dict[str, Any], forward: float | None) -> None:
@@ -692,29 +800,82 @@ def is_verified_snapshot(snapshot: Any, snapshot_date: str) -> bool:
     return True
 
 
-def restore_latest_verified() -> dict[str, Any] | None:
+def latest_verified_snapshot() -> dict[str, Any] | None:
     snapshots = sorted(SNAPSHOT_DIR.glob("*.json"), reverse=True)
     for snapshot in snapshots:
         try:
             verified = json.loads(snapshot.read_text(encoding="utf-8"))
             if not is_verified_snapshot(verified, snapshot.stem):
                 continue
-            LATEST_PATH.write_text(
-                json.dumps(verified, ensure_ascii=False, indent=2), encoding="utf-8"
-            )
-            RADAR_LATEST_PATH.write_text(
-                json.dumps(build_radar_summary(verified), ensure_ascii=False, indent=2),
-                encoding="utf-8",
-            )
             return verified
         except Exception:
             continue
     return None
 
 
+def restore_latest_verified() -> dict[str, Any] | None:
+    verified = latest_verified_snapshot()
+    if verified is None:
+        return None
+    LATEST_PATH.write_text(
+        json.dumps(verified, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    RADAR_LATEST_PATH.write_text(
+        json.dumps(build_radar_summary(verified), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    return verified
+
+
+def fail_eod_run(
+    *,
+    now: datetime,
+    status: Mapping[str, Any],
+    failure_kind: str,
+    message: str,
+    trade_date: date | None = None,
+) -> None:
+    """Restore the last verified snapshot, persist diagnostics, and fail the run."""
+    restored = restore_latest_verified()
+    STATUS_PATH.write_text(
+        json.dumps(
+            {
+                "run_date": now.date().isoformat(),
+                "trade_date": (
+                    trade_date.isoformat()
+                    if trade_date is not None
+                    else status.get("resolved_trade_date")
+                ),
+                "generated_at": now.isoformat(),
+                "data_fresh": False,
+                "cffex_eod": dict(status),
+                "restored_latest_date": restored.get("date") if restored else None,
+                "failure_kind": failure_kind,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    print(
+        json.dumps(
+            {
+                "data_fresh": False,
+                "cffex_eod": dict(status),
+                "restored_latest_date": restored.get("date") if restored else None,
+                "failure_kind": failure_kind,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+    print(f"::error title=CFFEX EOD freshness failure::{message}")
+    raise CffexEodUnavailable(message)
+
+
 def main() -> None:
     now = datetime.now(TZ_CN)
-    run_date = now.date()
+    attempt_date = now.date()
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -722,16 +883,52 @@ def main() -> None:
         raise FileNotFoundError("data/latest.json missing after engine.py")
 
     result = json.loads(LATEST_PATH.read_text(encoding="utf-8"))
-    eod, status = fetch_cffex_eod(run_date)
+    prior_verified = latest_verified_snapshot()
+    prior_verified_date: date | None = None
+    if prior_verified is not None:
+        try:
+            prior_verified_date = date.fromisoformat(str(prior_verified["date"]))
+        except (KeyError, TypeError, ValueError):
+            prior_verified = None
 
-    if status.get("status") != "ok":
+    trade_date, eod, status = resolve_latest_completed_eod(now)
+
+    if status.get("status") != "ok" or trade_date is None:
+        message = (
+            "CFFEX EOD is unavailable for the requested completed session: "
+            f"{status.get('error', status)}"
+        )
+        fail_eod_run(
+            now=now,
+            status=status,
+            failure_kind="cffex_eod_unavailable",
+            message=message,
+        )
+
+    if prior_verified_date is not None and trade_date < prior_verified_date:
+        message = (
+            "resolved CFFEX trade date is older than the latest verified snapshot: "
+            f"resolved={trade_date.isoformat()}, latest={prior_verified_date.isoformat()}"
+        )
+        fail_eod_run(
+            now=now,
+            status=status,
+            failure_kind="stale_trade_date",
+            message=message,
+            trade_date=trade_date,
+        )
+
+    if prior_verified_date is not None and trade_date == prior_verified_date:
         restored = restore_latest_verified()
         STATUS_PATH.write_text(
             json.dumps(
                 {
-                    "run_date": run_date.isoformat(),
+                    "run_date": attempt_date.isoformat(),
+                    "trade_date": trade_date.isoformat(),
                     "generated_at": now.isoformat(),
-                    "data_fresh": False,
+                    "data_fresh": True,
+                    "published": False,
+                    "outcome": "already_current",
                     "cffex_eod": status,
                     "restored_latest_date": restored.get("date") if restored else None,
                 },
@@ -743,13 +940,18 @@ def main() -> None:
         print(
             json.dumps(
                 {
-                    "data_fresh": False,
-                    "cffex_eod": status,
-                    "restored_latest_date": restored.get("date") if restored else None,
+                    "data_fresh": True,
+                    "published": False,
+                    "outcome": "already_current",
+                    "trade_date": trade_date.isoformat(),
                 },
                 ensure_ascii=False,
                 indent=2,
             )
+        )
+        print(
+            "::notice title=CFFEX EOD already current::"
+            f"verified snapshot already exists for {trade_date.isoformat()}"
         )
         return
 
@@ -783,7 +985,7 @@ def main() -> None:
         if parsed is None:
             continue
         product, yymm, _, _ = parsed
-        if expiry_from_symbol(f"{product}{yymm}") > run_date:
+        if expiry_from_symbol(f"{product}{yymm}") > trade_date:
             active_official_symbols.add(symbol)
     matched_active_symbols = active_official_symbols & live_symbols
     coverage = (
@@ -794,14 +996,29 @@ def main() -> None:
     missing_active_symbols = active_official_symbols - live_symbols
     if coverage < MIN_OFFICIAL_CHAIN_COVERAGE:
         sample = sorted(missing_active_symbols)[:10]
-        raise RuntimeError(
+        message = (
             "live option chain coverage is below the minimum CFFEX EOD threshold: "
             f"coverage={coverage:.6f}, minimum={MIN_OFFICIAL_CHAIN_COVERAGE:.2f}, "
             f"missing={len(missing_active_symbols)}, sample={sample}"
         )
-    history_products = build_official_settlement_history_products(eod, run_date)
+        failure_status = {
+            **status,
+            "coverage": coverage,
+            "minimum_coverage": MIN_OFFICIAL_CHAIN_COVERAGE,
+            "missing_active_symbols": len(missing_active_symbols),
+            "missing_active_sample": sample,
+        }
+        fail_eod_run(
+            now=now,
+            status=failure_status,
+            failure_kind="insufficient_chain_coverage",
+            message=message,
+            trade_date=trade_date,
+        )
+    history_products = build_official_settlement_history_products(eod, trade_date)
 
-    result["date"] = run_date.isoformat()
+    result["date"] = trade_date.isoformat()
+    result["run_date"] = trade_date.isoformat()
     result["data_fresh"] = True
     result["history_products"] = history_products
     result["history_record_origin"] = "scheduled_eod"
@@ -822,10 +1039,10 @@ def main() -> None:
         "freshness_method": "CFFEX official daily CSV existence and HO/IO/MO option rows",
     }
 
-    previous = load_previous(run_date)
+    previous = load_previous(trade_date)
     add_changes(result, previous)
 
-    snapshot_path = SNAPSHOT_DIR / f"{run_date.isoformat()}.json"
+    snapshot_path = SNAPSHOT_DIR / f"{trade_date.isoformat()}.json"
     snapshot_path.write_text(
         json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -839,7 +1056,8 @@ def main() -> None:
     STATUS_PATH.write_text(
         json.dumps(
             {
-                "run_date": run_date.isoformat(),
+                "run_date": attempt_date.isoformat(),
+                "trade_date": trade_date.isoformat(),
                 "generated_at": now.isoformat(),
                 "data_fresh": True,
                 "cffex_eod": status,

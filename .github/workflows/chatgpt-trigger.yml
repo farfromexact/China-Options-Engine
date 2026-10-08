@@ -19,7 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Check CFFEX EOD publication window
+        id: eod_window
+        run: |
+          cn_time="$(TZ=Asia/Shanghai date +%H%M)"
+          if [ "$cn_time" -lt 1830 ]; then
+            echo "dispatch=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=CFFEX EOD window not open::Skipping a scheduler trigger before 18:30 Asia/Shanghai."
+          else
+            echo "dispatch=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Dispatch production daily workflow
+        if: steps.eod_window.outputs.dispatch == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run daily.yml --ref main --repo "$GITHUB_REPOSITORY"
