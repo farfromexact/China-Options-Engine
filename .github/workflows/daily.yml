@@ -39,7 +39,28 @@ jobs:
         run: python engine.py
 
       - name: Enrich with CFFEX official EOD option volume/OI
+        id: eod
+        continue-on-error: true
         run: python eod_enrich.py
+
+      - name: Persist CFFEX EOD failure status
+        if: steps.eod.outcome != 'success'
+        run: |
+          git config user.name "china-options-engine[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/last_run_status.json data/latest.json data/radar_latest.json
+          if git diff --cached --quiet; then
+            echo "No CFFEX failure-status changes"
+          else
+            git commit -m "data: record CFFEX EOD freshness failure"
+            git push
+          fi
+
+      - name: Fail when fresh CFFEX EOD was not published
+        if: steps.eod.outcome != 'success'
+        run: |
+          echo "::error title=CFFEX EOD freshness failure::See data/last_run_status.json for the persisted diagnostic."
+          exit 1
 
       - name: Link IH IF IC IM futures with HO IO MO option metrics
         run: python futures_link.py

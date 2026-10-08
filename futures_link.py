@@ -321,13 +321,19 @@ def main() -> None:
     latest = json.loads(LATEST_PATH.read_text(encoding="utf-8"))
     radar = json.loads(RADAR_LATEST_PATH.read_text(encoding="utf-8"))
 
-    if not latest.get("data_fresh") or latest.get("date") != run_date.isoformat():
+    try:
+        trade_date = date.fromisoformat(str(latest.get("date")))
+    except (TypeError, ValueError):
+        trade_date = None
+
+    if not latest.get("data_fresh") or trade_date is None:
         update_status(
             {
                 "futures_linkage": {
                     "status": "skipped",
-                    "reason": "latest option snapshot is not a fresh run-date snapshot",
+                    "reason": "latest option snapshot is not a verified fresh trade-date snapshot",
                     "run_date": run_date.isoformat(),
+                    "snapshot_date": latest.get("date"),
                 }
             }
         )
@@ -335,7 +341,7 @@ def main() -> None:
         return
 
     try:
-        raw_products, source_status = parse_future_rows(run_date)
+        raw_products, source_status = parse_future_rows(trade_date)
         futures_summary = {
             product: summarize_product(product, raw_products.get(product, []))
             for product in FUTURE_PRODUCTS
@@ -345,7 +351,7 @@ def main() -> None:
         # share-change creation/redemption estimates. This layer is intentionally
         # non-fatal so a temporary public quote outage cannot destroy otherwise
         # verified CFFEX option/futures output.
-        cash_market = collect_cash_market(run_date, SNAPSHOT_DIR)
+        cash_market = collect_cash_market(trade_date, SNAPSHOT_DIR)
         enrich_futures_with_cash_market(futures_summary, cash_market)
 
         linkage = build_linkage(futures_summary, radar)
@@ -358,7 +364,7 @@ def main() -> None:
             )
 
         futures_block = {
-            "trade_date": run_date.isoformat(),
+            "trade_date": trade_date.isoformat(),
             "source_status": source_status,
             "cash_market": cash_market,
             "products": futures_summary,
@@ -447,14 +453,15 @@ def main() -> None:
 
         LATEST_PATH.write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
         RADAR_LATEST_PATH.write_text(json.dumps(radar, ensure_ascii=False, indent=2), encoding="utf-8")
-        snapshot_path = SNAPSHOT_DIR / f"{run_date.isoformat()}.json"
+        snapshot_path = SNAPSHOT_DIR / f"{trade_date.isoformat()}.json"
         snapshot_path.write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
 
         update_status(
             {
                 "futures_linkage": {
                     "status": "ok",
-                    "trade_date": run_date.isoformat(),
+                    "run_date": run_date.isoformat(),
+                    "trade_date": trade_date.isoformat(),
                     "records": source_status.get("records"),
                     "products": list(FUTURE_PRODUCTS),
                     "direct_pairs": {"IH": "HO", "IF": "IO", "IM": "MO"},
@@ -491,6 +498,7 @@ def main() -> None:
                 "futures_linkage": {
                     "status": "missing",
                     "run_date": run_date.isoformat(),
+                    "trade_date": trade_date.isoformat() if trade_date else None,
                     "error": f"{type(exc).__name__}: {exc}",
                 }
             }
