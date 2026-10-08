@@ -222,6 +222,7 @@ class EodEnrichTests(unittest.TestCase):
                     },
                 ),
             ),
+            patch("builtins.print"),
         ):
             with self.assertRaisesRegex(
                 eod_enrich.CffexEodUnavailable, "CFFEX daily CSV has no header"
