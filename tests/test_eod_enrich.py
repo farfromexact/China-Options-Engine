@@ -128,10 +128,12 @@ class EodEnrichTests(unittest.TestCase):
 
     def test_trade_date_selection_uses_last_completed_weekday_before_ready_time(self) -> None:
         before_ready = datetime(2026, 9, 24, 6, 20, tzinfo=eod_enrich.TZ_CN)
-        after_ready = datetime(2026, 9, 24, 18, 30, tzinfo=eod_enrich.TZ_CN)
+        just_before_ready = datetime(2026, 9, 24, 17, 16, tzinfo=eod_enrich.TZ_CN)
+        after_ready = datetime(2026, 9, 24, 17, 17, tzinfo=eod_enrich.TZ_CN)
         weekend = datetime(2026, 9, 27, 18, 30, tzinfo=eod_enrich.TZ_CN)
 
         self.assertEqual(eod_enrich.select_initial_trade_date(before_ready), date(2026, 9, 23))
+        self.assertEqual(eod_enrich.select_initial_trade_date(just_before_ready), date(2026, 9, 23))
         self.assertEqual(eod_enrich.select_initial_trade_date(after_ready), date(2026, 9, 24))
         self.assertEqual(eod_enrich.select_initial_trade_date(weekend), date(2026, 9, 25))
 
@@ -250,20 +252,23 @@ class EodEnrichTests(unittest.TestCase):
         self.assertLess(persist_step, fail_step)
         self.assertLess(fail_step, linkage_step)
 
-    def test_scheduler_bridge_skips_pre_eod_dispatches(self) -> None:
+    def test_scheduler_bridge_preserves_external_schedule_and_delayed_dispatches(self) -> None:
         bridge = (Path(".github") / "workflows" / "chatgpt-trigger.yml").read_text(
             encoding="utf-8"
         )
-        self.assertIn("TZ=Asia/Shanghai", bridge)
-        self.assertIn("-lt 1830", bridge)
-        self.assertIn("steps.eod_window.outputs.dispatch == 'true'", bridge)
+        dispatch_step = bridge.split("- name: Dispatch production daily workflow", 1)[1]
+        dispatch_step = dispatch_step.split("- name: Reset scheduler trigger", 1)[0]
+        self.assertNotIn("if:", dispatch_step)
+        self.assertNotIn("eod_window", bridge)
+        self.assertIn("gh workflow run daily.yml --ref main", dispatch_step)
+        self.assertIn("gh issue edit 5 --remove-assignee farfromexact", bridge)
 
-        # Gating the morning bridge must not remove the only automatic run.
+        # ChatGPT owns the schedule; do not introduce a duplicate GitHub cron.
         workflow = (Path(".github") / "workflows" / "daily.yml").read_text(
             encoding="utf-8"
         )
-        self.assertIn("schedule:", workflow)
-        self.assertIn('cron: "40 10 * * 1-5"', workflow)
+        self.assertIn("workflow_dispatch:", workflow)
+        self.assertNotIn("schedule:", workflow)
 
 
 if __name__ == "__main__":

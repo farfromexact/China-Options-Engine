@@ -44,7 +44,9 @@ STATUS_PATH = DATA_DIR / "last_run_status.json"
 OPTION_PRODUCTS = ("HO", "IO", "MO")
 OPTION_PREFIXES = set(OPTION_PRODUCTS)
 MIN_OFFICIAL_CHAIN_COVERAGE = 0.95
-CFFEX_EOD_READY_AT = clock_time(18, 30)
+# Candidate-date cutoff aligned with the external 17:17 China-time trigger.
+# Actual publication is still verified from official data, never from the clock.
+CFFEX_EOD_READY_AT = clock_time(17, 17)
 MAX_CFFEX_SESSION_LOOKBACK = 14
 OPTION_CONTRACT_PATTERN = re.compile(
     r"^(HO|IO|MO)(\d{4})([CP])(\d+(?:\.\d+)?)$", re.IGNORECASE

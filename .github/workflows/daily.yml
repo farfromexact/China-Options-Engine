@@ -2,9 +2,6 @@ name: China Options Engine
 
 on:
   workflow_dispatch:
-  schedule:
-    # 18:40 Asia/Shanghai, after the default 18:30 EOD readiness cutoff.
-    - cron: "40 10 * * 1-5"
 
 permissions:
   contents: write
