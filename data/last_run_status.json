@@ -1,8 +1,10 @@
 {
   "run_date": "2026-10-15",
   "trade_date": "2026-10-14",
-  "generated_at": "2026-10-15T08:39:39.226208+08:00",
+  "generated_at": "2026-10-15T08:48:10.067782+08:00",
   "data_fresh": true,
+  "published": false,
+  "outcome": "already_current",
   "cffex_eod": {
     "status": "ok",
     "trade_date": "20261014",
@@ -39,11 +41,7 @@
     "requested_trade_date": "2026-10-14",
     "resolved_trade_date": "2026-10-14"
   },
-  "official_quote_matches": 682,
-  "total_chain_quotes": 682,
-  "official_quote_match_coverage": 1.0,
-  "official_unmatched_active_symbols": 0,
-  "official_unmatched_active_sample": [],
+  "restored_latest_date": "2026-10-14",
   "futures_linkage": {
     "status": "ok",
     "run_date": "2026-10-15",
