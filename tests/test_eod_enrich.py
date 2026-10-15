@@ -258,6 +258,13 @@ class EodEnrichTests(unittest.TestCase):
         self.assertIn("-lt 1830", bridge)
         self.assertIn("steps.eod_window.outputs.dispatch == 'true'", bridge)
 
+        # Gating the morning bridge must not remove the only automatic run.
+        workflow = (Path(".github") / "workflows" / "daily.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("schedule:", workflow)
+        self.assertIn('cron: "40 10 * * 1-5"', workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
