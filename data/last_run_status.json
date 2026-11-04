@@ -1,12 +1,12 @@
 {
-  "run_date": "2026-11-04",
-  "trade_date": "2026-11-03",
-  "generated_at": "2026-11-04T07:20:07.530385+08:00",
+  "run_date": "2026-11-05",
+  "trade_date": "2026-11-04",
+  "generated_at": "2026-11-05T07:16:21.087052+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
-    "trade_date": "20261103",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202611/03/20261103_1.csv",
+    "trade_date": "20261104",
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202611/04/20261104_1.csv",
     "records": 760,
     "header": [
       "合约代码",
@@ -36,8 +36,8 @@
       "HO2611-C-2800",
       "HO2611-C-2850"
     ],
-    "requested_trade_date": "2026-11-03",
-    "resolved_trade_date": "2026-11-03"
+    "requested_trade_date": "2026-11-04",
+    "resolved_trade_date": "2026-11-04"
   },
   "official_quote_matches": 760,
   "total_chain_quotes": 760,
@@ -46,8 +46,8 @@
   "official_unmatched_active_sample": [],
   "futures_linkage": {
     "status": "ok",
-    "run_date": "2026-11-04",
-    "trade_date": "2026-11-03",
+    "run_date": "2026-11-05",
+    "trade_date": "2026-11-04",
     "records": 16,
     "products": [
       "IH",
