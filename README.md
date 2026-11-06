@@ -14,6 +14,8 @@
 
 ## 日终刷新与故障信号
 
+日变化按中金所交易日、同一到期合约核对。若缺前一交易日的已核验快照，`previous_date` 为空，期权 `*_change_1d` 和 ETF 单日份额变化、估算净申赎均留空。官方行情直接提供的持仓增减仍可使用。对比 IV、RR25 和 Gamma 峰值时，两天还须采用同一价格口径。`radar_latest.json` 的 `option_price_basis` 标明当期口径，历史记录的 `data_quality.option_price_basis` 标明历史口径。
+
 生产调度沿用 ChatGPT Automation 的 `Options Engine Trigger`（北京时间周一至周五 17:17）：为 Issue #5 添加 `farfromexact` Assignee，触发 `ChatGPT Scheduler Bridge`，再由 Bridge 调用 `daily.yml` 并移除 Assignee。仓库不另设 cron，`daily.yml` 也支持手动运行。网页端 Automation 的时区、启停和重试配置独立于仓库；此处的计划时间不代表实际启动时间保证。
 
 日终任务默认在北京时间 17:17 起将当日作为候选交易日；更早的运行会从上一个工作日开始。该时间仅决定候选日期，不保证官方数据已发布；实际新鲜度仍须通过官方数据验证。周末和中国法定节假日会在本地直接跳过，避免在休市日反复请求中金所；由官方月度 ZIP 明确证明的非交易日也会自动跳过。若 ZIP 尚未覆盖目标日期，程序不会臆断为休市。日度 CSV 的 HTTP 成功并不足以算成功：内容必须含可解析的 HO/IO/MO 行；无表头、HTML 拦截页或无有效期权行会继续尝试其余日文件地址和月度 ZIP。每个官方入口只探测一次并有短超时，避免源站异常卡住整轮任务。

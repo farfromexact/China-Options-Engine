@@ -30791,7 +30791,7 @@
       "date": "2026-09-16",
       "generated_at": "2026-09-16T17:18:19.065464+08:00",
       "data_fresh": true,
-      "previous_date": "2026-09-14",
+      "previous_date": null,
       "data_quality": {
         "record_origin": "scheduled_eod",
         "option_price_basis": "cffex_official_settlement_fallback_close",
@@ -31347,10 +31347,10 @@
           "reference_etf_code": "510050",
           "reference_etf_close": 2.98,
           "reference_etf_total_shares": 7189866800.0,
-          "reference_etf_previous_total_shares": 7031466800.0,
-          "reference_etf_share_change": 158400000.0,
-          "reference_etf_share_change_pct": 0.022527305398071424,
-          "reference_etf_estimated_net_creation_redemption_cny": 472032000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IF": {
@@ -31410,10 +31410,10 @@
           "reference_etf_code": "510300",
           "reference_etf_close": 4.55,
           "reference_etf_total_shares": 23542687700.0,
-          "reference_etf_previous_total_shares": 23398687700.0,
-          "reference_etf_share_change": 144000000.0,
-          "reference_etf_share_change_pct": 0.006154191288257589,
-          "reference_etf_estimated_net_creation_redemption_cny": 655200000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IC": {
@@ -31473,10 +31473,10 @@
           "reference_etf_code": "510500",
           "reference_etf_close": 7.71,
           "reference_etf_total_shares": 5509768600.0,
-          "reference_etf_previous_total_shares": 5232168600.0,
-          "reference_etf_share_change": 277600000.0,
-          "reference_etf_share_change_pct": 0.053056394245399506,
-          "reference_etf_estimated_net_creation_redemption_cny": 2140296000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IM": {
@@ -31536,10 +31536,10 @@
           "reference_etf_code": "512100",
           "reference_etf_close": 3.082,
           "reference_etf_total_shares": 5857217600.0,
-          "reference_etf_previous_total_shares": 6087217600.0,
-          "reference_etf_share_change": -230000000.0,
-          "reference_etf_share_change_pct": -0.037784093671959416,
-          "reference_etf_estimated_net_creation_redemption_cny": -708860000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         }
       },
@@ -35651,7 +35651,7 @@
       "date": "2026-10-14",
       "generated_at": "2026-10-15T08:39:16.199270+08:00",
       "data_fresh": true,
-      "previous_date": "2026-09-23",
+      "previous_date": null,
       "data_quality": {
         "record_origin": "scheduled_eod",
         "option_price_basis": "cffex_official_settlement_fallback_close",
@@ -36207,10 +36207,10 @@
           "reference_etf_code": "510050",
           "reference_etf_close": 2.892,
           "reference_etf_total_shares": 7315866800.0,
-          "reference_etf_previous_total_shares": 7476066800.0,
-          "reference_etf_share_change": -160200000.0,
-          "reference_etf_share_change_pct": -0.02142837996043588,
-          "reference_etf_estimated_net_creation_redemption_cny": -463298400.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IF": {
@@ -36270,10 +36270,10 @@
           "reference_etf_code": "510300",
           "reference_etf_close": 4.294,
           "reference_etf_total_shares": 24690187700.0,
-          "reference_etf_previous_total_shares": 23737987700.0,
-          "reference_etf_share_change": 952200000.0,
-          "reference_etf_share_change_pct": 0.04011291993381562,
-          "reference_etf_estimated_net_creation_redemption_cny": 4088746799.9999995,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IC": {
@@ -36333,10 +36333,10 @@
           "reference_etf_code": "510500",
           "reference_etf_close": 7.025,
           "reference_etf_total_shares": 5571768600.0,
-          "reference_etf_previous_total_shares": 5718568600.0,
-          "reference_etf_share_change": -146800000.0,
-          "reference_etf_share_change_pct": -0.025670759637298046,
-          "reference_etf_estimated_net_creation_redemption_cny": -1031270000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IM": {
@@ -36396,10 +36396,10 @@
           "reference_etf_code": "512100",
           "reference_etf_close": 2.81,
           "reference_etf_total_shares": 7773217600.0,
-          "reference_etf_previous_total_shares": 6539217600.0,
-          "reference_etf_share_change": 1234000000.0,
-          "reference_etf_share_change_pct": 0.1887075909509419,
-          "reference_etf_estimated_net_creation_redemption_cny": 3467540000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         }
       },
@@ -39701,7 +39701,7 @@
       "date": "2026-10-22",
       "generated_at": "2026-10-23T06:18:47.330689+08:00",
       "data_fresh": true,
-      "previous_date": "2026-10-20",
+      "previous_date": null,
       "data_quality": {
         "record_origin": "scheduled_eod",
         "option_price_basis": "cffex_official_settlement_fallback_close",
@@ -40257,10 +40257,10 @@
           "reference_etf_code": "510050",
           "reference_etf_close": 2.836,
           "reference_etf_total_shares": 12983166800.0,
-          "reference_etf_previous_total_shares": 11160666800.0,
-          "reference_etf_share_change": 1822500000.0,
-          "reference_etf_share_change_pct": 0.16329669478171321,
-          "reference_etf_estimated_net_creation_redemption_cny": 5168610000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IF": {
@@ -40320,10 +40320,10 @@
           "reference_etf_code": "510300",
           "reference_etf_close": 4.107,
           "reference_etf_total_shares": 32729887700.0,
-          "reference_etf_previous_total_shares": 29400787700.0,
-          "reference_etf_share_change": 3329100000.0,
-          "reference_etf_share_change_pct": 0.11323166011637165,
-          "reference_etf_estimated_net_creation_redemption_cny": 13672613700.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IC": {
@@ -40383,10 +40383,10 @@
           "reference_etf_code": "510500",
           "reference_etf_close": 6.684,
           "reference_etf_total_shares": 6448168600.0,
-          "reference_etf_previous_total_shares": 6110568600.0,
-          "reference_etf_share_change": 337600000.0,
-          "reference_etf_share_change_pct": 0.05524854102775313,
-          "reference_etf_estimated_net_creation_redemption_cny": 2256518400.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         },
         "IM": {
@@ -40446,10 +40446,10 @@
           "reference_etf_code": "512100",
           "reference_etf_close": 2.672,
           "reference_etf_total_shares": 9681217600.0,
-          "reference_etf_previous_total_shares": 8333217600.0,
-          "reference_etf_share_change": 1348000000.0,
-          "reference_etf_share_change_pct": 0.16176224655408014,
-          "reference_etf_estimated_net_creation_redemption_cny": 3601856000.0,
+          "reference_etf_previous_total_shares": null,
+          "reference_etf_share_change": null,
+          "reference_etf_share_change_pct": null,
+          "reference_etf_estimated_net_creation_redemption_cny": null,
           "reference_etf_flow_method": "daily total-share change * ETF market close"
         }
       },

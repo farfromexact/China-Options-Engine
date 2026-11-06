@@ -142,7 +142,6 @@ def build_verified_snapshot(
     market_date: date,
     source: str,
     content: bytes,
-    previous_date: date | None = None,
 ) -> dict[str, Any]:
     official, official_status = parse_cffex_eod_content(market_date, source, content)
     products = build_option_products(official, market_date)
@@ -167,7 +166,7 @@ def build_verified_snapshot(
         },
         "products": products,
         "history_products": compact_history_products(products),
-        "previous_date": previous_date.isoformat() if previous_date else None,
+        "previous_date": None,
         "errors": [],
         "official_eod_source": source,
         "source_status": {
@@ -229,7 +228,7 @@ def has_canonical_settlement_history(snapshot: dict[str, Any]) -> bool:
 def enrich_anchor_history(
     anchor_snapshot: dict[str, Any],
     settlement_snapshot: dict[str, Any],
-    previous_date: date,
+    previous_snapshot: dict[str, Any],
 ) -> dict[str, Any]:
     enriched = deepcopy(anchor_snapshot)
     enriched["history_products"] = deepcopy(settlement_snapshot["history_products"])
@@ -238,7 +237,10 @@ def enrich_anchor_history(
     enriched["history_futures_option_linkage"] = deepcopy(
         settlement_snapshot["futures_option_linkage"]
     )
-    enriched["previous_date"] = previous_date.isoformat()
+    add_changes(enriched, previous_snapshot)
+    enriched["futures_option_linkage"] = build_linkage(
+        enriched["futures"]["products"], build_radar_summary(enriched)
+    )
     build_history_record(enriched)
     return enriched
 
@@ -429,12 +431,11 @@ def run_backfill(
         anchor_date,
         anchor_source,
         anchor_content,
-        previous_date=sessions[-1].market_date,
     )
     enriched_anchor = enrich_anchor_history(
         anchor_snapshot,
         settlement_anchor,
-        sessions[-1].market_date,
+        sessions[-1].snapshot,
     )
     anchor_session = CollectedSession(anchor_date, enriched_anchor, True)
 

@@ -1077,20 +1077,11 @@
             "pcr_volume_partial": 0.8272598201609087,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.014029830059121756,
-            "rr25_change_1d": 0.016438913861002435,
-            "pcr_oi_change_1d": -0.0016522222926387276,
-            "call_oi_change_1d": -1844.0,
-            "put_oi_change_1d": -1282.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 14791.0,
             "put_volume": 12236.0,
             "pcr_volume": 0.8272598201609087,
             "call_oi_change": -1579.0,
-            "put_oi_change": -748.0,
-            "pcr_volume_change_1d": 0.1504730393526268,
-            "call_volume_change_1d": 4745.0,
-            "put_volume_change_1d": 5437.0
+            "put_oi_change": -748.0
           },
           "symbol": "HO2609"
         },
@@ -2005,20 +1996,11 @@
             "pcr_volume_partial": 0.5912040374909877,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.0030055220237838465,
-            "rr25_change_1d": -0.0019192888853458157,
-            "pcr_oi_change_1d": 0.07429957536305143,
-            "call_oi_change_1d": 2100.0,
-            "put_oi_change_1d": 2102.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 6935.0,
             "put_volume": 4100.0,
             "pcr_volume": 0.5912040374909877,
             "call_oi_change": 1559.0,
-            "put_oi_change": 1274.0,
-            "pcr_volume_change_1d": -0.030340041799570505,
-            "call_volume_change_1d": 3101.0,
-            "put_volume_change_1d": 1717.0
+            "put_oi_change": 1274.0
           },
           "symbol": "HO2610"
         },
@@ -2831,20 +2813,11 @@
             "pcr_volume_partial": 0.3763440860215054,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.004340660206916369,
-            "rr25_change_1d": -0.005680897384335193,
-            "pcr_oi_change_1d": 0.0045850938567784105,
-            "call_oi_change_1d": 175.0,
-            "put_oi_change_1d": 143.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 837.0,
             "put_volume": 315.0,
             "pcr_volume": 0.3763440860215054,
             "call_oi_change": -86.0,
-            "put_oi_change": 50.0,
-            "pcr_volume_change_1d": -0.5953540271860418,
-            "call_volume_change_1d": 519.0,
-            "put_volume_change_1d": 6.0
+            "put_oi_change": 50.0
           },
           "symbol": "HO2611"
         },
@@ -3453,20 +3426,11 @@
             "pcr_volume_partial": 0.25605214152700184,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.0032466608747271364,
-            "rr25_change_1d": 0.00703161979034303,
-            "pcr_oi_change_1d": -0.040043078455579195,
-            "call_oi_change_1d": 715.0,
-            "put_oi_change_1d": 54.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 1074.0,
             "put_volume": 275.0,
             "pcr_volume": 0.25605214152700184,
             "call_oi_change": 419.0,
-            "put_oi_change": 39.0,
-            "pcr_volume_change_1d": 0.16444908809188735,
-            "call_volume_change_1d": -236.0,
-            "put_volume_change_1d": 155.0
+            "put_oi_change": 39.0
           },
           "symbol": "HO2612"
         },
@@ -4024,20 +3988,11 @@
             "pcr_volume_partial": 0.4421768707482993,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.0005391923250426811,
-            "rr25_change_1d": 0.002771150442165554,
-            "pcr_oi_change_1d": -0.010782763343284762,
-            "call_oi_change_1d": 61.0,
-            "put_oi_change_1d": 8.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 441.0,
             "put_volume": 195.0,
             "pcr_volume": 0.4421768707482993,
             "call_oi_change": 21.0,
-            "put_oi_change": 3.0,
-            "pcr_volume_change_1d": 0.36710468595522905,
-            "call_volume_change_1d": -598.0,
-            "put_volume_change_1d": 117.0
+            "put_oi_change": 3.0
           },
           "symbol": "HO2703"
         },
@@ -4595,20 +4550,11 @@
             "pcr_volume_partial": 1.5981308411214954,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.00018954903982490445,
-            "rr25_change_1d": -0.00806380049308364,
-            "pcr_oi_change_1d": 0.013950732904800534,
-            "call_oi_change_1d": 57.0,
-            "put_oi_change_1d": 100.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 107.0,
             "put_volume": 171.0,
             "pcr_volume": 1.5981308411214954,
             "call_oi_change": -2.0,
-            "put_oi_change": 40.0,
-            "pcr_volume_change_1d": -0.19933751330888438,
-            "call_volume_change_1d": 28.0,
-            "put_volume_change_1d": 29.0
+            "put_oi_change": 40.0
           },
           "symbol": "HO2706"
         }
@@ -6088,20 +6034,11 @@
             "pcr_volume_partial": 0.8488540701655456,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.03452413277624505,
-            "rr25_change_1d": 0.006359544972676656,
-            "pcr_oi_change_1d": -0.03714510647599778,
-            "call_oi_change_1d": -3462.0,
-            "put_oi_change_1d": -4562.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 49654.0,
             "put_volume": 42149.0,
             "pcr_volume": 0.8488540701655456,
             "call_oi_change": -3414.0,
-            "put_oi_change": -2620.0,
-            "pcr_volume_change_1d": 0.023025241618221948,
-            "call_volume_change_1d": 17651.0,
-            "put_volume_change_1d": 15720.0
+            "put_oi_change": -2620.0
           },
           "symbol": "IO2609"
         },
@@ -7373,20 +7310,11 @@
             "pcr_volume_partial": 0.5450479475419778,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.001463596810591078,
-            "rr25_change_1d": 9.270872150385356e-05,
-            "pcr_oi_change_1d": 0.018990733865483,
-            "call_oi_change_1d": 7655.0,
-            "put_oi_change_1d": 5984.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 26383.0,
             "put_volume": 14380.0,
             "pcr_volume": 0.5450479475419778,
             "call_oi_change": 3901.0,
-            "put_oi_change": 2732.0,
-            "pcr_volume_change_1d": -0.14031624578681723,
-            "call_volume_change_1d": 11693.0,
-            "put_volume_change_1d": 4312.0
+            "put_oi_change": 2732.0
           },
           "symbol": "IO2610"
         },
@@ -8556,20 +8484,11 @@
             "pcr_volume_partial": 0.7048,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.002844692188794823,
-            "rr25_change_1d": 0.009250973627160042,
-            "pcr_oi_change_1d": -0.37730176405087024,
-            "call_oi_change_1d": 760.0,
-            "put_oi_change_1d": 432.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 1250.0,
             "put_volume": 881.0,
             "pcr_volume": 0.7048,
             "call_oi_change": 251.0,
-            "put_oi_change": 237.0,
-            "pcr_volume_change_1d": 0.12515398230088493,
-            "call_volume_change_1d": 346.0,
-            "put_volume_change_1d": 357.0
+            "put_oi_change": 237.0
           },
           "symbol": "IO2611"
         },
@@ -9382,20 +9301,11 @@
             "pcr_volume_partial": 0.5423122765196663,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.0003581965928399766,
-            "rr25_change_1d": -4.555537519329578e-05,
-            "pcr_oi_change_1d": -0.0021072340545897905,
-            "call_oi_change_1d": 1264.0,
-            "put_oi_change_1d": 823.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 2517.0,
             "put_volume": 1365.0,
             "pcr_volume": 0.5423122765196663,
             "call_oi_change": 880.0,
-            "put_oi_change": 438.0,
-            "pcr_volume_change_1d": -0.11669920625616992,
-            "call_volume_change_1d": 514.0,
-            "put_volume_change_1d": 45.0
+            "put_oi_change": 438.0
           },
           "symbol": "IO2612"
         },
@@ -10208,20 +10118,11 @@
             "pcr_volume_partial": 0.6388467374810318,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.0006945777508591822,
-            "rr25_change_1d": 0.0008216038229645894,
-            "pcr_oi_change_1d": -0.06279470302366064,
-            "call_oi_change_1d": 513.0,
-            "put_oi_change_1d": 201.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 659.0,
             "put_volume": 421.0,
             "pcr_volume": 0.6388467374810318,
             "call_oi_change": 198.0,
-            "put_oi_change": 67.0,
-            "pcr_volume_change_1d": -0.02125824939560861,
-            "call_volume_change_1d": -103.0,
-            "put_volume_change_1d": -82.0
+            "put_oi_change": 67.0
           },
           "symbol": "IO2703"
         },
@@ -10983,20 +10884,11 @@
             "pcr_volume_partial": 0.5441860465116279,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.0005204215010981006,
-            "rr25_change_1d": -0.001726229788810596,
-            "pcr_oi_change_1d": -0.00963271529309262,
-            "call_oi_change_1d": 121.0,
-            "put_oi_change_1d": 90.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 215.0,
             "put_volume": 117.0,
             "pcr_volume": 0.5441860465116279,
             "call_oi_change": 51.0,
-            "put_oi_change": 36.0,
-            "pcr_volume_change_1d": -0.10493676050591594,
-            "call_volume_change_1d": 44.0,
-            "put_volume_change_1d": 6.0
+            "put_oi_change": 36.0
           },
           "symbol": "IO2706"
         }
@@ -12986,20 +12878,11 @@
             "pcr_volume_partial": 0.9196794006665381,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.03384432360110856,
-            "rr25_change_1d": 0.022800422368750406,
-            "pcr_oi_change_1d": 0.0703149021369186,
-            "call_oi_change_1d": -17529.0,
-            "put_oi_change_1d": -6427.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 181535.0,
             "put_volume": 166954.0,
             "pcr_volume": 0.9196794006665381,
             "call_oi_change": -11710.0,
-            "put_oi_change": -5412.0,
-            "pcr_volume_change_1d": -0.10625024037380015,
-            "call_volume_change_1d": 41965.0,
-            "put_volume_change_1d": 23765.0
+            "put_oi_change": -5412.0
           },
           "symbol": "MO2609"
         },
@@ -14424,20 +14307,11 @@
             "pcr_volume_partial": 0.734960662383619,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": -0.002335102760917751,
-            "rr25_change_1d": 0.017297138318624283,
-            "pcr_oi_change_1d": 0.05444395336918306,
-            "call_oi_change_1d": 10203.0,
-            "put_oi_change_1d": 11027.0,
-            "gamma_peak_change_1d": 400.0,
             "call_volume": 58214.0,
             "put_volume": 42785.0,
             "pcr_volume": 0.734960662383619,
             "call_oi_change": 5640.0,
-            "put_oi_change": 7511.0,
-            "pcr_volume_change_1d": -0.09897021385329485,
-            "call_volume_change_1d": 23349.0,
-            "put_volume_change_1d": 13710.0
+            "put_oi_change": 7511.0
           },
           "symbol": "MO2610"
         },
@@ -15556,20 +15430,11 @@
             "pcr_volume_partial": 0.4206934206934207,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.007373476354737618,
-            "rr25_change_1d": 0.017084778598715822,
-            "pcr_oi_change_1d": -0.1595665298169141,
-            "call_oi_change_1d": 1999.0,
-            "put_oi_change_1d": 824.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 3663.0,
             "put_volume": 1541.0,
             "pcr_volume": 0.4206934206934207,
             "call_oi_change": 1447.0,
-            "put_oi_change": 349.0,
-            "pcr_volume_change_1d": -0.296979957382642,
-            "call_volume_change_1d": 1428.0,
-            "put_volume_change_1d": -63.0
+            "put_oi_change": 349.0
           },
           "symbol": "MO2611"
         },
@@ -16637,20 +16502,11 @@
             "pcr_volume_partial": 0.6259003831417624,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.003659765964049988,
-            "rr25_change_1d": 0.011957623673105766,
-            "pcr_oi_change_1d": 0.004930125016840536,
-            "call_oi_change_1d": 852.0,
-            "put_oi_change_1d": 763.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 6525.0,
             "put_volume": 4084.0,
             "pcr_volume": 0.6259003831417624,
             "call_oi_change": 646.0,
-            "put_oi_change": 373.0,
-            "pcr_volume_change_1d": -0.27088676545261503,
-            "call_volume_change_1d": 1545.0,
-            "put_volume_change_1d": -382.0
+            "put_oi_change": 373.0
           },
           "symbol": "MO2612"
         },
@@ -17718,20 +17574,11 @@
             "pcr_volume_partial": 0.7719190680564071,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.006477285087356677,
-            "rr25_change_1d": 0.013844728389200894,
-            "pcr_oi_change_1d": -0.02066950207454865,
-            "call_oi_change_1d": 644.0,
-            "put_oi_change_1d": 43.0,
-            "gamma_peak_change_1d": 800.0,
             "call_volume": 1631.0,
             "put_volume": 1259.0,
             "pcr_volume": 0.7719190680564071,
             "call_oi_change": 244.0,
-            "put_oi_change": -43.0,
-            "pcr_volume_change_1d": 0.05147571830271247,
-            "call_volume_change_1d": 7.0,
-            "put_volume_change_1d": 89.0
+            "put_oi_change": -43.0
           },
           "symbol": "MO2703"
         },
@@ -18748,20 +18595,11 @@
             "pcr_volume_partial": 0.8351931330472103,
             "volume_oi_coverage": 1.0,
             "volume_scope": "CFFEX official daily EOD, full listed option chain for this expiry",
-            "atm_iv_change_1d": 0.006387038570202397,
-            "rr25_change_1d": 0.00300769969973827,
-            "pcr_oi_change_1d": 0.005470783975497495,
-            "call_oi_change_1d": 275.0,
-            "put_oi_change_1d": 361.0,
-            "gamma_peak_change_1d": 0.0,
             "call_volume": 1165.0,
             "put_volume": 973.0,
             "pcr_volume": 0.8351931330472103,
             "call_oi_change": 187.0,
-            "put_oi_change": 237.0,
-            "pcr_volume_change_1d": 0.00425788124864912,
-            "call_volume_change_1d": 609.0,
-            "put_volume_change_1d": 511.0
+            "put_oi_change": 237.0
           },
           "symbol": "MO2706"
         }
@@ -18887,7 +18725,7 @@
       "errors": []
     }
   },
-  "previous_date": "2026-09-14",
+  "previous_date": null,
   "history_products": {
     "HO": {
       "expiries": [
@@ -19945,10 +19783,10 @@
           "share_field": "tencent_extended_72",
           "share_source": "tencent_extended_quote",
           "market_cap_cny": 21426000000.0,
-          "previous_total_shares": 7031466800.0,
-          "share_change": 158400000.0,
-          "share_change_pct": 0.022527305398071424,
-          "estimated_net_creation_redemption_cny": 472032000.0,
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
           "flow_method": "daily total-share change * ETF market close",
           "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
           "nav": null,
@@ -19979,10 +19817,10 @@
           "share_field": "tencent_extended_72",
           "share_source": "tencent_extended_quote",
           "market_cap_cny": 107119000000.0,
-          "previous_total_shares": 23398687700.0,
-          "share_change": 144000000.0,
-          "share_change_pct": 0.006154191288257589,
-          "estimated_net_creation_redemption_cny": 655200000.0,
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
           "flow_method": "daily total-share change * ETF market close",
           "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
           "nav": null,
@@ -20013,10 +19851,10 @@
           "share_field": "tencent_extended_72",
           "share_source": "tencent_extended_quote",
           "market_cap_cny": 42480000000.0,
-          "previous_total_shares": 5232168600.0,
-          "share_change": 277600000.0,
-          "share_change_pct": 0.053056394245399506,
-          "estimated_net_creation_redemption_cny": 2140296000.0,
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
           "flow_method": "daily total-share change * ETF market close",
           "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
           "nav": null,
@@ -20047,10 +19885,10 @@
           "share_field": "tencent_extended_72",
           "share_source": "tencent_extended_quote",
           "market_cap_cny": 18052000000.0,
-          "previous_total_shares": 6087217600.0,
-          "share_change": -230000000.0,
-          "share_change_pct": -0.037784093671959416,
-          "estimated_net_creation_redemption_cny": -708860000.0,
+          "previous_total_shares": null,
+          "share_change": null,
+          "share_change_pct": null,
+          "estimated_net_creation_redemption_cny": null,
           "flow_method": "daily total-share change * ETF market close",
           "flow_interpretation": "creation/redemption estimate; not secondary-market order flow; market close is used as a value proxy rather than same-day NAV",
           "nav": null,
@@ -20274,10 +20112,10 @@
         "reference_etf_code": "510050",
         "reference_etf_close": 2.98,
         "reference_etf_total_shares": 7189866800.0,
-        "reference_etf_previous_total_shares": 7031466800.0,
-        "reference_etf_share_change": 158400000.0,
-        "reference_etf_share_change_pct": 0.022527305398071424,
-        "reference_etf_estimated_net_creation_redemption_cny": 472032000.0,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
         "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IF": {
@@ -20449,10 +20287,10 @@
         "reference_etf_code": "510300",
         "reference_etf_close": 4.55,
         "reference_etf_total_shares": 23542687700.0,
-        "reference_etf_previous_total_shares": 23398687700.0,
-        "reference_etf_share_change": 144000000.0,
-        "reference_etf_share_change_pct": 0.006154191288257589,
-        "reference_etf_estimated_net_creation_redemption_cny": 655200000.0,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
         "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IC": {
@@ -20624,10 +20462,10 @@
         "reference_etf_code": "510500",
         "reference_etf_close": 7.71,
         "reference_etf_total_shares": 5509768600.0,
-        "reference_etf_previous_total_shares": 5232168600.0,
-        "reference_etf_share_change": 277600000.0,
-        "reference_etf_share_change_pct": 0.053056394245399506,
-        "reference_etf_estimated_net_creation_redemption_cny": 2140296000.0,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
         "reference_etf_flow_method": "daily total-share change * ETF market close"
       },
       "IM": {
@@ -20799,10 +20637,10 @@
         "reference_etf_code": "512100",
         "reference_etf_close": 3.082,
         "reference_etf_total_shares": 5857217600.0,
-        "reference_etf_previous_total_shares": 6087217600.0,
-        "reference_etf_share_change": -230000000.0,
-        "reference_etf_share_change_pct": -0.037784093671959416,
-        "reference_etf_estimated_net_creation_redemption_cny": -708860000.0,
+        "reference_etf_previous_total_shares": null,
+        "reference_etf_share_change": null,
+        "reference_etf_share_change_pct": null,
+        "reference_etf_estimated_net_creation_redemption_cny": null,
         "reference_etf_flow_method": "daily total-share change * ETF market close"
       }
     },
@@ -20885,32 +20723,7 @@
           "annualized_cash_basis_pct_inferred": -0.09246652545495687
         }
       ],
-      "etf_share_change_rank": [
-        {
-          "product": "IC",
-          "reference_etf_code": "510500",
-          "share_change_pct": 0.053056394245399506,
-          "estimated_net_creation_redemption_cny": 2140296000.0
-        },
-        {
-          "product": "IH",
-          "reference_etf_code": "510050",
-          "share_change_pct": 0.022527305398071424,
-          "estimated_net_creation_redemption_cny": 472032000.0
-        },
-        {
-          "product": "IF",
-          "reference_etf_code": "510300",
-          "share_change_pct": 0.006154191288257589,
-          "estimated_net_creation_redemption_cny": 655200000.0
-        },
-        {
-          "product": "IM",
-          "reference_etf_code": "512100",
-          "share_change_pct": -0.037784093671959416,
-          "estimated_net_creation_redemption_cny": -708860000.0
-        }
-      ]
+      "etf_share_change_rank": []
     }
   },
   "futures_option_linkage": {
@@ -20978,12 +20791,7 @@
             "strike": 2750.0,
             "abs_gamma_1pct": 10427689.483339269
           }
-        ],
-        "atm_iv_change_1d": 0.014029830059121756,
-        "rr25_change_1d": 0.016438913861002435,
-        "pcr_oi_change_1d": -0.0016522222926387276,
-        "pcr_volume_change_1d": 0.1504730393526268,
-        "gamma_peak_change_1d": 0.0
+        ]
       }
     },
     "IF": {
@@ -21050,12 +20858,7 @@
             "strike": 4400.0,
             "abs_gamma_1pct": 303153345.94187856
           }
-        ],
-        "atm_iv_change_1d": 0.03452413277624505,
-        "rr25_change_1d": 0.006359544972676656,
-        "pcr_oi_change_1d": -0.03714510647599778,
-        "pcr_volume_change_1d": 0.023025241618221948,
-        "gamma_peak_change_1d": 0.0
+        ]
       }
     },
     "IC": {
@@ -21151,12 +20954,7 @@
             "strike": 7400.0,
             "abs_gamma_1pct": 824712074.8661782
           }
-        ],
-        "atm_iv_change_1d": 0.03384432360110856,
-        "rr25_change_1d": 0.022800422368750406,
-        "pcr_oi_change_1d": 0.0703149021369186,
-        "pcr_volume_change_1d": -0.10625024037380015,
-        "gamma_peak_change_1d": 0.0
+        ]
       }
     }
   },

@@ -201,7 +201,9 @@ class BackfillCffexTests(unittest.TestCase):
         anchor = dict(settlement)
         anchor["products"] = {**settlement["products"], "live_marker": {"expiries": []}}
         anchor.pop("history_products", None)
-        enriched = enrich_anchor_history(anchor, settlement, date(2026, 8, 6))
+        prior = date(2026, 8, 6)
+        previous = build_verified_snapshot(prior, "official", sample_daily_csv(prior))
+        enriched = enrich_anchor_history(anchor, settlement, previous)
 
         self.assertIn("live_marker", enriched["products"])
         self.assertNotIn("live_marker", enriched["history_products"])

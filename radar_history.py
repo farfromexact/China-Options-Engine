@@ -9,6 +9,8 @@ from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
+from daily_comparison import prior_session
+
 
 SCHEMA_VERSION = "1.1"
 DEFAULT_RETENTION_SESSIONS = int(os.getenv("RADAR_HISTORY_RETENTION", "60"))
@@ -503,9 +505,11 @@ def build_history_document(
     retained = [by_date[key] for key in sorted(by_date)][-retention_sessions:]
     normalized: list[dict[str, Any]] = []
     for record in retained:
+        expected = prior_session(date.fromisoformat(record["date"]))
+        previous = normalized[-1]["date"] if normalized else None
         normalized_record = {
             **record,
-            "previous_date": normalized[-1]["date"] if normalized else None,
+            "previous_date": previous if expected and previous == expected.isoformat() else None,
         }
         normalized.append(_validate_record(normalized_record))
     latest = normalized[-1] if normalized else None

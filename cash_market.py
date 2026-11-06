@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import math
 import os
 from datetime import date, datetime, timedelta, timezone
@@ -8,6 +7,8 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import requests
+
+from daily_comparison import previous_snapshot
 
 
 TZ_CN = timezone(timedelta(hours=8))
@@ -270,19 +271,11 @@ def fetch_etf_shares(
 
 
 def _load_previous_cash_market(snapshot_dir: Path, run_date: date) -> dict[str, Any] | None:
-    for path in sorted(snapshot_dir.glob("*.json"), reverse=True):
-        if path.stem >= run_date.isoformat():
-            continue
-        try:
-            snapshot = json.loads(path.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        futures = snapshot.get("futures")
-        if not isinstance(futures, Mapping):
-            continue
-        cash_market = futures.get("cash_market")
-        if isinstance(cash_market, Mapping):
-            return dict(cash_market)
+    previous = previous_snapshot(snapshot_dir, run_date)
+    if previous:
+        cash = (previous.get("futures") or {}).get("cash_market")
+        if isinstance(cash, Mapping) and cash.get("trade_date") == previous["date"]:
+            return dict(cash)
     return None
 
 

@@ -12,6 +12,8 @@ from statistics import median
 from typing import Any
 
 import requests
+
+from daily_comparison import add_changes, previous_snapshot
 from bs4 import BeautifulSoup
 from scipy.optimize import brentq
 from scipy.stats import norm
@@ -329,38 +331,6 @@ def enrich_volume(products: dict[str, Any]) -> dict[str, Any]:
     return {"selected_contracts": len(unique), "contracts_with_volume": fetched, "market_date_observed": market_date}
 
 
-def load_previous(market_date: date) -> dict[str, Any] | None:
-    for p in sorted(SNAPSHOT_DIR.glob("*.json"), reverse=True):
-        if p.stem < market_date.isoformat():
-            try:
-                return json.loads(p.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-    return None
-
-
-def add_changes(current: dict[str, Any], previous: dict[str, Any] | None) -> None:
-    if not previous:
-        current["previous_date"] = None
-        return
-    current["previous_date"] = previous.get("date")
-    prev_map = previous.get("products", {})
-    for product, pdata in current["products"].items():
-        prev_exps = {x.get("symbol"): x for x in prev_map.get(product, {}).get("expiries", [])}
-        for exp in pdata.get("expiries", []):
-            old = prev_exps.get(exp.get("symbol"))
-            if not old:
-                continue
-            m, om = exp["metrics"], old.get("metrics", {})
-            for key in ("atm_iv", "rr25", "pcr_oi", "call_oi", "put_oi", "pcr_volume_partial"):
-                if m.get(key) is not None and om.get(key) is not None:
-                    m[f"{key}_change_1d"] = m[key] - om[key]
-            new_peak = (m.get("gamma_peaks") or [{}])[0].get("strike")
-            old_peak = (om.get("gamma_peaks") or [{}])[0].get("strike")
-            if new_peak is not None and old_peak is not None:
-                m["gamma_peak_change_1d"] = new_peak - old_peak
-
-
 def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
     compact: dict[str, Any] = {
         "date": result.get("date"),
@@ -368,6 +338,7 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
         "data_fresh": result.get("data_fresh"),
         "source_status": result.get("source_status"),
         "previous_date": result.get("previous_date"),
+        "option_price_basis": (result.get("assumptions") or {}).get("iv_price"),
         "products": {},
         "errors": result.get("errors", []),
     }
@@ -439,7 +410,7 @@ def main() -> None:
         "freshness_method": "latest date returned by Sina option dayline among selected liquid contracts",
     }
 
-    previous = load_previous(market_date)
+    previous = previous_snapshot(SNAPSHOT_DIR, market_date)
     add_changes(result, previous)
 
     # Always refresh latest with explicit freshness metadata. Only create/replace a dated

@@ -122,6 +122,7 @@
     }
   },
   "previous_date": "2026-11-04",
+  "option_price_basis": "bid/ask mid when both sides valid; quotes with >60% relative spread filtered",
   "products": {
     "HO": {
       "expiries": [

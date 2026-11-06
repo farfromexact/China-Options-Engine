@@ -15,7 +15,9 @@ from pathlib import Path
 from typing import Any, Callable, Mapping
 
 import requests
+
 from chinese_calendar import get_holiday_detail
+from daily_comparison import MIN_OFFICIAL_CHAIN_COVERAGE, add_changes, previous_snapshot, verified_option_eod
 
 TZ_CN = timezone(timedelta(hours=8))
 # Each official endpoint is a fallback route, not a retry target. A bounded
@@ -43,7 +45,6 @@ STATUS_PATH = DATA_DIR / "last_run_status.json"
 
 OPTION_PRODUCTS = ("HO", "IO", "MO")
 OPTION_PREFIXES = set(OPTION_PRODUCTS)
-MIN_OFFICIAL_CHAIN_COVERAGE = 0.95
 # Candidate-date cutoff aligned with the external 17:17 China-time trigger.
 # Actual publication is still verified from official data, never from the clock.
 CFFEX_EOD_READY_AT = clock_time(17, 17)
@@ -693,60 +694,6 @@ def build_settlement_history_products(
     return compact_history_products(repriced)
 
 
-def load_previous(market_date: date) -> dict[str, Any] | None:
-    for path in sorted(SNAPSHOT_DIR.glob("*.json"), reverse=True):
-        if path.stem < market_date.isoformat():
-            try:
-                return json.loads(path.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-    return None
-
-
-def add_changes(current: dict[str, Any], previous: dict[str, Any] | None) -> None:
-    if not previous:
-        current["previous_date"] = None
-        return
-
-    current["previous_date"] = previous.get("date")
-    old_products = previous.get("products", {})
-
-    for product, pdata in current.get("products", {}).items():
-        old_expiries = {
-            item.get("symbol"): item
-            for item in old_products.get(product, {}).get("expiries", [])
-        }
-
-        for expiry in pdata.get("expiries", []):
-            old = old_expiries.get(expiry.get("symbol"))
-            if not old:
-                continue
-
-            metrics = expiry.get("metrics", {})
-            old_metrics = old.get("metrics", {})
-
-            for key in (
-                "atm_iv",
-                "rr25",
-                "pcr_oi",
-                "call_oi",
-                "put_oi",
-                "pcr_volume",
-                "call_volume",
-                "put_volume",
-            ):
-                old_value = old_metrics.get(key)
-                if old_value is None and key == "pcr_volume":
-                    old_value = old_metrics.get("pcr_volume_partial")
-                if metrics.get(key) is not None and old_value is not None:
-                    metrics[f"{key}_change_1d"] = metrics[key] - old_value
-
-            new_peak = (metrics.get("gamma_peaks") or [{}])[0].get("strike")
-            old_peak = (old_metrics.get("gamma_peaks") or [{}])[0].get("strike")
-            if new_peak is not None and old_peak is not None:
-                metrics["gamma_peak_change_1d"] = new_peak - old_peak
-
-
 def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
     metric_keys = [
         "atm_iv", "call25_iv", "put25_iv", "call10_iv", "put10_iv",
@@ -765,6 +712,7 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
         "data_fresh": result.get("data_fresh"),
         "source_status": result.get("source_status"),
         "previous_date": result.get("previous_date"),
+        "option_price_basis": (result.get("assumptions") or {}).get("iv_price"),
         "products": {},
         "errors": result.get("errors", []),
     }
@@ -801,26 +749,7 @@ def build_radar_summary(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def is_verified_snapshot(snapshot: Any, snapshot_date: str) -> bool:
-    if not isinstance(snapshot, dict):
-        return False
-    if snapshot.get("data_fresh") is not True or snapshot.get("date") != snapshot_date:
-        return False
-    source_status = snapshot.get("source_status")
-    if not isinstance(source_status, dict) or source_status.get("freshness") != "fresh":
-        return False
-    if source_status.get("option_chain") != "ok" or source_status.get("volume") != "ok":
-        return False
-    coverage = source_status.get("official_quote_match_coverage")
-    if (
-        not isinstance(coverage, (int, float))
-        or float(coverage) < MIN_OFFICIAL_CHAIN_COVERAGE
-    ):
-        return False
-    official = source_status.get("official_eod")
-    if not isinstance(official, dict) or official.get("status") != "ok":
-        return False
-    official_date = str(official.get("trade_date") or "").replace("-", "")
-    if official_date != snapshot_date.replace("-", ""):
+    if not verified_option_eod(snapshot, snapshot_date):
         return False
     futures = snapshot.get("futures")
     if not isinstance(futures, dict):
@@ -1094,7 +1023,7 @@ def main() -> None:
         "freshness_method": "CFFEX official daily CSV existence and HO/IO/MO option rows",
     }
 
-    previous = load_previous(trade_date)
+    previous = previous_snapshot(SNAPSHOT_DIR, trade_date)
     add_changes(result, previous)
 
     snapshot_path = SNAPSHOT_DIR / f"{trade_date.isoformat()}.json"

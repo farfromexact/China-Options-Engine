@@ -294,7 +294,8 @@ class RadarHistoryTests(unittest.TestCase):
         self.assertEqual(document["first_date"], "2026-01-02")
         self.assertEqual(document["latest_date"], "2026-03-02")
         self.assertIsNone(document["records"][0]["previous_date"])
-        self.assertEqual(document["records"][1]["previous_date"], "2026-01-02")
+        self.assertIsNone(document["records"][1]["previous_date"])  # Saturday fixture.
+        self.assertEqual(document["records"][4]["previous_date"], "2026-01-05")
 
     def test_strict_schema_rejects_missing_products_and_nonfinite_values(self) -> None:
         record = build_history_record(sample_radar("2026-08-07"))
