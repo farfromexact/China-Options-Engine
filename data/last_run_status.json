@@ -1,13 +1,13 @@
 {
-  "run_date": "2026-11-25",
-  "trade_date": "2026-11-24",
-  "generated_at": "2026-11-25T07:18:20.385708+08:00",
+  "run_date": "2026-11-26",
+  "trade_date": "2026-11-26",
+  "generated_at": "2026-11-26T17:20:37.299849+08:00",
   "data_fresh": true,
   "cffex_eod": {
     "status": "ok",
-    "trade_date": "20261124",
-    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202611/24/20261124_1.csv",
-    "records": 724,
+    "trade_date": "20261126",
+    "source": "http://www.cffex.com.cn/sj/hqsj/rtj/202611/26/20261126_1.csv",
+    "records": 742,
     "header": [
       "合约代码",
       "今开盘",
@@ -36,18 +36,18 @@
       "HO2612-C-2800",
       "HO2612-C-2850"
     ],
-    "requested_trade_date": "2026-11-24",
-    "resolved_trade_date": "2026-11-24"
+    "requested_trade_date": "2026-11-26",
+    "resolved_trade_date": "2026-11-26"
   },
-  "official_quote_matches": 724,
-  "total_chain_quotes": 724,
+  "official_quote_matches": 742,
+  "total_chain_quotes": 742,
   "official_quote_match_coverage": 1.0,
   "official_unmatched_active_symbols": 0,
   "official_unmatched_active_sample": [],
   "futures_linkage": {
     "status": "ok",
-    "run_date": "2026-11-25",
-    "trade_date": "2026-11-24",
+    "run_date": "2026-11-26",
+    "trade_date": "2026-11-26",
     "records": 16,
     "products": [
       "IH",
